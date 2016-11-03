@@ -7,7 +7,7 @@ storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
 
 @storeApp.route('/')
 def storeHome():
-    return render_template('base.html')
+    return render_template('home.html')
 
 
 #@storeApp.before_first_request

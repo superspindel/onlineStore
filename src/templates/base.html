@@ -15,7 +15,8 @@
             </div>
             <div class="col-md-10">
                 <div class="jumbotron">
-                    <h1>eStore</h1>
+                    <h1>Service store</h1>
+                    Handla tjänster online
                 </div>
             </div>
             <div class="col-md-1">
@@ -24,37 +25,90 @@
     </div>
     <div class="row">
         <div class="col-md-2"><center></center></div>
-            <div class="col-md-8"><center>SEARCH / GO</center></div>
+            <div class="col-md-8">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search for...">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                  </span>
+                </div>
+            </div>
             <div class="col-md-2"><center></center></div>
     </div>
     <div class="row">
         <div class="col-md-2">
-                <div class="btn-group">
-                  <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Extra small button <span class="caret"></span>
-                  </button>
+            <div class="dropdown">
+                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hushåll
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                      <a href="#">Städning</a>
+                  </li>
+                  <li>
+                      <a href="#">Tvättning</a>
+                  </li>
+                  <li>
+                      <a href="#">Diska</a>
+                  </li>
+                  <li>
+                      <a href="#">Matlagning</a>
+                  </li>
+                  <li>
+                      <a href="#">Barnvakt</a>
+                  </li>
+                  <li>
+                      <a href="#">Hundpassning</a>
+                  </li>
+                  <li>
+                      <a href="#">Vattning av blommor</a>
+                  </li>
+                  <li>
+                      <a href="#">Småfix</a>
+                  </li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Utomhus
+                  <span class="caret"></span>
+                </button>
                   <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
+                    <li>
+                        <a href="#">Jeans</a>
+                    </li>
+                    <li>
+                        <a href="#">Shirts</a>
+                    </li>
+                    <li>
+                        <a href="#">Underwear</a>
+                    </li>
+                    <li>
+                        <a href="#">Separated link</a>
+                    </li>
                   </ul>
-                </div>
+            </div>
         </div>
-            <div class="col-md-8"><center>items</center></div>
-            <div class="col-md-2"><center>cart</center></div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"><center>info</center></div>
-            <div class="col-md-8"><center>more info</center></div>
-            <div class="col-md-2"><center>some info</center></div>
     </div>
 </div>
+<div class="col-md-8">
+    {% block content %}
+    {% endblock %}
+</div>
+<div class="col-md-2">
 
-{% block content %}
+</div>
+<div class="row">
+    <div class="col-md-2">
 
-{% endblock %}
+    </div>
+    <div class="col-md-8">
 
+    </div>
+    <div class="col-md-2">
+
+    </div>
+</div>
 </body>
 </html>
