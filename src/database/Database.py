@@ -23,6 +23,19 @@ class Database(object):
     def closeDB():
         Database.connection.close()
 
-    #@staticmethod
-    #def createTable():
-    #    Database.curso
+    @staticmethod
+    def getCategories():
+        Database.cursor.exectute("SELECT name, parent FROM categories")
+        catList = Database.setCategoryList(Database.cursor)
+        return catList
+
+    @staticmethod
+    def setCategoryList(cursor):
+        catList = []
+        for(name, parent) in cursor:
+            Database.insertCatList(name, parent, catList)
+        return catList
+
+    @staticmethod
+    def insertCatList(name, parent, catlist):
+        pass
