@@ -2,112 +2,126 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>eStore</title>
+    <title>HRH</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
 </head>
 <body>
 <div class="container">
     <div class="row">
-            <div class="col-md-1">
+        <div class="col-md-1">
 
+        </div>
+        <div class="col-md-10">
+            <div class="jumbotron" aria-label="jumbotron">
+                <h1>
+                    Hjälp Runt Huset
+                </h1>
+                <p>
+                    Billig hjälp av betygsatta personer
+                </p>
             </div>
-            <div class="col-md-10">
-                <div class="jumbotron">
-                    <h1>Service store</h1>
-                    Handla tjänster online
-                </div>
-            </div>
-            <div class="col-md-1">
+        </div>
+        <div class="col-md-1">
 
-            </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"><center></center></div>
-            <div class="col-md-8">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
-                  </span>
-                </div>
-            </div>
-            <div class="col-md-2"><center></center></div>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-2">
-            <div class="dropdown">
-                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Hushåll
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li>
-                      <a href="#">Städning</a>
-                  </li>
-                  <li>
-                      <a href="#">Tvättning</a>
-                  </li>
-                  <li>
-                      <a href="#">Diska</a>
-                  </li>
-                  <li>
-                      <a href="#">Matlagning</a>
-                  </li>
-                  <li>
-                      <a href="#">Barnvakt</a>
-                  </li>
-                  <li>
-                      <a href="#">Hundpassning</a>
-                  </li>
-                  <li>
-                      <a href="#">Vattning av blommor</a>
-                  </li>
-                  <li>
-                      <a href="#">Småfix</a>
-                  </li>
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Utomhus
-                  <span class="caret"></span>
-                </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                        <a href="#">Jeans</a>
-                    </li>
-                    <li>
-                        <a href="#">Shirts</a>
-                    </li>
-                    <li>
-                        <a href="#">Underwear</a>
-                    </li>
-                    <li>
-                        <a href="#">Separated link</a>
-                    </li>
-                  </ul>
+
+        </div>
+        <div class="col-md-8">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        Go!
+                    </button>
+                </span>
             </div>
         </div>
+        <div class="col-md-2">
+
+        </div>
     </div>
-</div>
-<div class="col-md-8">
-    {% block content %}
-    {% endblock %}
-</div>
-<div class="col-md-2">
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="nav nav-pills nav-stacked ">
+              <li role="presentation" class="active"><a href="#">Home</a></li>
+              <li role="presentation"><a href="#">Profile</a></li>
+              <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                Hushåll <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu ">
+<li>
+                            <a href="#">
+                                Städning
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Tvättning
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Diska
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Matlagning
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Barnvakt
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Hundpassning
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Vattning av blommor
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Tapetsering
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Småfix
+                            </a>
+                        </li>
+                </ul>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="col-md-2">
 
-</div>
-<div class="row">
-    <div class="col-md-2">
+        </div>
+        <div class="row">
+            <div class="col-md-2">
 
-    </div>
-    <div class="col-md-8">
+            </div>
+            <div class="col-md-8">
 
-    </div>
-    <div class="col-md-2">
+            </div>
+            <div class="col-md-2">
 
+            </div>
+        </div>
     </div>
 </div>
 </body>
