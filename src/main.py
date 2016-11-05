@@ -18,7 +18,7 @@ def categories(cat_id):
 @storeApp.route('/search', methods=['POST', 'GET'])
 def search():
     if request.method == 'GET':
-        return render_template('search.html', searchtext='used get')
+        return render_template('home.html')
     else:
         return render_template('search.html', searchtext=request.form['searchfield'])
 
