@@ -12,7 +12,6 @@ def storeHome():
 
 @storeApp.route('/Category/<string:cat_id>')
 def categories(cat_id):
-    print(cat_id)
     return render_template('Category.html', category_id=cat_id)
 
 
