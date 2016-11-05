@@ -39,3 +39,8 @@ class Database(object):
     @staticmethod
     def insertCatList(name, parent, catlist):
         pass
+
+    @staticmethod
+    def getUserInfo():
+        Database.cursor.exectute("SELECT * from users;")
+
