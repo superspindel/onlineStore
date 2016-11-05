@@ -33,15 +33,24 @@
 
         </div>
         <div class="col-md-8">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">
-                        Go!
-                    </button>
-                </span>
+            <div clas="row">
+                <div class="col-md-10">
+                <form id="searchbar" action="/search" method="post">
+                    <div class="form-group">
+                    <input type="text" id="searchfield" name="searchfield" class="form-control" placeholder="Search...">
+                        </div>
+                    </div>
+                <div class="col-md-2">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit" id="searchbutton" formmethod="post">
+                            Go!
+                        </button>
+                    </span>
+                    </div>
+                    </form>
             </div>
         </div>
+    </div>
         <div class="col-md-2">
 
         </div>

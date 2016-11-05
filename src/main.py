@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from src.database.Database import Database
 
 storeApp = Flask(__name__)
@@ -15,7 +15,15 @@ def categories(cat_id):
     return render_template('Category.html', category_id=cat_id)
 
 
-@storeApp.before_first_request
+@storeApp.route('/search', methods=['POST', 'GET'])
+def search():
+    if request.method == 'GET':
+        return render_template('search.html', searchtext='used get')
+    else:
+        return render_template('search.html', searchtext=request.form['searchfield'])
+
+
+#@storeApp.before_first_request
 def initialize_database():
     Database.initialize()
 
