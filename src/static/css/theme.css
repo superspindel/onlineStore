@@ -2,13 +2,14 @@
     background-color: white;
     color: black;
     border-size: 10px;
-    border-color: lightblue;
+    border-color: darkgrey;
     border-style: ridge;
 }
 
 .jumbotron{
     background-color: transparent;
     font-family: "Courier New", Courier, monospace;
+    color: #39A341;
 }
 
 body {
@@ -17,5 +18,22 @@ body {
 
 .picture{
     position: relative;
-    top: 100px;
+    top: 70px;
+}
+
+.topbar{
+    background: url("/static/images/topbar3.jpg")
+}
+
+.thumbnail{
+    background-color: transparent;
+    border-style: none;
+}
+.caption{
+    color: white;
+}
+
+.shoppingcartTitle{
+    color: white;
+    font-size: 14px;
 }

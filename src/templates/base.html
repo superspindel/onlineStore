@@ -19,7 +19,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Home</a>
+      <a class="navbar-brand" href="/">
+          <span class="glyphicon glyphicon-header"></span>
+      </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -63,7 +65,7 @@
     </nav>
 </div>
 <div class="container">
-    <div class="row">
+    <div class="row topbar">
         <div class="col-md-1">
 
         </div>
@@ -71,16 +73,16 @@
             <div class="row">
                 <div class="col-md-4 picture">
                     <center>
-                        <img src="/static/images/Home-icon.png" width="30%" height="30%">
+                        <img src="/static/images/Home-icon.png" width="40%" height="40%">
                     </center>
                 </div>
                 <div class="col-md-8">
                     <div class="jumbotron" aria-label="jumbotron">
                         <h1>
-                            Hjälp Runt Huset
+                            HRH
                         </h1>
                         <p>
-                            Billig hjälp av betygsatta personer
+                            Hjälp runt huset
                         </p>
                     </div>
                 </div>
@@ -109,16 +111,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2">
-
-        </div>
-        <div class="col-md-8">
+        <div class="col-md-10">
             {% block content %}
             {% endblock %}
         </div>
         <div class="col-md-2">
             <div class="row shoppingcartTitle">
-                <h1>Shoppingcart</h1>
+                <h3>SHOPPINGCART</h3>
             </div>
             <div class="row shoppingcart">
                 <p>Items</p><br>
