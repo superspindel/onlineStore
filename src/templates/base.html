@@ -15,13 +15,22 @@
 
         </div>
         <div class="col-md-10">
-            <div class="jumbotron" aria-label="jumbotron">
-                <h1>
-                    Hjälp Runt Huset
-                </h1>
-                <p>
-                    Billig hjälp av betygsatta personer
-                </p>
+            <div class="row">
+                <div class="col-md-4 picture">
+                    <center>
+                        <img src="/static/images/Home-icon.png" width="30%" height="30%">
+                    </center>
+                </div>
+                <div class="col-md-8">
+                    <div class="jumbotron" aria-label="jumbotron">
+                        <h1>
+                            Hjälp Runt Huset
+                        </h1>
+                        <p>
+                            Billig hjälp av betygsatta personer
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-1">
@@ -33,24 +42,19 @@
 
         </div>
         <div class="col-md-8">
-            <div clas="row">
+            <div class="row">
                 <div class="col-md-10">
-                <form id="searchbar" action="/search" method="post">
-                    <div class="form-group">
-                    <input type="text" id="searchfield" name="searchfield" class="form-control" placeholder="Search...">
+                    <form id="searchbar" action="/search" method="post">
+                        <div class="form-group">
+                            <input type="text" id="searchfield" name="searchfield" class="form-control" placeholder="Search...">
                         </div>
-                    </div>
-                <div class="col-md-2">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit" id="searchbutton" formmethod="post">
-                            Go!
-                        </button>
-                    </span>
-                    </div>
                     </form>
+                </div>
+                <div class="col-md-2">
+
+                </div>
             </div>
         </div>
-    </div>
         <div class="col-md-2">
 
         </div>
@@ -116,7 +120,7 @@
             {% endblock %}
         </div>
         <div class="col-md-2">
-            <div class="row" shoppingcartTitle>
+            <div class="row shoppingcartTitle">
                 <h1>Shoppingcart</h1>
             </div>
             <div class="row shoppingcart">
@@ -124,16 +128,16 @@
                 <p>More items</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-2">
+    </div>
+    <div class="row">
+        <div class="col-md-2">
 
-            </div>
-            <div class="col-md-8">
+        </div>
+        <div class="col-md-8">
 
-            </div>
-            <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
 
-            </div>
         </div>
     </div>
 </div>
