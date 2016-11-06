@@ -12,3 +12,12 @@ color:black;
     background-color: lightgrey;
     color: black;
 }
+
+.jumbotron{
+    background-color: transparent;
+    font-family: "Courier New", Courier, monospace;
+}
+
+body{
+    background-image: url("/static/images/background2.jpg")
+}
