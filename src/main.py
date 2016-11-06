@@ -23,7 +23,7 @@ def search():
         return render_template('search.html', searchtext=request.form['searchfield'])
 
 
-#@storeApp.before_first_request
+@storeApp.before_first_request
 def initialize_database():
     Database.initialize()
 
