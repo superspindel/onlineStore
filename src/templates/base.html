@@ -123,10 +123,7 @@
             <div class="row shoppingcart">
                 <a href="/item/{{item.id}}">
                     {{ item.name }}
-                </a>
-                <p>
-                    price:  {{ item.price }}
-                </p>
+                </a><i>{{ item.price }}</i> <span class="glyphicon glyphicon-usd"></span>
             </div>
             {% endfor %}
         </div>

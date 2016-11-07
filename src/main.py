@@ -22,7 +22,7 @@ def search():
     if request.method == 'GET':
         return render_template('home.html')
     else:
-        return render_template('search.html', searchtext=request.form['searchfield'])
+        return render_template('search.html', searchtext=request.form['searchfield'], shoppingcart=randomItemForCart())
 
 
 @storeApp.before_first_request
