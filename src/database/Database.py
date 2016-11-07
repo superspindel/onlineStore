@@ -12,7 +12,7 @@ class Database(object):
     @staticmethod
     def initialize():
         Database.connection = mysql.connector.connect(user='storeserver', password='storepass',
-                                                      host='192.168.1.87', database='store')
+                                                      host='79.136.28.49', database='store')
         Database.cursor = Database.connection.cursor()
 
     @staticmethod
