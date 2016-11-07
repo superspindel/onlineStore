@@ -119,10 +119,16 @@
             <div class="row shoppingcartTitle">
                 <h3>SHOPPINGCART</h3>
             </div>
+            {% for item in shoppingcart %}
             <div class="row shoppingcart">
-                <p>Items</p><br>
-                <p>More items</p>
+                <a href="/item/{{item.id}}">
+                    {{ item.name }}
+                </a>
+                <p>
+                    price:  {{ item.price }}
+                </p>
             </div>
+            {% endfor %}
         </div>
     </div>
     <div class="row">
