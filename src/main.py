@@ -1,6 +1,7 @@
+from src import *
 from flask import Flask, render_template, request
-from .database.Database import Database
-from .common.item import item
+from src.database.Database import Database
+from src.common.item import item
 
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
@@ -28,6 +29,7 @@ def search():
 @storeApp.before_first_request
 def initialize_database():
     Database.initialize()
+
 
 def randomItemForCart():
     itemList = []
