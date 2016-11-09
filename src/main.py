@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
-from src.database.Database import Database
-from src.common.item import item
+from .database.Database import Database
+from .common.item import item
 
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
