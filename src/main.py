@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from src.database.Database import Database
+#from src.database.Database import Database
 from src.common.item import item
 
 storeApp = Flask(__name__)
@@ -25,9 +25,9 @@ def search():
         return render_template('search.html', searchtext=request.form['searchfield'], shoppingcart=randomItemForCart())
 
 
-@storeApp.before_first_request
-def initialize_database():
-    Database.initialize()
+#@storeApp.before_first_request
+#def initialize_database():
+#    Database.initialize()
 
 def randomItemForCart():
     itemList = []
