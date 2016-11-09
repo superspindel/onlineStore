@@ -1,4 +1,3 @@
-from src import *
 from flask import Flask, render_template, request
 from src.database.Database import Database
 from src.common.item import item
