@@ -56,4 +56,4 @@ def randomItemForCart():
     return itemList
 
 if __name__ == '__main__':
-    storeApp.run(port=4995)
+    storeApp.run(host='0.0.0.0', port=4995)
