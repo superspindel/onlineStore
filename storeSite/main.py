@@ -25,6 +25,24 @@ def search():
         return render_template('search.html', searchtext=request.form['searchfield'], shoppingcart=randomItemForCart())
 
 
+@storeApp.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html', login=False)
+    else:
+        if request.form['email'] == 'kalle@mail.com' and request.form['password'] == 'password':
+            return render_template('login.html', login=True)
+
+
+@storeApp.route('/register', methods=['POST', 'GET'])
+def register():
+    if request.method == 'GET':
+        return render_template('register.html', register=False)
+    else:
+        if request.form['email'] == 'kalle@mail.com' and request.form['password'] == 'password':
+            return render_template('register.html', register=True)
+
+
 @storeApp.before_first_request
 def initialize_database():
     Database.initialize()

@@ -1,0 +1,43 @@
+{% extends "base.html"%}
+{% block content %}
+<div class="row well register">
+        <form id="login-form" action="/register" method="post">
+            <div class="form-group">
+                <label for="name">Namn</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Förnamn Efternamn">
+            </div>
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="Email" id="Email" name="Email" class="form-control" placeholder="dinepost@exempel.com">
+            </div>
+            <div class="form-group">
+                <label for="password">Lösenord</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="********">
+            </div>
+            <div class="form-group">
+                <label for="Adress">Adress</label>
+                <input type="text" id="Adress" name="Adress" class="form-control" placeholder="din gata 1">
+            </div>
+            <div class="form-group">
+                <label for="Stad">Stad</label>
+                <input type="text" id="Stad" name="Stad" class="form-control" placeholder="din stad">
+            </div>
+            <div class="form-group">
+                <label for="Land">Land</label>
+                <input type="text" id="Land" name="Land" class="form-control" placeholder="ditt land">
+            </div>
+            <div class="form-group">
+                <label for="Telefonnr">Telefonnr</label>
+                <input type="text" id="Telefonnr" name="Telefonnr" class="form-control" placeholder="070-1234567">
+            </div>
+            <div class="form-group">
+                <label for="Personnummer">Personnummer</label>
+                <input type="text" id="Personnummer" name="password" class="form-control" placeholder="850823">
+            </div>
+            <button type="submit" id="submit-button" class="btn btn-success">Sign up</button>
+        </form>
+</div>
+
+
+
+{% endblock %}
