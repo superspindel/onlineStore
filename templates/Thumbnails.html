@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for item in shoppingcart %}
+	<div class="row">
+	  <div class="col-sm-6 col-md-4">
+		<div class="thumbnail">
+		  <img src="item.picture" alt="...">
+		  <div class="caption">
+			<h3>item.thumbnail</h3>
+			<p>item.description</p>
+		  </div>
+		</div>
+	  </div>
+	</div>
+(% endfor)
+
+{% endblock %}

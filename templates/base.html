@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HRH</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+</head>
+<body>
+<!--
+Static menu bar at the top of the site with Home button,
+categories to be generated from data sent from the database,
+login/register button aswell as a profile button.
+
+Login and register / logout should be the buttons available that change if user is logged in or not.
+-->
+<div class="row">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+          <span class="glyphicon glyphicon-header"></span>
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Matlagning <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Gården</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Städning <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Damsugning</a></li>
+            <li><a href="#">Fönsterputs</a></li>
+            <li><a href="#">Vår-/Höststädning</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left" id="searchbar" action="/search" method="post">
+            <div class="form-group">
+                <input type="text" id="searchfield" name="searchfield" class="form-control" placeholder="Search...">
+            </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/register">Register</a></li>
+          <li><a href="/login">Login</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="/konto">Konto</a></li>
+                <li><a href="#">Ordrar</a></li>
+                <li><a href="#">Inköpslista</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+          </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+</div>
+<!--
+Container that contains the shoppingcart, and other data depending on the template used.
+Designed to allow items to be in the center of the screen and keep the shoppingcart always on the right.
+-->
+<div class="container">
+    <div class="row topbar">
+        <div class="col-md-1">
+            <!--
+            Left empty for centering of the jumbotron.
+            -->
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-4 picture">
+                    <center>
+                        <img src="/static/images/Home-icon.png" width="40%" height="40%">
+                    </center>
+                </div>
+                <div class="col-md-8">
+                    <div class="jumbotron" aria-label="jumbotron">
+                        <h1>
+                            HRH
+                        </h1>
+                        <p>
+                            Hjälp runt huset
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <!--
+            Left empty for centering of the jumbotron.
+            -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-8">
+            <!--
+            This is where the items are located or the register info etc.
+            written in the appropriate template and includes this.
+            -->
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <!--
+        This should be auto generated from database data and not as currently implemented with test data.
+        -->
+        <div class="col-md-2">
+            <div class="row">
+                <h3>SHOPPINGCART</h3>
+            </div>
+            <div class="well">
+            {% for item in shoppingcart %}
+            <div class="row">
+                <a href="/item/{{item.id}}">
+                    {{ item.name }}
+                </a><i>{{ item.price }}</i> <span class="glyphicon glyphicon-usd"></span>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+        <!--
+        Might include contact information
+        -->
+        </div>
+        <div class="col-md-8">
+        <!--
+        Might include other information
+        -->
+        </div>
+        <div class="col-md-2">
+        <!--
+        Might include other information
+        -->
+        </div>
+    </div>
+</div>
+</body>
+</html>
