@@ -4,7 +4,7 @@ import mysql.connector
 class Database(object):
     cursor = None
     connection = None
-    findItemsQuery = "SELECT name, price, description FROM store"
+    findItemsQuery = "SELECT name, age from test;"
     insertItemsQuery = ("INSERT INTO store "
                         "(name, price, review, gender, birth_date) "
                         "VALUES (%s, %s, %s, %s, %s)")
@@ -17,7 +17,10 @@ class Database(object):
 
     @staticmethod
     def getItems():
+        userList = []
         Database.cursor.execute(Database.findItemsQuery)
+        for (name, age) in Database.cursor:
+            userList.append((name, age))
 
     @staticmethod
     def closeDB():
