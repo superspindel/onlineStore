@@ -1,4 +1,5 @@
 import mysql.connector
+from common.user import user
 
 
 class Database(object):
@@ -45,5 +46,10 @@ class Database(object):
 
     @staticmethod
     def getUserInfo():
-        Database.cursor.exectute("SELECT * from users;")
+        Database.cursor.execute("SELECT * from user;")
+        listan = []
+        for(name, age) in Database.cursor:
+            listan.append(user(name, age))
+        return listan
+
 
