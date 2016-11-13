@@ -31,7 +31,7 @@ def login():
     if request.method == 'GET':
         return render_template('login.html', login=False)
     else:
-        
+
         if request.form['email'] == 'kalle@mail.com' and request.form['password'] == 'password':
             return render_template('login.html', login=True)
 
@@ -41,8 +41,7 @@ def register():
     if request.method == 'GET':
         return render_template('register.html', register=False)
     else:
-        if request.form['email'] == 'kalle@mail.com' and request.form['password'] == 'password':
-            return render_template('register.html', register=True)
+        newUser = user
 
 
 @storeApp.route('/test')
@@ -54,6 +53,10 @@ def test():
 @storeApp.before_first_request
 def initialize_database():
     Database.initialize()
+    kalle = user("kalle", "kalle@mail.com", "fiskmas", "97751", "professorsvägen 23", "luleå", "sverige", "070-2675108",
+                 "891123-1515", None)
+    print(kalle.format())
+    Database.insert("User", kalle.format())
 
 
 def randomItemForCart():
@@ -64,4 +67,6 @@ def randomItemForCart():
     return itemList
 
 if __name__ == '__main__':
-    storeApp.run(host='0.0.0.0', port=4995)
+    storeApp.run(port=4995)
+
+#host='0.0.0.0'

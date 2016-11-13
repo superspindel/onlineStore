@@ -1,5 +1,4 @@
 import mysql.connector
-from common.user import user
 
 
 class Database(object):
@@ -12,8 +11,8 @@ class Database(object):
 
     @staticmethod
     def initialize():
-        Database.connection = mysql.connector.connect(user='storeserver', password='storepass',
-                                                      host='79.136.28.49', database='store')
+        Database.connection = mysql.connector.connect(user='root', password='password',
+                                                      host='79.136.28.49', database='mydb')
         Database.cursor = Database.connection.cursor()
 
     @staticmethod
@@ -29,7 +28,7 @@ class Database(object):
 
     @staticmethod
     def getCategories():
-        Database.cursor.exectute("SELECT name, parent FROM categories")
+        Database.cursor.execute("SELECT name, parent FROM categories")
         catList = Database.setCategoryList(Database.cursor)
         return catList
 
@@ -41,15 +40,8 @@ class Database(object):
         return catList
 
     @staticmethod
-    def insertCatList(name, parent, catlist):
-        pass
-
-    @staticmethod
-    def getUserInfo():
-        Database.cursor.execute("SELECT * from user;")
-        listan = []
-        for(name, age) in Database.cursor:
-            listan.append(user(name, age))
-        return listan
+    def insert(table, data):
+        Database.cursor.execute("INSERT INTO "+table+" VALUES("+data+")")
+        Database.connection.commit()
 
 
