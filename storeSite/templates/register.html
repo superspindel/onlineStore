@@ -1,42 +1,42 @@
 {% extends "base.html"%}
 {% block content %}
 <div class="row well register">
-        <form id="register-form" action="/register" method="post" class="form-horizontal">
+        <form id="register-form" action="/register" method="POST" class="form-horizontal">
             <div class="form-group">
                 <label for="name">Namn</label>
                 <input type="text" id="name" name="name" class="form-control" placeholder="Förnamn Efternamn">
             </div>
             <div class="form-group">
-                <label for="Email">Email</label>
-                <input type="Email" id="Email" name="Email" class="form-control" placeholder="dinepost@exempel.com">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="dinepost@exempel.com">
             </div>
             <div class="form-group">
                 <label for="password">Lösenord</label>
                 <input type="password" id="password" name="password" class="form-control" placeholder="********">
             </div>
             <div class="form-group">
-                <label for="Adress">Adress</label>
-                <input type="text" id="Adress" name="Adress" class="form-control" placeholder="din gata 1">
+                <label for="address">Adress</label>
+                <input type="text" id="address" name="address" class="form-control" placeholder="din gata 1">
             </div>
             <div class="form-group">
-                <label for="Stad">Stad</label>
-                <input type="text" id="Stad" name="Stad" class="form-control" placeholder="din stad">
+                <label for="city">Stad</label>
+                <input type="text" id="city" name="city" class="form-control" placeholder="din stad">
             </div>
             <div class="form-group">
                 <label for="ZIP">ZIP</label>
-                <input type="text" id="ZIP" name="password" class="form-control" placeholder="XXXXX">
+                <input type="text" id="ZIP" name="ZIP" class="form-control" placeholder="XXXXX">
             </div>
             <div class="form-group">
-                <label for="Land">Land</label>
-                <input type="text" id="Land" name="Land" class="form-control" placeholder="ditt land">
+                <label for="country">Land</label>
+                <input type="text" id="country" name="country" class="form-control" placeholder="ditt land">
             </div>
             <div class="form-group">
-                <label for="Telefonnr">Telefonnr</label>
-                <input type="text" id="Telefonnr" name="Telefonnr" class="form-control" placeholder="070-1234567">
+                <label for="phone">Telefonnr</label>
+                <input type="text" id="phone" name="phone" class="form-control" placeholder="070-1234567">
             </div>
             <div class="form-group">
-                <label for="Personnummer">Personnummer</label>
-                <input type="text" id="Personnummer" name="password" class="form-control" placeholder="XXXXXX-XXXX">
+                <label for="ssn">Personnummer</label>
+                <input type="text" id="ssn" name="ssn" class="form-control" placeholder="XXXXXX-XXXX">
             </div>
             <button type="submit" id="submit-button" class="btn btn-success">Sign up</button>
         </form>

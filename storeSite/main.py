@@ -5,6 +5,7 @@ from common.user import user
 
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
+mydb = Database()
 
 
 @storeApp.route('/')
@@ -41,7 +42,11 @@ def register():
     if request.method == 'GET':
         return render_template('register.html', register=False)
     else:
-        newUser = user
+        newUser = user(name=request.form['name'], email=request.form['email'], password=request.form['password'], ssn=request.form['ssn'],
+                       zip=request.form['ZIP'], address=request.form['address'], city=request.form['city'], country=request.form['country'],
+                       phone=request.form['phone'], userID=None)
+        newUser.registerUser(mydb)
+        return render_template('home.html')
 
 
 @storeApp.route('/test')
@@ -52,11 +57,7 @@ def test():
 
 @storeApp.before_first_request
 def initialize_database():
-    Database.initialize()
-    kalle = user("kalle", "kalle@mail.com", "fiskmas", "97751", "professorsvägen 23", "luleå", "sverige", "070-2675108",
-                 "891123-1515", None)
-    print(kalle.format())
-    Database.insert("User", kalle.format())
+    mydb.initialize()
 
 
 def randomItemForCart():

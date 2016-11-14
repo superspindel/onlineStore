@@ -1,10 +1,10 @@
 from random import randint
 from datetime import date
 from storeSite.common.formCheck import formCheck
-from storeSite.database.Database import Database
 
 
 class user(object):
+    mydb = None
     def __init__(self, name, email, password, zip, address, city, country, phone, ssn, userID):
         self.name = name
         self.email = email
@@ -23,8 +23,8 @@ class user(object):
     def controllUser(self):
         return formCheck(self.name, self.email, self.zip, self.address, self.city, self.country, self.phone, self.ssn)
 
-    def registerUser(self):
-        Database.insert("User", self.userID)
+    def registerUser(self, database):
+        database.insert("User", self.format())
 
     def format(self):
         return (self.userID+","+"\""+self.email+"\""+","+"\""+self.password+"\""+","+"\""+self.name+"\""+","+self.zip+","
