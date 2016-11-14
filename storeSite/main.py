@@ -5,7 +5,6 @@ from common.user import user
 
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
-mydb = Database()
 
 
 @storeApp.route('/')
@@ -45,7 +44,10 @@ def register():
         newUser = user(name=request.form['name'], email=request.form['email'], password=request.form['password'], ssn=request.form['ssn'],
                        zip=request.form['ZIP'], address=request.form['address'], city=request.form['city'], country=request.form['country'],
                        phone=request.form['phone'], userID=None)
+        mydb = Database()
+        mydb.initialize()
         newUser.registerUser(mydb)
+        mydb.end()
         return render_template('home.html')
 
 
@@ -57,8 +59,7 @@ def test():
 
 @storeApp.before_first_request
 def initialize_database():
-    mydb.initialize()
-
+    pass
 
 def randomItemForCart():
     itemList = []
@@ -68,6 +69,4 @@ def randomItemForCart():
     return itemList
 
 if __name__ == '__main__':
-    storeApp.run(port=4995)
-
-#host='0.0.0.0'
+    storeApp.run(port=4995, host='0.0.0.0')
