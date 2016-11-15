@@ -1,14 +1,14 @@
 from random import randint
 from datetime import date
 from storeSite.common.formCheck import formCheck
+import hashlib
 
 
 class user(object):
-    mydb = None
     def __init__(self, name, email, password, zip, address, city, country, phone, ssn, userID):
         self.name = name
         self.email = email
-        self.password = str(hash(password))
+        self.password = (hashlib.sha1(password.encode()).hexdigest())
         self.zip = zip
         self.address = address
         self.city = city

@@ -20,3 +20,6 @@ class Database(object):
     def insert(self, table, data):
         self.cursor.execute("INSERT INTO "+table+" VALUES("+data+")")
         self.connection.commit()
+
+    def select(self, parameter, table, value, data):
+        self.cursor.execute("SELECT "+parameter+" FROM "+table+" WHERE "+value+" = "+data)
