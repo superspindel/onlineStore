@@ -1,0 +1,58 @@
+{% extends "base.html"%}
+{% block content %}
+{% for user in database %}
+<div class="row register">
+	<div class="panel panel-default">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Order Nummer</h3>
+			</div>
+			<div class="panel-body">
+				{{user.name}}
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Beställningsdatum</h3>
+			</div>
+			<div class="panel-body">
+				{{user.age}}
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Skickad till</h3>
+			</div>
+			<div class="panel-body">
+				{{self.adress}}
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Pris</h3>
+			</div>
+			<div class="panel-body">
+				{{self.stad}}
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Produkter</h3>
+			</div>
+			<div class="panel-body">
+				{{self.land}}
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Tjänster</h3>
+			</div>
+			<div class="panel-body">
+				{{self.land}}
+			</div>
+		</div>
+		</div>
+	</div>
+{% endfor %}
+
+{% endblock %}

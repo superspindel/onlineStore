@@ -1,8 +1,77 @@
 {% extends "base.html" %}
 {% block content %}
+{% for user in database %}
 <div class="row well-sm login">
+	<div class="row register">
+	<div class="panel panel-default">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Namn</h3>
+			</div>
+			<div class="panel-body">
+				{{user.name}}
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Email</h3>
+			</div>
+			<div class="panel-body">
+				{{user.age}}
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Adress</h3>
+			</div>
+			<div class="panel-body">
+				{{self.adress}}
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Stad</h3>
+			</div>
+			<div class="panel-body">
+				{{self.stad}}
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Land</h3>
+			</div>
+			<div class="panel-body">
+				{{self.land}}
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Telefonnr</h3>
+			</div>
+			<div class="panel-body">
+				{{self.telefonnr}}
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Personnummer</h3>
+			</div>
+			<div class="panel-body">
+				{{self.personnr}}
+			</div>
+		</div>
+		</div>
+	</div>
     <div class="col-md-7 well">
         <form class="form-inline" id="konto-form" action="/konto" method="post">
+		<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Konto</h3>
+				</div>
+				<div class="panel-body">
+					{{self.balance}}
+				</div>
+			</div>
             <div class="form-group">
 				<h5>Kort Nummer</h5>
                 <label class="sr-only" for="Kortnr">Kort Nummer</label>
@@ -25,9 +94,8 @@
 			</div>
 			
 			<button type="submit" id="submit-button" class="btn btn-success btn-xs login">Sätt in</button>
+		</div>
         </form>
     </div>
-	
-</div>
-
+{% endfor %}
 {% endblock %}
