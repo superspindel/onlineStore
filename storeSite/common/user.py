@@ -20,12 +20,27 @@ class user(object):
         self.registrationDate = date.today()
         self.balance = "0.0"
 
+    """
+    Function name: controllUser
+    Input variables: self
+    Info: returns if the formCheck of the created user is correct. Not used at the moment.
+    """
     def controllUser(self):
         return formCheck(self.name, self.email, self.zip, self.address, self.city, self.country, self.phone, self.ssn)
 
+    """
+    Function name: registerUser
+    Input variables: self, database
+    Info: Inserts the user in the database
+    """
     def registerUser(self, database):
         database.insert("User", self.format())
 
+    """
+    Function name: format
+    Input variables: self
+    Info: Returns an appropriate string to insert into the database for a user
+    """
     def format(self):
         return (self.userID+","+"\""+self.email+"\""+","+"\""+self.password+"\""+","+"\""+self.name+"\""+","+self.zip+","
                 + "\"" + self.address + "\"" + ","+"\""+self.city+"\""+","+"\""+self.country+"\""+","+"\""+self.phone+"\""+","+self.userLvl+","
