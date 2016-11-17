@@ -1,6 +1,7 @@
 try:
     from storeSite.common.user import user
     import hashlib
+    from database.Database import Database
 except:
     pass
 
@@ -10,7 +11,8 @@ def createUser(request):
                 zip=request.form['ZIP'], address=request.form['address'], city=request.form['city'], country=request.form['country'],
                 phone=request.form['phone'], userID=None)
 
-def checkUserLogin(request, mydb):
+def checkUserLogin(request):
+    mydb = Database()
     # get user email
     userEmail = request.form['email']
     # lookup db
@@ -21,4 +23,5 @@ def checkUserLogin(request, mydb):
     except:
         return False
     hashedUserPassword = (hashlib.sha1(request.form['password'].encode()).hexdigest())
+    mydb.end()
     return hashedUserPassword == dbpassword

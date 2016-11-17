@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request
 from database.Database import Database
-from common.user import user
 from common.functions import createUser, checkUserLogin
-import hashlib
 
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
@@ -31,12 +29,9 @@ def login():
     if request.method == 'GET':
         return render_template('home.html')
     else:
-        mydb = Database()
-        if checkUserLogin(request, mydb):
-            mydb.end()
+        if checkUserLogin(request):
             return render_template('test.html', status="True")
         else:
-            mydb.end()
             return render_template('test.html', status="False")
         #set session
         #return homepage
