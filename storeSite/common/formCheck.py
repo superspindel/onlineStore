@@ -1,6 +1,6 @@
 """
 Function name: formCheck
-Inputvariables: *args is a number of arguments to check
+Input variables: *args is a number of arguments to check
 Info: Takes a number of arguments and checks if they can pass the swapChar function, both with characters and words.
 """
 
@@ -17,7 +17,7 @@ def formCheck(*args):
 
 """
 Function name: swapChar
-Inputvariables: character
+Input variables: character
 Info: Takes a character variable, either a char or a word and checks if it is in the badList
 """
 def swapChar(character):
