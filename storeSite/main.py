@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from database.Database import Database
 from common.functions import createUser, checkUserLogin
 
@@ -12,7 +12,11 @@ Info: returns the home.html template
 """
 @storeApp.route('/')
 def storeHome():
-    return render_template('home.html')
+    if 'email' in session:
+        userEmail = session['email']
+        return render_template('home.html', userEmail=userEmail)
+    else:
+        return render_template('home.html')
 
 
 """
@@ -51,11 +55,12 @@ def login():
         return render_template('home.html')
     else:
         if checkUserLogin(request):
-            return render_template('test.html', status="True")
+            session['email'] = request.form['email']
+            return render_template('home.html', userEmail=session['email'])
         else:
-            return render_template('test.html', status="False")
-        #set session
-        #return homepage
+            session['email'] = None
+            return render_template('home.html')
+
 
 
 """
@@ -86,8 +91,8 @@ Info: Test route for testing
 """
 @storeApp.route('/test')
 def test():
-    itemList = Database.getUserInfo()
-    return render_template('test.html', database=itemList)
+    session.clear()
+    return render_template('home.html')
 
 
 """
@@ -100,4 +105,4 @@ def beforeFirstRequest():
     pass
 
 if __name__ == '__main__':
-    storeApp.run(port=4995, host='0.0.0.0')
+    storeApp.run(port=4995)#, host='0.0.0.0')

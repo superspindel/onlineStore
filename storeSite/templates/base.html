@@ -56,6 +56,13 @@ Login and register / logout should be the buttons available that change if user 
       </form>
       <ul class="nav navbar-nav navbar-right">
           <li>
+              {% if userEmail is defined %}
+              {{ userEmail }}
+              {% else %}
+              <p>finns inte userEmail</p>
+              {% endif %}
+          </li>
+          <li>
               <a href="/register">Register</a>
           </li>
           <li>
