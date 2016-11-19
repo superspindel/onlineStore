@@ -2,6 +2,7 @@ try:
     from storeSite.common.user import user
     import hashlib
     from database.Database import Database
+    from common.product import product
 except:
     pass
 
@@ -29,7 +30,7 @@ def checkUserLogin(request):
     userEmail = request.form['email']
     # lookup db
     mydb.initialize()
-    mydb.select("password", "User", "email", "\"" + userEmail + "\"")
+    mydb.selectWhere("password", "User", "email", "\"" + userEmail + "\"")
     try:
         dbpassword = mydb.cursor.fetchone()[0]
     except:
@@ -37,3 +38,15 @@ def checkUserLogin(request):
     hashedUserPassword = (hashlib.sha1(request.form['password'].encode()).hexdigest())
     mydb.end()
     return hashedUserPassword == dbpassword
+
+
+def getCatalog(mydb):
+    mydb.initialize()
+    mydb.select("*", "Product")
+    catalog = []
+    for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
+                 dateAdded, dateOfProdStart, dateOfProdEnd, catID) in mydb.cursor:
+        newProd = product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
+                 dateAdded, dateOfProdStart, dateOfProdEnd, catID)
+        catalog.append(newProd)
+    return catalog

@@ -38,5 +38,8 @@ class Database(object):
     Input variables: self, parameter to get from select, table to get it from, value of column, data for what the columnvalue should be.
     Info: The cursor executes a select statement and gets filled with the data that is returned from the database
     """
-    def select(self, parameter, table, value, data):
+    def selectWhere(self, parameter, table, value, data):
         self.cursor.execute("SELECT "+parameter+" FROM "+table+" WHERE "+value+" = "+data)
+
+    def select(self, parameter, table):
+        self.cursor.execute("SELECT " + parameter + " FROM " + table)

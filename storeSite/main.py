@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session
 from database.Database import Database
-from common.functions import createUser, checkUserLogin
+from common.functions import createUser, checkUserLogin, getCatalog
+
 
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
@@ -91,8 +92,9 @@ Info: Test route for testing
 """
 @storeApp.route('/test')
 def test():
-    session.clear()
-    return render_template('home.html')
+    mydb = Database()
+    catalog = getCatalog(mydb)
+    return render_template('home.html', Catalog=catalog)
 
 
 """
