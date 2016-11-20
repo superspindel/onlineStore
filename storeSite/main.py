@@ -41,7 +41,7 @@ def generera():
     for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded, dateOfProdStart, dateOfProdEnd, catID) in mydb.cursor:
         prod = product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded, dateOfProdStart, dateOfProdEnd, catID)
         productList.append(prod)
-	mydb.end()
+    mydb.end()
     return render_template('generera.html', database = productList)
 
 """
