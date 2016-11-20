@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session
 from database.Database import Database
 from common.functions import createUser, checkUserLogin, getCatalog
+from common.product import product
 
 
 storeApp = Flask(__name__)
@@ -30,6 +31,17 @@ objects in that category.
 def categories(cat_id):
     return render_template('Category.html', category_id=cat_id)
 
+	
+@storeApp.route('/generera')
+def generera():
+    mydb = Database()
+    mydb.initialize()
+    mydb.selectWhere("prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded, dateOfProdStart, dateOfProdEnd, catID", "Product", "catID", "1")
+    productList = []
+    for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded, dateOfProdStart, dateOfProdEnd, catID) in mydb.cursor:
+        prod = product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded, dateOfProdStart, dateOfProdEnd, catID)
+        productList.append(prod)
+    return render_template('generera.html', database = productList)
 
 """
 Function name: search
