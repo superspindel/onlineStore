@@ -30,7 +30,7 @@ objects in that category.
 @storeApp.route('/Category/<string:cat_id>')
 def categories(cat_id):
     mydb = Database()
-    catalog = getSpecificCatalog(mydb, cat_id)
+    catalog = getSpecificCatalog(mydb, int(cat_id))
     return render_template('home.html', Catalog=catalog)
 
 

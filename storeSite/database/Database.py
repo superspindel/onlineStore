@@ -30,7 +30,8 @@ class Database(object):
     Info: Inserts the data to the table and commits the changes.
     """
     def insert(self, table, data):
-        self.cursor.execute("INSERT INTO "+table+" VALUES("+data+")")
+        sqlInsert = "INSERT INTO {} VALUES({})"
+        self.cursor.execute(sqlInsert.format(table, data))
         self.connection.commit()
 
     """
@@ -39,7 +40,9 @@ class Database(object):
     Info: The cursor executes a select statement and gets filled with the data that is returned from the database
     """
     def selectWhere(self, parameter, table, value, data):
-        self.cursor.execute("SELECT "+parameter+" FROM "+table+" WHERE "+value+" = "+data)
+        sqlSelectWhere = "SELECT {} FROM {} WHERE {} = {}"
+        self.cursor.execute(sqlSelectWhere.format(parameter, table, value, data))
 
     def select(self, parameter, table):
-        self.cursor.execute("SELECT " + parameter + " FROM " + table)
+        sqlSelect = "SELECT {} FROM {}"
+        self.cursor.execute(sqlSelect.format(parameter, table))

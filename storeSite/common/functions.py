@@ -56,7 +56,7 @@ def getfullCatalog(mydb):
 
 def getSpecificCatalog(mydb, data):
     mydb.initialize()
-    mydb.selectWhere("*", "Product", "catID", data)
+    mydb.selectWhere("*", "Product", "catID", int(data))
     catalog = []
     for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
                  dateAdded, dateOfProdStart, dateOfProdEnd, catID) in mydb.cursor:
