@@ -11,8 +11,8 @@ class Database(object):
     Info: Creates the connection to the database and sets the connection and cursor variable
     """
     def initialize(self):
-        self.connection = mysql.connector.connect(user='root', password='password',
-                                                  host='79.136.28.49', database='mydb')
+        self.connection = mysql.connector.connect(user='storeserver', password='password123',
+                                                  host='79.136.28.49', database='storeDB')
         self.cursor = self.connection.cursor()
 
     """

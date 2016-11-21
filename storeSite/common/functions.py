@@ -11,10 +11,12 @@ Function name: createUser
 Input variables: request that comes from the register route
 Info: Takes a specific request and takes all the data needed to create a user and returns an object of the class user
 """
-def createUser(request):
-    return user(name=request.form['name'], email=request.form['email'], password=request.form['password'], ssn=request.form['ssn'],
+def createUser(request, mydb):
+    mydb.initialize()
+    newUser = user(name=request.form['name'], email=request.form['email'], password=request.form['password'], ssn=request.form['ssn'],
                 zip=request.form['ZIP'], address=request.form['address'], city=request.form['city'], country=request.form['country'],
                 phone=request.form['phone'], userID=None)
+    newUser.registerUser(mydb)
 
 """
 Function name: checkUserLogin

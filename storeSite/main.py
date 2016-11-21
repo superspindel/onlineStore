@@ -31,15 +31,18 @@ objects in that category.
 def categories(cat_id):
     return render_template('Category.html', category_id=cat_id)
 
-	
+
 @storeApp.route('/generera')
 def generera():
     mydb = Database()
     mydb.initialize()
-    mydb.selectWhere("prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded, dateOfProdStart, dateOfProdEnd, catID", "Product", "catID", "1")
+    mydb.selectWhere("prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded, "
+                     "dateOfProdStart, dateOfProdEnd, catID", "Product", "catID", "1")
     productList = []
-    for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded, dateOfProdStart, dateOfProdEnd, catID) in mydb.cursor:
-        prod = product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded, dateOfProdStart, dateOfProdEnd, catID)
+    for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded, dateOfProdStart,
+        dateOfProdEnd, catID) in mydb.cursor:
+        prod = product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded,
+                       dateOfProdStart, dateOfProdEnd, catID)
         productList.append(prod)
     mydb.end()
     return render_template('generera.html', database = productList)
@@ -90,10 +93,8 @@ def register():
     if request.method == 'GET':
         return render_template('register.html', register=False)
     else:
-        newUser = createUser(request)
         mydb = Database()
-        mydb.initialize()
-        newUser.registerUser(mydb)
+        createUser(request, mydb)
         mydb.end()
         return render_template('home.html')
 
