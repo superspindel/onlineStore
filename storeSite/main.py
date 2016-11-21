@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session
 from database.Database import Database
-from common.functions import createUser, checkUserLogin, getCatalog
+from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog
 from common.product import product
 
 
@@ -29,7 +29,9 @@ objects in that category.
 """
 @storeApp.route('/Category/<string:cat_id>')
 def categories(cat_id):
-    return render_template('Category.html', category_id=cat_id)
+    mydb = Database()
+    catalog = getSpecificCatalog(mydb, cat_id)
+    return render_template('home.html', Catalog=catalog)
 
 
 @storeApp.route('/generera')
@@ -107,8 +109,13 @@ Info: Test route for testing
 @storeApp.route('/test')
 def test():
     mydb = Database()
-    catalog = getCatalog(mydb)
+    catalog = getfullCatalog(mydb)
     return render_template('home.html', Catalog=catalog)
+
+@storeApp.route('/logout')
+def logout():
+    session.clear()
+    return render_template('home.html')
 
 
 """
@@ -118,7 +125,7 @@ Info: If something needs to be done before the first request, those functions ge
 """
 @storeApp.before_first_request
 def beforeFirstRequest():
-    pass
+    session.permanent = False
 
 if __name__ == '__main__':
     storeApp.run(port=4995)#, host='0.0.0.0')

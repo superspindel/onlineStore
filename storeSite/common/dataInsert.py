@@ -12,7 +12,7 @@ def insertProducts(categoryID, name, description, price, salePrice, amountForSal
         dateStart = prodDate+' '+str(2*i)+':00:00'
         dateEnd = prodDate+' '+str((2*i)+2)+':00:00'
 
-        newProduct = product(prodID+i, name+dateStart, description,
+        newProduct = product(prodID+i, name+" "+dateStart, description,
                              price, salePrice, 0.0, 0, amountForSale, datetime.date.today(), dateStart, dateEnd, categoryID)
         mydb.insert(table, newProduct.format())
         i += 1

@@ -42,9 +42,21 @@ def checkUserLogin(request):
     return hashedUserPassword == dbpassword
 
 
-def getCatalog(mydb):
+def getfullCatalog(mydb):
     mydb.initialize()
     mydb.select("*", "Product")
+    catalog = []
+    for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
+                 dateAdded, dateOfProdStart, dateOfProdEnd, catID) in mydb.cursor:
+        newProd = product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
+                 dateAdded, dateOfProdStart, dateOfProdEnd, catID)
+        catalog.append(newProd)
+    return catalog
+
+
+def getSpecificCatalog(mydb, data):
+    mydb.initialize()
+    mydb.selectWhere("*", "Product", "catID", data)
     catalog = []
     for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
                  dateAdded, dateOfProdStart, dateOfProdEnd, catID) in mydb.cursor:
