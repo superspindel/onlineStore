@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42a756c9-ccbd-4f8b-9b60-fc02df9597a9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storeSite/common/functions.py" afterPath="$PROJECT_DIR$/storeSite/common/functions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storeSite/database/Database.py" afterPath="$PROJECT_DIR$/storeSite/database/Database.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storeSite/main.py" afterPath="$PROJECT_DIR$/storeSite/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storeSite/common/product.py" afterPath="$PROJECT_DIR$/storeSite/common/product.py" />
     </list>
     <ignored path="storeSite.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,12 +22,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Database.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Database.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/storeSite/database/Database.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
+            <state relative-caret-position="218">
               <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dataInsert.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/storeSite/common/dataInsert.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="488">
+              <caret line="72" column="3" selection-start-line="72" selection-start-column="3" selection-end-line="72" selection-end-column="3" />
+              <folding>
+                <element signature="e#0#48#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -50,8 +59,8 @@
       <file leaf-file-name="user.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/storeSite/common/user.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="41" column="78" selection-start-line="41" selection-start-column="78" selection-end-line="41" selection-end-column="78" />
+            <state relative-caret-position="128">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -74,7 +83,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
               <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
-              <folding />
+              <folding>
+                <marker date="1479742742000" expanded="true" signature="301:454" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -89,21 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="theme.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/storeSite/static/css/theme.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="788">
-              <caret line="53" column="1" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="product.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/storeSite/common/product.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+            <state relative-caret-position="315">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -169,12 +170,13 @@
         <option value="$PROJECT_DIR$/storeSite/common/formCheck.py" />
         <option value="$PROJECT_DIR$/storeSite/common/user.py" />
         <option value="$PROJECT_DIR$/storeSite/templates/base.html" />
-        <option value="$PROJECT_DIR$/storeSite/common/product.py" />
         <option value="$PROJECT_DIR$/storeSite/templates/test.html" />
         <option value="$PROJECT_DIR$/storeSite/templates/home.html" />
         <option value="$PROJECT_DIR$/storeSite/common/functions.py" />
         <option value="$PROJECT_DIR$/storeSite/main.py" />
         <option value="$PROJECT_DIR$/storeSite/database/Database.py" />
+        <option value="$PROJECT_DIR$/storeSite/common/product.py" />
+        <option value="$PROJECT_DIR$/storeSite/common/dataInsert.py" />
       </list>
     </option>
   </component>
@@ -346,7 +348,7 @@
       <recent name="$PROJECT_DIR$/src/templates" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main (1)">
+  <component name="RunManager" selected="Python.dataInsert">
     <configuration default="false" name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -360,23 +362,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="storeSite" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/storeSite/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="main (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="storeSite" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -428,6 +413,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="storeSite" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/storeSite/common/product.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="dataInsert" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/storeSite/common" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="storeSite" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/storeSite/common/dataInsert.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -568,18 +570,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.main (1)" />
-      <item index="1" class="java.lang.String" itemvalue="Python.main (2)" />
-      <item index="2" class="java.lang.String" itemvalue="Python.formCheck" />
-      <item index="3" class="java.lang.String" itemvalue="Python.user" />
-      <item index="4" class="java.lang.String" itemvalue="Python.item" />
+      <item index="1" class="java.lang.String" itemvalue="Python.formCheck" />
+      <item index="2" class="java.lang.String" itemvalue="Python.user" />
+      <item index="3" class="java.lang.String" itemvalue="Python.item" />
+      <item index="4" class="java.lang.String" itemvalue="Python.dataInsert" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.main (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Python.item" />
-        <item index="2" class="java.lang.String" itemvalue="Python.user" />
-        <item index="3" class="java.lang.String" itemvalue="Python.formCheck" />
-        <item index="4" class="java.lang.String" itemvalue="Python.main (2)" />
+        <item index="0" class="java.lang.String" itemvalue="Python.dataInsert" />
+        <item index="1" class="java.lang.String" itemvalue="Python.main (1)" />
+        <item index="2" class="java.lang.String" itemvalue="Python.item" />
+        <item index="3" class="java.lang.String" itemvalue="Python.user" />
+        <item index="4" class="java.lang.String" itemvalue="Python.formCheck" />
       </list>
     </recent_temporary>
   </component>
@@ -908,7 +910,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
-          <folding />
+          <folding>
+            <marker date="1479742742000" expanded="true" signature="301:454" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -916,30 +920,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storeSite/common/user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="41" column="78" selection-start-line="41" selection-start-column="78" selection-end-line="41" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storeSite/common/product.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storeSite/common/formCheck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -962,11 +942,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/storeSite/common/formCheck.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/storeSite/database/Database.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
+        <state relative-caret-position="218">
           <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storeSite/common/product.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storeSite/common/user.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storeSite/common/dataInsert.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="488">
+          <caret line="72" column="3" selection-start-line="72" selection-start-column="3" selection-end-line="72" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

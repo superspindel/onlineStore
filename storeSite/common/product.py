@@ -14,3 +14,8 @@ class product():
         self.dateOfProdStart = dateOfProdStart
         self.dateOfProdEnd = dateOfProdEnd
         self.catID = catID
+
+    def format(self):
+        return (str(self.prodID)+","+"\""+self.name+"\""+","+"\""+self.description+"\""+","+str(self.price)+","+str(self.salePrice)+","
+                + str(self.grade) + ","+str(self.numbOfGrades)+","+str(self.quantity)+","+"\""+str(self.dateAdded)+"\""
+                + ","+"\""+str(self.dateOfProdStart)+"\""+","+"\"" + str(self.dateOfProdEnd) + "\""+","+str(self.catID))
