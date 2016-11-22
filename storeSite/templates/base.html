@@ -34,20 +34,26 @@ Login and register / logout should be the buttons available that change if user 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Matlagning <span class="sr-only">(current)</span></a></li>
+          <!--
+        <li class="active"><a href="#">Matlagning</a></li>
         <li><a href="#">Gården</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Städning <span class="caret"></span></a>
+        -->
+          {% for category in categories %}
+            <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              {{ category.name }}
+              <span class="caret">
+
+              </span>
+              <!--<span class="sr-only">(current)</span> -->
+          </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Damsugning</a></li>
-            <li><a href="#">Fönsterputs</a></li>
-            <li><a href="#">Vår-/Höststädning</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+              {% for subcategory in category.subCategories %}
+            <li><a href="#">{{ subcategory }}</a></li>
+              {% endfor %}
           </ul>
         </li>
+          {% endfor %}
       </ul>
       <form class="navbar-form navbar-left" id="searchbar" action="/search" method="post">
             <div class="form-group">

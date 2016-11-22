@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, session
-from database.Database import Database
-from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog
+from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories
 from common.product import product
 
 
@@ -14,11 +13,12 @@ Info: returns the home.html template
 """
 @storeApp.route('/')
 def storeHome():
+    catList = getCategories()
     if 'email' in session:
         userEmail = session['email']
-        return render_template('home.html', userEmail=userEmail)
+        return render_template('home.html', userEmail=userEmail, categories=catList)
     else:
-        return render_template('home.html')
+        return render_template('home.html', categories=catList)
 
 
 """
@@ -29,11 +29,11 @@ objects in that category.
 """
 @storeApp.route('/Category/<string:cat_id>')
 def categories(cat_id):
-    mydb = Database()
-    catalog = getSpecificCatalog(mydb, int(cat_id))
-    return render_template('home.html', Catalog=catalog)
+    catList = getCategories()
+    catalog = getSpecificCatalog(int(cat_id))
+    return render_template('home.html', Catalog=catalog, categories=catList)
 
-
+"""
 @storeApp.route('/generera')
 def generera():
     mydb = Database()
@@ -47,8 +47,8 @@ def generera():
                        dateOfProdStart, dateOfProdEnd, catID)
         productList.append(prod)
     mydb.end()
-    return render_template('generera.html', database = productList)
-
+    return render_template('generera.html', database=productList)
+"""
 """
 Function name: search
 Input variables:
@@ -70,15 +70,16 @@ if post it uses the function chechUserLogin with the current request to see if t
 """
 @storeApp.route('/auth/login', methods=['POST', 'GET'])
 def login():
+    catList = getCategories()
     if request.method == 'GET':
         return render_template('home.html')
     else:
         if checkUserLogin(request):
             session['email'] = request.form['email']
-            return render_template('home.html', userEmail=session['email'])
+            return render_template('home.html', userEmail=session['email'], categories=catList)
         else:
             session['email'] = None
-            return render_template('home.html')
+            return render_template('home.html', categories=catList)
 
 
 
@@ -92,13 +93,12 @@ then closes the connection
 """
 @storeApp.route('/register', methods=['POST', 'GET'])
 def register():
+    catList = getCategories()
     if request.method == 'GET':
-        return render_template('register.html', register=False)
+        return render_template('register.html', register=False, categories=catList)
     else:
-        mydb = Database()
-        createUser(request, mydb)
-        mydb.end()
-        return render_template('home.html')
+        createUser(request)
+        return render_template('home.html', categories=catList)
 
 
 """
@@ -108,14 +108,15 @@ Info: Test route for testing
 """
 @storeApp.route('/test')
 def test():
-    mydb = Database()
-    catalog = getfullCatalog(mydb)
-    return render_template('home.html', Catalog=catalog)
+    catList = getCategories()
+    return render_template('home.html', categories=catList)
+
 
 @storeApp.route('/logout')
 def logout():
+    catList = getCategories()
     session.clear()
-    return render_template('home.html')
+    return render_template('home.html', categories=catList)
 
 
 """

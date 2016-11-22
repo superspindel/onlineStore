@@ -1,19 +1,12 @@
 {% extends "base.html"%}
 {% block content %}
-{% for item in Catalog %}
+{% for category in categories %}
 
-<p>{{ item.prodID }}</p>
-<p>{{ item.name }}</p>
-<p>{{ item.description }}</p>
-<p>{{ item.price }}</p>
-<p>{{ item.salePrice }}</p>
-<p>{{ item.grade }}</p>
-<p>{{ item.numbOfGrades }}</p>
-<p>{{ item.quantity }}</p>
-<p>{{ item.dateAdded }}</p>
-<p>{{ item.dateOfProdStart }}</p>
-<p>{{ item.dateOfProdEnd }}</p>
-<p>{{ item.catID }}</p>
+<p>{{ category.name }}</p>
+{% for subcategory in category.subCategories %}
+<p>{{ subcategory }}</p>
+{% endfor %}
+
 
 {% endfor %}
 

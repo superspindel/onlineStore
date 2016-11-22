@@ -3,6 +3,7 @@ try:
     import hashlib
     from database.Database import Database
     from common.product import product
+    from common.Category import Category
 except:
     pass
 
@@ -11,12 +12,14 @@ Function name: createUser
 Input variables: request that comes from the register route
 Info: Takes a specific request and takes all the data needed to create a user and returns an object of the class user
 """
-def createUser(request, mydb):
+def createUser(request):
+    mydb = Database()
     mydb.initialize()
     newUser = user(name=request.form['name'], email=request.form['email'], password=request.form['password'], ssn=request.form['ssn'],
                 zip=request.form['ZIP'], address=request.form['address'], city=request.form['city'], country=request.form['country'],
                 phone=request.form['phone'], userID=None)
     newUser.registerUser(mydb)
+    mydb.end()
 
 """
 Function name: checkUserLogin
@@ -42,7 +45,8 @@ def checkUserLogin(request):
     return hashedUserPassword == dbpassword
 
 
-def getfullCatalog(mydb):
+def getfullCatalog():
+    mydb = Database()
     mydb.initialize()
     mydb.select("*", "Product")
     catalog = []
@@ -51,10 +55,12 @@ def getfullCatalog(mydb):
         newProd = product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
                  dateAdded, dateOfProdStart, dateOfProdEnd, catID)
         catalog.append(newProd)
+    mydb.end()
     return catalog
 
 
-def getSpecificCatalog(mydb, data):
+def getSpecificCatalog(data):
+    mydb = Database()
     mydb.initialize()
     mydb.selectWhere("*", "Product", "catID", int(data))
     catalog = []
@@ -63,4 +69,20 @@ def getSpecificCatalog(mydb, data):
         newProd = product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
                  dateAdded, dateOfProdStart, dateOfProdEnd, catID)
         catalog.append(newProd)
+    mydb.end()
     return catalog
+
+
+def getCategories():
+    mydb = Database()
+    mydb.initialize()
+    mydb.selectGroup("storeDB.categories.name", "storeDB.subCategories.name",
+                     "storeDB.categories, storeDB.subCategories", "storeDB.categories.catID",
+                     "storeDB.subCategories.categories_catID")
+    catList = []
+    for name, subCatList in mydb.cursor:
+        newCat = Category(name, subCatList)
+        newCat.formatSubCategories()
+        catList.append(newCat)
+    mydb.end()
+    return catList

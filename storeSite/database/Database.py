@@ -39,10 +39,14 @@ class Database(object):
     Input variables: self, parameter to get from select, table to get it from, value of column, data for what the columnvalue should be.
     Info: The cursor executes a select statement and gets filled with the data that is returned from the database
     """
-    def selectWhere(self, parameter, table, value, data):
+    def selectWhere(self, parameter, table, value1, value2):
         sqlSelectWhere = "SELECT {} FROM {} WHERE {} = {}"
-        self.cursor.execute(sqlSelectWhere.format(parameter, table, value, data))
+        self.cursor.execute(sqlSelectWhere.format(parameter, table, value1, value2))
 
     def select(self, parameter, table):
         sqlSelect = "SELECT {} FROM {}"
         self.cursor.execute(sqlSelect.format(parameter, table))
+
+    def selectGroup(self, sortParameter,concatParameter,table, value1, value2 ):
+        sqlSelectGroup = "SELECT {}, group_concat({}) from {} where {} = {} group by {}"
+        self.cursor.execute(sqlSelectGroup.format(sortParameter, concatParameter, table, value1, value2, sortParameter))
