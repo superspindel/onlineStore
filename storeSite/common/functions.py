@@ -76,9 +76,9 @@ def getSpecificCatalog(data):
 def getCategories():
     mydb = Database()
     mydb.initialize()
-    mydb.selectGroup("storeDB.categories.name", "storeDB.subCategories.name",
-                     "storeDB.categories, storeDB.subCategories", "storeDB.categories.catID",
-                     "storeDB.subCategories.categories_catID")
+    mydb.selectGroup("storeDB.categories.name", "storeDB.subCategories.name,"+"\""+":"+"\""+
+                     ",storeDB.subCategories.subCatID", "storeDB.categories, storeDB.subCategories",
+                     "storeDB.categories.catID", "storeDB.subCategories.categories_catID")
     catList = []
     for name, subCatList in mydb.cursor:
         newCat = Category(name, subCatList)
