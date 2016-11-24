@@ -1,11 +1,8 @@
 {% extends "base.html"%}
 {% block content %}
-{% for category in categories %}
+{% for dateObject in productDates %}
 
-<p>{{ category.name }}</p>
-{% for subcategory in category.subCategories %}
-<p>{{ subcategory }}</p>
-{% endfor %}
+<p>{{ dateObject.dateStart }}    {{ dateObject.dateEnd }}</p>
 
 
 {% endfor %}

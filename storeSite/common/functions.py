@@ -4,6 +4,7 @@ try:
     from database.Database import Database
     from common.product import product
     from common.Category import Category
+    from common.prodDate import prodDate
 except:
     pass
 
@@ -86,3 +87,19 @@ def getCategories():
         catList.append(newCat)
     mydb.end()
     return catList
+
+
+def getProducts(prodID):
+    mydb = Database()
+    mydb.initialize()
+    mydb.selectWhere("storeDB.ProductDate.dateStart, storeDB.ProductDate.dateEnd", "storeDB.ProductDate", "storeDB.ProductDate.prodID", prodID)
+    #        sqlSelectWhere = "SELECT {} FROM {} WHERE {} = {}"
+    #mydb.selectGroup("storeDB.ProductDate.prodID", "storeDB.ProductDate.dateStart," + "\"" + "," + "\"" +
+    #                 ",storeDB.ProductDate.dateEnd," + "\"" + "=" + "\"", "storeDB.Product, storeDB.ProductDate",
+    #                 "storeDB.ProductDate.prodID", prodID)
+    prodList = []
+    for dateStart, dateEnd in mydb.cursor:
+        newProdDate = prodDate(dateStart, dateEnd)
+        prodList.append(newProdDate)
+    mydb.end()
+    return prodList

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session
-from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories
+from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getProducts
 
 
 storeApp = Flask(__name__)
@@ -101,6 +101,13 @@ def logout():
     catList = getCategories()
     session.clear()
     return render_template('home.html', categories=catList)
+
+
+@storeApp.route('/more/<string:prod_id>')
+def showProductDates(prod_id):
+    catList = getCategories()
+    prodDates = getProducts(int(prod_id))
+    return render_template('test.html', categories=catList, productDates=prodDates)
 
 
 """

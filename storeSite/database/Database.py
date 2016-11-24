@@ -50,3 +50,4 @@ class Database(object):
     def selectGroup(self, sortParameter,concatParameter,table, value1, value2 ):
         sqlSelectGroup = "SELECT {}, group_concat({}) from {} where {} = {} group by {}"
         self.cursor.execute(sqlSelectGroup.format(sortParameter, concatParameter, table, value1, value2, sortParameter))
+
