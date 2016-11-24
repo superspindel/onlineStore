@@ -1,12 +1,25 @@
 try:
     from storeSite.common.user import user
-    import hashlib
+except:
+    from common.user import user
+try:
     from database.Database import Database
+except:
+    from storeSite.database.Database import Database
+import hashlib
+try:
     from common.product import product
+except:
+    from storeSite.common.product import import product
+try:
     from common.Category import Category
+except:
+    from storeSite.common.Category import Category
+try:
     from common.prodDate import prodDate
 except:
-    pass
+    from storeSite.common.prodDate import prodDate
+
 
 """
 Function name: createUser
@@ -93,10 +106,6 @@ def getProducts(prodID):
     mydb = Database()
     mydb.initialize()
     mydb.selectWhere("storeDB.ProductDate.dateStart, storeDB.ProductDate.dateEnd", "storeDB.ProductDate", "storeDB.ProductDate.prodID", prodID)
-    #        sqlSelectWhere = "SELECT {} FROM {} WHERE {} = {}"
-    #mydb.selectGroup("storeDB.ProductDate.prodID", "storeDB.ProductDate.dateStart," + "\"" + "," + "\"" +
-    #                 ",storeDB.ProductDate.dateEnd," + "\"" + "=" + "\"", "storeDB.Product, storeDB.ProductDate",
-    #                 "storeDB.ProductDate.prodID", prodID)
     prodList = []
     for dateStart, dateEnd in mydb.cursor:
         newProdDate = prodDate(dateStart, dateEnd)
