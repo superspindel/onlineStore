@@ -10,7 +10,7 @@ import hashlib
 try:
     from common.product import product
 except:
-    from storeSite.common.product import import product
+    from storeSite.common.product import product
 try:
     from common.Category import Category
 except:
