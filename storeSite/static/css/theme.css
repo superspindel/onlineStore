@@ -73,9 +73,6 @@ body {
     color: white;
 }
 
-#product .dateStart{
-    color: white;
-}
-#product .dateEnd{
+#time .startEnd{
     color: white;
 }
