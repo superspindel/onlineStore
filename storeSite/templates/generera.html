@@ -1,17 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-{% for Product in database %}
+
 <div class="row">
+  {% for item in Database %}
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="..." alt="...">
+      <img src="/static/images/disk.jpg" style="min-height:150px;height:150px;min-width:181px;width:181px;" id="lol">
       <div class="caption">
-        <h3>{{Product.name}}</h3>
-        <p>{{Product.description}}{{Product.price}}</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+        <h3>{{ item.name }}</h3>
+        <p>{{ item. description }}</p>
+		<p>Price: {{item.salePrice}}kr</p>
+		<p>Quantity: {{item.quantity}}</p>
+		<p>Grade: {{item.grade}}</p>
+        <p><a href="#" class="btn btn-primary" role="button">Köp</a> <a href="#" class="btn btn-default" role="button">Mer info</a></p>
       </div>
     </div>
   </div>
+    {% endfor %}
 </div>
-{% endfor %}
+
+
+
+
+
 {% endblock %}
