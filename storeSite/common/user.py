@@ -1,6 +1,9 @@
 from random import randint
 from datetime import date
-from storeSite.common.formCheck import formCheck
+try:
+    from storeSite.common.formCheck import formCheck
+except:
+    from common.formCheck import formCheck
 import hashlib
 
 
