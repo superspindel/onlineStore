@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session
 from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories
 from common.product import product
+from database.Database import Database
 
 
 storeApp = Flask(__name__)
@@ -31,23 +32,14 @@ objects in that category.
 def categories(cat_id):
     catList = getCategories()
     catalog = getSpecificCatalog(int(cat_id))
-    return render_template('home.html', Catalog=catalog, categories=catList)
+    return render_template('generera.html', Database=catalog, categories=catList)
 
 """
-@storeApp.route('/generera')
-def generera():
-    mydb = Database()
-    mydb.initialize()
-    mydb.selectWhere("prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded, "
-                     "dateOfProdStart, dateOfProdEnd, catID", "Product", "catID", "1")
-    productList = []
-    for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded, dateOfProdStart,
-        dateOfProdEnd, catID) in mydb.cursor:
-        prod = product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity, dateAdded,
-                       dateOfProdStart, dateOfProdEnd, catID)
-        productList.append(prod)
-    mydb.end()
-    return render_template('generera.html', database=productList)
+@storeApp.route('/Category/<string:cat_id>')
+def generera(cat_id):
+    catList = getCategories()
+    catalog = getSpecificCatalog(int(cat_id))
+    return render_template('generera.html', Database=catalog, categories=catList)
 """
 """
 Function name: search
