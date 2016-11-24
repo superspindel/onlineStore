@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, session
-from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getProducts
-
+try:
+    from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getProducts
+except:
+    from storeSite.common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getProducts
 
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
