@@ -52,3 +52,30 @@ body {
     margin-top: 50px;
 
 }
+
+#product .quantity{
+    color: white;
+}
+
+#product .title {
+    color: white;
+}
+
+#product .grade{
+    color: white;
+}
+
+#product .description{
+    color: white;
+}
+
+#product .price{
+    color: white;
+}
+
+#product .dateStart{
+    color: white;
+}
+#product .dateEnd{
+    color: white;
+}

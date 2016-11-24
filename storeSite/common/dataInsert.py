@@ -7,14 +7,14 @@ def insertProducts(categoryID, name, description, price, salePrice, amountForSal
     mydb = Database()
     mydb.initialize()
     table = "Product"
+    newProduct = product(prodID, name, description,
+                         price, salePrice, 0.0, 0, amountForSale, datetime.date.today(), categoryID)
+    mydb.insert(table, newProduct.format())
     i = 0
     while(i<11):
         dateStart = prodDate+' '+str(2*i)+':00:00'
         dateEnd = prodDate+' '+str((2*i)+2)+':00:00'
-
-        newProduct = product(prodID+i, name+" "+dateStart, description,
-                             price, salePrice, 0.0, 0, amountForSale, datetime.date.today(), dateStart, dateEnd, categoryID)
-        mydb.insert(table, newProduct.format())
+        mydb.insert("ProductDate", str(prodID)+","+"\""+str(dateStart)+"\""+","+"\""+str(dateEnd)+"\"")
         i += 1
     mydb.end()
 

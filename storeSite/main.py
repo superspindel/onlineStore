@@ -32,13 +32,7 @@ def categories(cat_id):
     catalog = getSpecificCatalog(int(cat_id))
     return render_template('generera.html', Database=catalog, categories=catList)
 
-"""
-@storeApp.route('/Category/<string:cat_id>')
-def generera(cat_id):
-    catList = getCategories()
-    catalog = getSpecificCatalog(int(cat_id))
-    return render_template('generera.html', Database=catalog, categories=catList)
-"""
+
 """
 Function name: search
 Input variables:
