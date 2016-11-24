@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, session
 from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories
-from common.product import product
-from database.Database import Database
 
 
 storeApp = Flask(__name__)
