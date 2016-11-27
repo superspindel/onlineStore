@@ -114,14 +114,38 @@ def getTimesAvaliable(prodID):
     return prodList
 
 
-def searchFor(value):
-    prodSearch = []
+def SearchFor(value):
     mydb = Database()
     mydb.initialize()
+    searchDict = {}
+    searchDict['products'] = searchForProducts(value, mydb)
+    searchDict['categories'] = searchForCategories(value, mydb)
+    searchDict['subCategories'] = searchForSubCategories(value, mydb)
+    mydb.end()
+    return searchDict
+
+
+def searchForProducts(value, mydb):
+    prodSearch = []
     mydb.search("*", "storeDB.Product", "name", value)
     for (prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
          dateAdded, catID) in mydb.cursor:
         prodSearch.append(product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
                           dateAdded, catID))
-    mydb.end()
     return prodSearch
+
+
+def searchForCategories(value, mydb):
+    catSearch = []
+    mydb.search("*","storeDB.categories", "name", value)
+    for (catID, name) in mydb.cursor:
+        catSearch.append(Category(catID=catID, name=name))
+    return catSearch
+
+
+def searchForSubCategories(value, mydb):
+    subSearch = []
+    mydb.search("storeDB.subCategories.name, storeDB.subCategories.subCatID", "storeDB.subCategories", "name", value)
+    for (name, subCatID) in mydb.cursor:
+        subSearch.append(Category(catID=subCatID, name=name))
+    return subSearch

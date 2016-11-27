@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, session
 try:
-    from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getTimesAvaliable, searchFor
+    from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getTimesAvaliable, SearchFor
 except:
-    from storeSite.common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getTimesAvaliable, searchFor
+    from storeSite.common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getTimesAvaliable, SearchFor
 
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
@@ -49,11 +49,11 @@ def search():
     if request.method == 'GET':
         return storeHome()
     else:
-        searchResult = searchFor(request.form['searchfield'])
+        searchResult = SearchFor(request.form['searchfield'])
         if 'email' in session:
-            return render_template('generera.html', Database=searchResult, categories=catList, userEmail=session['email'])
+            return render_template('search.html', searchResult=searchResult, categories=catList, userEmail=session['email'])
         else:
-            return render_template('generera.html', Database=searchResult, categories=catList)
+            return render_template('search.html', searchResult=searchResult, categories=catList)
 
 
 """

@@ -1,7 +1,8 @@
 class Category(object):
-    def __init__(self, name, subCategories):
+    def __init__(self, name, subCategories=None, catID=None):
         self.name = name
-        self.subCategories = subCategories
+        self.subCategories = None if subCategories is None else subCategories
+        self.catID = None if catID is None else catID
 
     def formatSubCategories(self):
         self.subCategories = self.subCategories.split(",")
