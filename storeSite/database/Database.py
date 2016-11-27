@@ -51,3 +51,7 @@ class Database(object):
         sqlSelectGroup = "SELECT {}, group_concat({}) from {} where {} = {} group by {}"
         self.cursor.execute(sqlSelectGroup.format(sortParameter, concatParameter, table, value1, value2, sortParameter))
 
+    def search(self, parameter, table, value1, value2):
+        sqlSearch = "SELECT {} from {} where {} like"+"\""+"%{}%"+"\""
+        self.cursor.execute(sqlSearch.format(parameter, table, value1, value2))
+

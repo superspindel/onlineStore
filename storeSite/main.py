@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, session
 try:
-    from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getProducts
+    from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getTimesAvaliable, searchFor
 except:
-    from storeSite.common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getProducts
+    from storeSite.common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getTimesAvaliable, searchFor
 
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
@@ -32,7 +32,10 @@ objects in that category.
 def categories(cat_id):
     catList = getCategories()
     catalog = getSpecificCatalog(int(cat_id))
-    return render_template('generera.html', Database=catalog, categories=catList)
+    if 'email' in session:
+        return render_template('generera.html', Database=catalog, categories=catList, userEmail=session['email'])
+    else:
+        return render_template('generera.html', Database=catalog, categories=catList)
 
 
 """
@@ -42,10 +45,15 @@ Info: Should get from database the data that matches the searchword in request.f
 """
 @storeApp.route('/search', methods=['POST', 'GET'])
 def search():
+    catList = getCategories()
     if request.method == 'GET':
-        return render_template('home.html')
+        return storeHome()
     else:
-        return render_template('search.html', searchtext=request.form['searchfield'])
+        searchResult = searchFor(request.form['searchfield'])
+        if 'email' in session:
+            return render_template('generera.html', Database=searchResult, categories=catList, userEmail=session['email'])
+        else:
+            return render_template('generera.html', Database=searchResult, categories=catList)
 
 
 """
@@ -108,7 +116,7 @@ def logout():
 @storeApp.route('/more/<string:prod_id>')
 def showProductDates(prod_id):
     catList = getCategories()
-    prodDates = getProducts(int(prod_id))
+    prodDates = getTimesAvaliable(int(prod_id))
     return render_template('test.html', categories=catList, productDates=prodDates)
 
 
@@ -122,4 +130,4 @@ def beforeFirstRequest():
     session.permanent = False
 
 if __name__ == '__main__':
-    storeApp.run(port=4995,host='0.0.0.0')
+    storeApp.run(port=4995)#,host='0.0.0.0')

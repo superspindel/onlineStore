@@ -102,7 +102,7 @@ def getCategories():
     return catList
 
 
-def getProducts(prodID):
+def getTimesAvaliable(prodID):
     mydb = Database()
     mydb.initialize()
     mydb.selectWhere("storeDB.ProductDate.dateStart, storeDB.ProductDate.dateEnd", "storeDB.ProductDate", "storeDB.ProductDate.prodID", prodID)
@@ -112,3 +112,16 @@ def getProducts(prodID):
         prodList.append(newProdDate)
     mydb.end()
     return prodList
+
+
+def searchFor(value):
+    prodSearch = []
+    mydb = Database()
+    mydb.initialize()
+    mydb.search("*", "storeDB.Product", "name", value)
+    for (prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
+         dateAdded, catID) in mydb.cursor:
+        prodSearch.append(product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
+                          dateAdded, catID))
+    mydb.end()
+    return prodSearch

@@ -11,7 +11,7 @@ def insertProducts(categoryID, name, description, price, salePrice, amountForSal
                          price, salePrice, 0.0, 0, amountForSale, datetime.date.today(), categoryID)
     mydb.insert(table, newProduct.format())
     i = 0
-    while(i<11):
+    while(i<amountForSale):
         dateStart = prodDate+' '+str(2*i)+':00:00'
         dateEnd = prodDate+' '+str((2*i)+2)+':00:00'
         mydb.insert("ProductDate", str(prodID)+","+"\""+str(dateStart)+"\""+","+"\""+str(dateEnd)+"\"")
@@ -25,6 +25,7 @@ def createCategory(categoryID, name):
     mydb.initialize()
     mydb.insert(table, str(categoryID)+","+"\""+name+"\"")
     mydb.end()
+
 
 def createSubCategory(subCatID, nameList, catID):
     mydb = Database()
