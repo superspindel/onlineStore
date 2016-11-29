@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, session
 try:
-    from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getTimesAvaliable, SearchFor
+    from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getTimesAvaliable, SearchFor, getProduct
 except:
-    from storeSite.common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getTimesAvaliable, SearchFor
+    from storeSite.common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getTimesAvaliable, SearchFor, getProduct
 
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
@@ -117,7 +117,8 @@ def logout():
 def showProductDates(prod_id):
     catList = getCategories()
     prodDates = getTimesAvaliable(int(prod_id))
-    return render_template('test.html', categories=catList, productDates=prodDates)
+    getProductInfo = getProduct(int(prod_id))
+    return render_template('test.html', categories=catList, productDates=prodDates, prodInfo=getProductInfo)
 
 
 """

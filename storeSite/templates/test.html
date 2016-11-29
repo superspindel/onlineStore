@@ -1,8 +1,34 @@
 {% extends "base.html"%}
 {% block content %}
-<div class="list-group" style="margin-top: 50px;">
-    {% for dateObject in productDates %}
-        <button type="button" class="list-group-item">{{ dateObject.dateStart }}    {{ dateObject.dateEnd }}</button>
-    {% endfor %}
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">{{ prodInfo.name }}</div>
+  <div class="panel-body">
+    <p>BESKRIVNING: {{ prodInfo.description }}</p>
+      <p> PRIS: {{ prodInfo.price }}</p>
+      <p> BETYG: {{ prodInfo.grade }}</p>
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+  <tr>
+    <th>Start tid</th>
+    <th>Slut tid</th>
+    <th>Lägg till i varukorg</th>
+  </tr>
+      {% for dateObject in productDates %}
+  <tr>
+    <td>{{ dateObject.dateStart }}</td>
+    <td>{{ dateObject.dateEnd }}</td>
+    <td>
+        <button type="button">
+            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">
+            </span>
+        </button>
+    </td>
+  </tr>
+      {% endfor %}
+</table>
 </div>
 {% endblock %}

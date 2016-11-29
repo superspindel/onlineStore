@@ -62,7 +62,7 @@ def checkUserLogin(request):
 def getfullCatalog():
     mydb = Database()
     mydb.initialize()
-    mydb.select("*", "Product")
+    mydb.select("*", "storeDB.Product")
     catalog = []
     for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
                  dateAdded, catID) in mydb.cursor:
@@ -72,17 +72,19 @@ def getfullCatalog():
     mydb.end()
     return catalog
 
+def createCatalog(cursor):
+    catalog = []
+    for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
+                 dateAdded, catID) in cursor:
+        catalog.append(product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
+                 dateAdded, catID))
+    return catalog
 
 def getSpecificCatalog(data):
     mydb = Database()
     mydb.initialize()
-    mydb.selectWhere("*", "Product", "catID", int(data))
-    catalog = []
-    for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
-                 dateAdded, catID) in mydb.cursor:
-        newProd = product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
-                 dateAdded, catID)
-        catalog.append(newProd)
+    mydb.selectWhere("*", "storeDB.Product", "catID", int(data))
+    catalog = createCatalog(mydb.cursor)
     mydb.end()
     return catalog
 
@@ -105,10 +107,10 @@ def getCategories():
 def getTimesAvaliable(prodID):
     mydb = Database()
     mydb.initialize()
-    mydb.selectWhere("storeDB.ProductDate.dateStart, storeDB.ProductDate.dateEnd", "storeDB.ProductDate", "storeDB.ProductDate.prodID", prodID)
+    mydb.selectWhere("storeDB.ProductDate.dateStart, storeDB.ProductDate.dateEnd, storeDB.ProductDate.prodDateID", "storeDB.ProductDate", "storeDB.ProductDate.prodID", prodID)
     prodList = []
-    for dateStart, dateEnd in mydb.cursor:
-        newProdDate = prodDate(dateStart, dateEnd)
+    for dateStart, dateEnd, prodDateID in mydb.cursor:
+        newProdDate = prodDate(dateStart, dateEnd, prodDateID)
         prodList.append(newProdDate)
     mydb.end()
     return prodList
@@ -125,12 +127,8 @@ def SearchFor(value):
 
 
 def searchForProducts(value, mydb):
-    prodSearch = []
     mydb.search("*", "storeDB.Product", "name", value)
-    for (prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
-         dateAdded, catID) in mydb.cursor:
-        prodSearch.append(product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
-                          dateAdded, catID))
+    prodSearch = createCatalog(mydb.cursor)
     return prodSearch
 
 
@@ -140,3 +138,11 @@ def searchForSubCategories(value, mydb):
     for (name, subCatID) in mydb.cursor:
         subSearch.append(Category(catID=subCatID, name=name))
     return subSearch
+
+
+def getProduct(prodID):
+    mydb = Database()
+    mydb.initialize()
+    mydb.selectWhere("*", "storeDB.Product", "prodID", int(prodID))
+    catalog = createCatalog(mydb.cursor)
+    return catalog[0]
