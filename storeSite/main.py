@@ -121,6 +121,11 @@ def showProductDates(prod_id):
     return render_template('test.html', categories=catList, productDates=prodDates, prodInfo=getProductInfo)
 
 
+
+@storeApp.route('/add/<string:prodDate_id>')
+def addToCart(prodDate_id):
+    pass
+
 """
 Function name: beforeFirstRequest
 Input variables:

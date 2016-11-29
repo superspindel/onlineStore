@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42a756c9-ccbd-4f8b-9b60-fc02df9597a9" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storeSite/common/dataInsert.py" afterPath="$PROJECT_DIR$/storeSite/common/dataInsert.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storeSite/common/functions.py" afterPath="$PROJECT_DIR$/storeSite/common/functions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storeSite/common/prodDate.py" afterPath="$PROJECT_DIR$/storeSite/common/prodDate.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storeSite/common/product.py" afterPath="$PROJECT_DIR$/storeSite/common/product.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storeSite/main.py" afterPath="$PROJECT_DIR$/storeSite/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storeSite/templates/generera.html" afterPath="$PROJECT_DIR$/storeSite/templates/generera.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storeSite/templates/test.html" afterPath="$PROJECT_DIR$/storeSite/templates/test.html" />
     </list>
     <ignored path="storeSite.iws" />
@@ -28,8 +30,8 @@
       <file leaf-file-name="test.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/storeSite/templates/test.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="32" column="6" selection-start-line="32" selection-start-column="6" selection-end-line="32" selection-end-column="6" />
+            <state relative-caret-position="45">
+              <caret line="3" column="54" selection-start-line="3" selection-start-column="54" selection-end-line="3" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -38,8 +40,8 @@
       <file leaf-file-name="prodDate.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/storeSite/common/prodDate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+            <state relative-caret-position="30">
+              <caret line="2" column="53" selection-start-line="2" selection-start-column="53" selection-end-line="2" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -49,17 +51,7 @@
         <entry file="file://$PROJECT_DIR$/storeSite/common/product.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="9" column="18" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ordrar.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/storeSite/templates/ordrar.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -78,11 +70,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/storeSite/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1351">
-              <caret line="2" column="152" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="152" />
+            <state relative-caret-position="660">
+              <caret line="44" column="3" selection-start-line="44" selection-start-column="3" selection-end-line="44" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="generera.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/storeSite/templates/generera.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dataInsert.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/storeSite/common/dataInsert.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="975">
+              <caret line="67" column="123" selection-start-line="67" selection-start-column="123" selection-end-line="67" selection-end-column="123" />
               <folding />
             </state>
           </provider>
@@ -91,8 +103,8 @@
       <file leaf-file-name="functions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/storeSite/common/functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="584">
-              <caret line="147" column="21" selection-start-line="147" selection-start-column="21" selection-end-line="147" selection-end-column="21" />
+            <state relative-caret-position="-16">
+              <caret line="110" column="21" selection-start-line="110" selection-start-column="21" selection-end-line="110" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -113,16 +125,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="165">
               <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="konto.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/storeSite/templates/konto.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -166,19 +168,19 @@
         <option value="$PROJECT_DIR$/storeSite/common/item.py" />
         <option value="$PROJECT_DIR$/storeSite/common/formCheck.py" />
         <option value="$PROJECT_DIR$/storeSite/templates/home.html" />
-        <option value="$PROJECT_DIR$/storeSite/common/product.py" />
-        <option value="$PROJECT_DIR$/storeSite/templates/generera.html" />
         <option value="$PROJECT_DIR$/storeSite/static/css/theme.css" />
         <option value="$PROJECT_DIR$/storeSite/common/user.py" />
         <option value="$PROJECT_DIR$/storeSite/templates/base.html" />
         <option value="$PROJECT_DIR$/storeSite/database/Database.py" />
         <option value="$PROJECT_DIR$/storeSite/common/Category.py" />
-        <option value="$PROJECT_DIR$/storeSite/common/dataInsert.py" />
         <option value="$PROJECT_DIR$/storeSite/templates/search.html" />
-        <option value="$PROJECT_DIR$/storeSite/common/prodDate.py" />
         <option value="$PROJECT_DIR$/storeSite/templates/test.html" />
         <option value="$PROJECT_DIR$/storeSite/main.py" />
+        <option value="$PROJECT_DIR$/storeSite/common/product.py" />
         <option value="$PROJECT_DIR$/storeSite/common/functions.py" />
+        <option value="$PROJECT_DIR$/storeSite/common/prodDate.py" />
+        <option value="$PROJECT_DIR$/storeSite/templates/generera.html" />
+        <option value="$PROJECT_DIR$/storeSite/common/dataInsert.py" />
       </list>
     </option>
   </component>
@@ -601,14 +603,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17899929" sideWeight="0.4702381" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19036144" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19036144" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17899929" sideWeight="0.5297619" order="2" side_tool="true" content_ui="tabs" />
@@ -652,7 +654,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -898,26 +902,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/storeSite/common/dataInsert.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-301">
-          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/storeSite/templates/Category.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="4" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storeSite/templates/generera.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="20" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -975,10 +963,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/storeSite/common/prodDate.py">
+    <entry file="file://$PROJECT_DIR$/storeSite/templates/test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+        <state relative-caret-position="45">
+          <caret line="3" column="54" selection-start-line="3" selection-start-column="54" selection-end-line="3" selection-end-column="54" />
           <folding />
         </state>
       </provider>
@@ -986,31 +974,47 @@
     <entry file="file://$PROJECT_DIR$/storeSite/common/product.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="9" column="18" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="18" />
+          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/storeSite/templates/test.html">
+    <entry file="file://$PROJECT_DIR$/storeSite/common/prodDate.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="6" selection-start-line="32" selection-start-column="6" selection-end-line="32" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storeSite/common/functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="584">
-          <caret line="147" column="21" selection-start-line="147" selection-start-column="21" selection-end-line="147" selection-end-column="21" />
+        <state relative-caret-position="30">
+          <caret line="2" column="53" selection-start-line="2" selection-start-column="53" selection-end-line="2" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/storeSite/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1351">
-          <caret line="2" column="152" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="152" />
+        <state relative-caret-position="660">
+          <caret line="44" column="3" selection-start-line="44" selection-start-column="3" selection-end-line="44" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storeSite/templates/generera.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storeSite/common/functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-16">
+          <caret line="110" column="21" selection-start-line="110" selection-start-column="21" selection-end-line="110" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storeSite/common/dataInsert.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="975">
+          <caret line="67" column="123" selection-start-line="67" selection-start-column="123" selection-end-line="67" selection-end-column="123" />
           <folding />
         </state>
       </provider>

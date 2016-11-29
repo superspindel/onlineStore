@@ -64,9 +64,9 @@ def getfullCatalog():
     mydb.initialize()
     mydb.select("*", "storeDB.Product")
     catalog = []
-    for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
+    for(prodID, name, description, price, salePrice, grade, numbOfGrades,
                  dateAdded, catID) in mydb.cursor:
-        newProd = product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
+        newProd = product(prodID, name, description, price, salePrice, grade, numbOfGrades,
                  dateAdded, catID)
         catalog.append(newProd)
     mydb.end()
@@ -74,9 +74,9 @@ def getfullCatalog():
 
 def createCatalog(cursor):
     catalog = []
-    for(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
+    for(prodID, name, description, price, salePrice, grade, numbOfGrades,
                  dateAdded, catID) in cursor:
-        catalog.append(product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
+        catalog.append(product(prodID, name, description, price, salePrice, grade, numbOfGrades,
                  dateAdded, catID))
     return catalog
 
@@ -107,7 +107,8 @@ def getCategories():
 def getTimesAvaliable(prodID):
     mydb = Database()
     mydb.initialize()
-    mydb.selectWhere("storeDB.ProductDate.dateStart, storeDB.ProductDate.dateEnd, storeDB.ProductDate.prodDateID", "storeDB.ProductDate", "storeDB.ProductDate.prodID", prodID)
+    mydb.selectWhere("storeDB.ProductDate.dateStart, storeDB.ProductDate.dateEnd, storeDB.ProductDate.prodDateID",
+                     "storeDB.ProductDate", "storeDB.ProductDate.prodID", prodID)
     prodList = []
     for dateStart, dateEnd, prodDateID in mydb.cursor:
         newProdDate = prodDate(dateStart, dateEnd, prodDateID)

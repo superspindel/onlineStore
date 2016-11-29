@@ -3,18 +3,18 @@ from storeSite.common.product import product
 import datetime
 
 
-def insertProducts(categoryID, name, description, price, salePrice, amountForSale, prodDate, prodID, timeID):
+def insertProducts(categoryID, name, description, price, salePrice, timevariable, prodDate, prodID, prodDateID, quantity):
     mydb = Database()
     mydb.initialize()
     table = "Product"
     newProduct = product(prodID, name, description,
-                         price, salePrice, 0.0, 0, amountForSale, datetime.date.today(), categoryID)
+                         price, salePrice, 0.0, 0, datetime.date.today(), categoryID)
     mydb.insert(table, newProduct.format())
     i = 0
-    while(i<amountForSale):
+    while(i<timevariable):
         dateStart = prodDate+' '+str(2*i)+':00:00'
         dateEnd = prodDate+' '+str((2*i)+2)+':00:00'
-        mydb.insert("ProductDate", str(prodID)+","+"\""+str(dateStart)+"\""+","+"\""+str(dateEnd)+"\""+","+str(timeID+i))
+        mydb.insert("ProductDate", str(prodID)+","+"\""+str(dateStart)+"\""+","+"\""+str(dateEnd)+"\""+","+str(prodDateID+i)+","+str(quantity))
         i += 1
     mydb.end()
 
@@ -57,17 +57,17 @@ createSubCategory(120, ["Städning enskilt rum", "Diskning", "Städning hela hus
                         "Skurning"], 1)
 """
 insertProducts(120, "Städa vardagsrum", "Vi kommer och städar erat vardagsrum med allt som det innebär",
-               499.99, 449.99, 5, '2016-12-01', 10, 110)
+               499.99, 449.99, 5, '2016-12-01', 10, 110, 2)
 insertProducts(2, "Gräsklippning tomt upp till 1000kvm", "Gräsklippning med gräsklippare och trimmer", 329.99, 299.99,
-               3, '2017-05-01', 30, 130)
+               3, '2017-05-01', 30, 130, 1)
 insertProducts(20, "Frukost på sängen", "Vi kommer vid den bestämda tiden med frukost som ni sedan bara kan ta med till sängen och äta",
-               199.99, 199.99, 4, '2016-12-15', 50, 150)
+               199.99, 199.99, 8, '2016-12-15', 50, 150, 3)
 insertProducts(40, "Däckbyte", "Vi kommer och byter däck på eran bil till de ni behagar, vi har även med oss verktyg",
-               99.99, 99.99, 9, '2016-12-23', 70, 180)
+               99.99, 99.99, 11, '2016-12-23', 70, 180, 1)
 insertProducts(60, "Tapetsering av ett rum", "Våra duktiga tapetserare kommer och tapetserar ett rum, var"
-                                             "medveten om att egen tapet behövs", 999.99, 949.99, 11, '2016-12-29', 90, 190)
+                                             "medveten om att egen tapet behövs", 999.99, 949.99, 11, '2016-12-29', 90, 240, 2)
 insertProducts(80, "Paketering", "Våra medarbeterare kommer och paketerar det ni ska ha med er vid flytten och tar"
-                                 "samtidigt med sig skräp som ska slängas", 699.99, 699.99, 8, '2017-01-03', 110, 340)
+                                 "samtidigt med sig skräp som ska slängas", 699.99, 699.99, 8, '2017-01-03', 110, 340, 3)
 insertProducts(100, "Promenad 1km", "Vi kommer och tar med dig ut på en promenad så du får se lite av världen "
                                     "utanför husets trygga väggar och samtidigt ger dig en chans att få prata"
-                                    "av dig om det som kan tänkas viktigt", 49.99, 44.99, 6, '2016-06-19', 130, 410)
+                                    "av dig om det som kan tänkas viktigt", 49.99, 44.99, 6, '2016-06-19', 130, 410, 4)
