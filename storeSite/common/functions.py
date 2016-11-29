@@ -7,6 +7,7 @@ try:
 except:
     from storeSite.database.Database import Database
 import hashlib
+import random
 try:
     from common.product import product
 except:
@@ -19,6 +20,10 @@ try:
     from common.prodDate import prodDate
 except:
     from storeSite.common.prodDate import prodDate
+try:
+    from common.shoppingCart import shoppingCart, cartProduct
+except:
+    from storeSite.common.shoppingCart import shoppingCart, cartProduct
 
 
 """
@@ -107,8 +112,9 @@ def getCategories():
 def getTimesAvaliable(prodID):
     mydb = Database()
     mydb.initialize()
-    mydb.selectWhere("storeDB.ProductDate.dateStart, storeDB.ProductDate.dateEnd, storeDB.ProductDate.prodDateID",
-                     "storeDB.ProductDate", "storeDB.ProductDate.prodID", prodID)
+    mydb.selectWhereAndLargerThenZero("storeDB.ProductDate.dateStart, storeDB.ProductDate.dateEnd, " +
+                                      "storeDB.ProductDate.prodDateID", "storeDB.ProductDate",
+                                      "storeDB.ProductDate.prodID", prodID, "quantity")
     prodList = []
     for dateStart, dateEnd, prodDateID in mydb.cursor:
         newProdDate = prodDate(dateStart, dateEnd, prodDateID)
@@ -146,4 +152,40 @@ def getProduct(prodID):
     mydb.initialize()
     mydb.selectWhere("*", "storeDB.Product", "prodID", int(prodID))
     catalog = createCatalog(mydb.cursor)
+    mydb.end()
     return catalog[0]
+
+
+def createUserCart(userEmail):
+    mydb = Database()
+    mydb.initialize()
+    userID = user.getUserID(userEmail, mydb)
+    mydb.insert("storeDB.shoppingcart", str(random.randint(1, 2147483647))+","+str(userID))
+    mydb.commit()
+    mydb.end()
+
+
+def addProduct(prodDate_id, userEmail):
+    mydb = Database()
+    mydb.initialize()
+    userID = user.getUserID(userEmail, mydb)
+    shoppingCart.addToCart(userID, prodDate_id, mydb)
+    mydb.end()
+
+
+def getCarts(userEmail):
+    mydb = Database()
+    mydb.initialize()
+    userID = user.getUserID(userEmail, mydb)
+    carts = []
+    mydb.selectWhere("storeDB.shoppingcart.cartID", "storeDB.shoppingcart", "userID", userID)
+    for cartID in mydb.cursor:
+        carts.append(cartID[0])
+    mydb.end()
+    return carts
+
+
+def getCartProducts(cartID=None):
+    mydb = Database()
+    mydb.initialize()
+    return shoppingCart.getCart(cartID, mydb)

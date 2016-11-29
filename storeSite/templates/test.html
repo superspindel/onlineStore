@@ -22,10 +22,12 @@
     <td>{{ dateObject.dateStart }}</td>
     <td>{{ dateObject.dateEnd }}</td>
     <td>
-        <button type="button">
-            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">
-            </span>
-        </button>
+        <a href="/add/ {{ dateObject.prodDateID }}">
+            <button type="button">
+                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">
+                </span>
+            </button>
+        </a>
     </td>
   </tr>
       {% endfor %}

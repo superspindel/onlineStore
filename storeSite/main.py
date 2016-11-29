@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, session
 try:
-    from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getTimesAvaliable, SearchFor, getProduct
+    from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, \
+        getTimesAvaliable, SearchFor, getProduct, createUserCart, addProduct, getCarts, getCartProducts
 except:
-    from storeSite.common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, getTimesAvaliable, SearchFor, getProduct
+    from storeSite.common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, \
+        getCategories, getTimesAvaliable, SearchFor, getProduct, createUserCart, addProduct, getCarts, getCartProducts
 
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
@@ -72,7 +74,6 @@ def login():
             session['email'] = request.form['email']
             return render_template('home.html', userEmail=session['email'], categories=catList)
         else:
-            session['email'] = None
             return render_template('home.html', categories=catList)
 
 
@@ -103,7 +104,10 @@ Info: Test route for testing
 @storeApp.route('/test')
 def test():
     catList = getCategories()
-    return render_template('home.html', categories=catList)
+    carts = getCarts(session['email'])
+    cartProducts = getCartProducts(session['cart'])
+    return render_template('home.html', categories=catList, shoppingCarts=carts, userEmail=session['email'],
+                           cartProds=cartProducts)
 
 
 @storeApp.route('/logout')
@@ -118,22 +122,36 @@ def showProductDates(prod_id):
     catList = getCategories()
     prodDates = getTimesAvaliable(int(prod_id))
     getProductInfo = getProduct(int(prod_id))
-    return render_template('test.html', categories=catList, productDates=prodDates, prodInfo=getProductInfo)
+    if 'email' in session:
+        return render_template('test.html', categories=catList, productDates=prodDates, prodInfo=getProductInfo,
+                               userEmail=session['email'])
+    else:
+        return render_template('test.html', categories=catList, productDates=prodDates, prodInfo=getProductInfo)
 
 
 
 @storeApp.route('/add/<string:prodDate_id>')
 def addToCart(prodDate_id):
-    # get user email from session
-    # get cartID
-    # check if item already in cart, then add to amount of that item
-    # add item to list with cartID
-    # set amount
-    # set price
-    # update cart on page
+    if 'email' in session:
+        userEmail = session['email']
+        addProduct(int(prodDate_id), userEmail)
+        return storeHome()
+    else:
+        return storeHome()
 
-    pass
+@storeApp.route('/createCart')
+def createCart():
+    if 'email' in session:
+        userEmail = session['email']
+        createUserCart(userEmail)
+        return storeHome()
+    else:
+        return storeHome()
 
+@storeApp.route('/changeCart/<string:cart_ID>')
+def changeCart(cart_ID):
+    session['cart'] = cart_ID
+    return test()
 """
 Function name: beforeFirstRequest
 Input variables:

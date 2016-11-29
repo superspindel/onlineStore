@@ -38,6 +38,7 @@ class user(object):
     """
     def registerUser(self, database):
         database.insert("User", self.format())
+        database.commit()
 
     """
     Function name: format
@@ -48,3 +49,8 @@ class user(object):
         return (self.userID+","+"\""+self.email+"\""+","+"\""+self.password+"\""+","+"\""+self.name+"\""+","+self.zip+","
                 + "\"" + self.address + "\"" + ","+"\""+self.city+"\""+","+"\""+self.country+"\""+","+"\""+self.phone+"\""+","+self.userLvl+","
                 + "\"" + str(self.registrationDate) + "\"" + ","+"\""+self.ssn+"\""+","+self.balance)
+
+    @staticmethod
+    def getUserID(email, mydb):
+        mydb.selectWhere("userID", "storeDB.User", "email", "\"" + str(email) + "\"")
+        return mydb.cursor.fetchone()[0]

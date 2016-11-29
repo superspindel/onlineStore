@@ -144,16 +144,34 @@ Designed to allow items to be in the center of the screen and keep the shoppingc
         -->
         <div class="col-md-2">
             <div class="row">
-                <h3>SHOPPINGCART</h3>
-            </div>
-            <div class="well">
-            {% for item in shoppingcart %}
-            <div class="row">
-                <a href="/item/{{item.id}}">
-                    {{ item.name }}
-                </a><i>{{ item.price }}</i> <span class="glyphicon glyphicon-usd"></span>
-            </div>
-            {% endfor %}
+                <div class="well" style="margin-top: 20px;">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <H6>SHOPPINGCART
+                        <span class="caret">
+
+                        </span>
+                            </H6>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for cartID in shoppingCarts %}
+                            <li>
+                                <a href="/changeCart/{{ cartID }}">
+                                    {{ cartID }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                    {% for product in cartProds %}
+                    <p>
+                        {{product.prodDateid}}
+                        {{product.name}}
+                        {{product.price}}
+                        {{product.amount}}
+                    </p>
+                    {% endfor %}
+                    </div>
             </div>
         </div>
     </div>

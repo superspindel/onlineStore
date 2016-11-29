@@ -13,7 +13,7 @@ class Database(object):
     def initialize(self):
         self.connection = mysql.connector.connect(user='storeserver', password='password123',
                                                   host='79.136.28.49', database='storeDB')
-        self.cursor = self.connection.cursor()
+        self.cursor = self.connection.cursor(buffered=True)
 
     """
     Function name: end
@@ -32,8 +32,13 @@ class Database(object):
     def insert(self, table, data):
         sqlInsert = "INSERT INTO {} VALUES({})"
         self.cursor.execute(sqlInsert.format(table, data))
+
+    def commit(self):
         self.connection.commit()
 
+    def startTransaction(self):
+        self.commit()
+        self.connection.start_transaction()
     """
     Function name: select
     Input variables: self, parameter to get from select, table to get it from, value of column, data for what the columnvalue should be.
@@ -42,6 +47,10 @@ class Database(object):
     def selectWhere(self, parameter, table, value1, value2):
         sqlSelectWhere = "SELECT {} FROM {} WHERE {} = {}"
         self.cursor.execute(sqlSelectWhere.format(parameter, table, value1, value2))
+
+    def selectWhereAndLargerThenZero(self, parameter, table, value1, value2, value3):
+        selectWhereAndLargerThenZero = "SELECT {} FROM {} where {} = {} AND {} > 0"
+        self.cursor.execute(selectWhereAndLargerThenZero.format(parameter, table, value1, value2, value3))
 
     def select(self, parameter, table):
         sqlSelect = "SELECT {} FROM {}"
@@ -55,3 +64,16 @@ class Database(object):
         sqlSearch = "SELECT {} from {} where {} like"+"\""+"%{}%"+"\""
         self.cursor.execute(sqlSearch.format(parameter, table, value1, value2))
 
+    def update(self, table, colName, setValue, value1, value2):
+        sqlUpdate = "UPDATE {} SET {} = {} where {} = {}"
+        self.cursor.execute(sqlUpdate.format(table, colName, setValue, value1, value2))
+
+    def updateAnd(self, table, colname, setvalue, value1, value2, value3, value4):
+        sqlUpdate = "UPDATE {} SET {} = {} where {} = {} and {} = {}"
+        self.cursor.execute(sqlUpdate.format(table, colname, setvalue, value1, value2, value3, value4))
+
+    def nestedSelect(self, parameters, table, value1, value2, value3, nestedParameters, nestedTable, nestedValue1,
+                     nestedValue2):
+        sqlNestedSelect = "SELECT {} FROM {} WHERE {} = {} AND {} = (SELECT {} from {} where {} = {})"
+        self.cursor.execute(sqlNestedSelect.format(parameters, table, value1, value2, value3, nestedParameters,
+                                                   nestedTable, nestedValue1, nestedValue2))
