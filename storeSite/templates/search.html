@@ -15,18 +15,6 @@
     </H2>
 </center>
 
-{% for category in searchResult['categories'] %}
-
-<p><a href="/Cat/{{ category.catID }}">{{ category.name }}</a></p>
-
-{% endfor %}
-
-<center>
-    <H2 style="color: white;">
-        Underkategorier
-    </H2>
-</center>
-
 {% for subcategory in searchResult['subCategories'] %}
 
 <p><a href="/Category/{{ subcategory.catID }}">{{ subcategory.name }}</a></p>

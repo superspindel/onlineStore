@@ -119,7 +119,6 @@ def SearchFor(value):
     mydb.initialize()
     searchDict = {}
     searchDict['products'] = searchForProducts(value, mydb)
-    searchDict['categories'] = searchForCategories(value, mydb)
     searchDict['subCategories'] = searchForSubCategories(value, mydb)
     mydb.end()
     return searchDict
@@ -133,14 +132,6 @@ def searchForProducts(value, mydb):
         prodSearch.append(product(prodID, name, description, price, salePrice, grade, numbOfGrades, quantity,
                           dateAdded, catID))
     return prodSearch
-
-
-def searchForCategories(value, mydb):
-    catSearch = []
-    mydb.search("*","storeDB.categories", "name", value)
-    for (catID, name) in mydb.cursor:
-        catSearch.append(Category(catID=catID, name=name))
-    return catSearch
 
 
 def searchForSubCategories(value, mydb):
