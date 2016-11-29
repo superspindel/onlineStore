@@ -124,6 +124,14 @@ def showProductDates(prod_id):
 
 @storeApp.route('/add/<string:prodDate_id>')
 def addToCart(prodDate_id):
+    # get user email from session
+    # get cartID
+    # check if item already in cart, then add to amount of that item
+    # add item to list with cartID
+    # set amount
+    # set price
+    # update cart on page
+
     pass
 
 """

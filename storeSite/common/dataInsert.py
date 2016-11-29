@@ -55,7 +55,7 @@ createSubCategory(80, ["Flytthjälp", "Flyttstädning", "Hyra"], 6)
 createSubCategory(100, ["Promenad", "Barnvakt", "Hundvakt", "Hundpromenad", "Prata"], 7)
 createSubCategory(120, ["Städning enskilt rum", "Diskning", "Städning hela huset", "Fönsterputs", "Dammtorkning", "Dammsugning",
                         "Skurning"], 1)
-"""
+
 insertProducts(120, "Städa vardagsrum", "Vi kommer och städar erat vardagsrum med allt som det innebär",
                499.99, 449.99, 5, '2016-12-01', 10, 110, 2)
 insertProducts(2, "Gräsklippning tomt upp till 1000kvm", "Gräsklippning med gräsklippare och trimmer", 329.99, 299.99,
@@ -71,3 +71,4 @@ insertProducts(80, "Paketering", "Våra medarbeterare kommer och paketerar det n
 insertProducts(100, "Promenad 1km", "Vi kommer och tar med dig ut på en promenad så du får se lite av världen "
                                     "utanför husets trygga väggar och samtidigt ger dig en chans att få prata"
                                     "av dig om det som kan tänkas viktigt", 49.99, 44.99, 6, '2016-06-19', 130, 410, 4)
+"""
