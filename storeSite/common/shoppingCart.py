@@ -2,6 +2,10 @@ try:
     from database.Database import Database
 except:
     from storeSite.database.Database import Database
+try:
+    from storeSite.common.user import user
+except:
+    from common.user import user
 import random
 
 
@@ -51,6 +55,43 @@ class shoppingCart(object):
         mydb.commit()
         mydb.deleteFromAnd("storeDB.shoppingProducts", "amount", 0, "cartID", cartID)
         mydb.commit()
+
+    @staticmethod
+    def removeProduct(prodDate_id, session):
+        cartID = session['cart']
+        mydb = Database()
+        mydb.initialize()
+        shoppingCart.removeProductFromCart(prodDate_id, cartID, mydb)
+        mydb.end()
+
+    @staticmethod
+    def getCarts(userEmail):
+        mydb = Database()
+        mydb.initialize()
+        userID = user.getUserID(userEmail, mydb)
+        carts = []
+        mydb.selectWhere("storeDB.shoppingcart.cartID", "storeDB.shoppingcart", "userID", userID)
+        for cartID in mydb.cursor:
+            carts.append(cartID[0])
+        mydb.end()
+        return carts
+
+    @staticmethod
+    def getCartProducts(cartID=None):
+        mydb = Database()
+        mydb.initialize()
+        return shoppingCart.getCart(cartID, mydb)
+
+    @staticmethod
+    def addProduct(prodDate_id, session):
+        if 'cart' in session:
+            mydb = Database()
+            mydb.initialize()
+            shoppingCart.addToCart(session['cart'], prodDate_id, mydb)
+            mydb.end()
+            return True
+        else:
+            return False
 
 class cartProduct(object):
 

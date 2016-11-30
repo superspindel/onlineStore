@@ -1,9 +1,13 @@
-from random import randint
+import random
 from datetime import date
 try:
     from storeSite.common.formCheck import formCheck
 except:
     from common.formCheck import formCheck
+try:
+    from database.Database import Database
+except:
+    from storeSite.database.Database import Database
 import hashlib
 
 
@@ -19,7 +23,7 @@ class user(object):
         self.phone = phone
         self.userLvl = "1"
         self.ssn = ssn
-        self.userID = str(randint(1, 2147483646)) if userID is None else userID
+        self.userID = str(random.randint(1, 2147483646)) if userID is None else userID
         self.registrationDate = date.today()
         self.balance = "0.0"
 
@@ -54,3 +58,38 @@ class user(object):
     def getUserID(email, mydb):
         mydb.selectWhere("userID", "storeDB.User", "email", "\"" + str(email) + "\"")
         return mydb.cursor.fetchone()[0]
+
+    @staticmethod
+    def createUser(request):
+        mydb = Database()
+        mydb.initialize()
+        newUser = user(name=request.form['name'], email=request.form['email'], password=request.form['password'],
+                       ssn=request.form['ssn'],
+                       zip=request.form['ZIP'], address=request.form['address'], city=request.form['city'],
+                       country=request.form['country'],
+                       phone=request.form['phone'], userID=None)
+        newUser.registerUser(mydb)
+        mydb.end()
+
+    @staticmethod
+    def checkUserLogin(request):
+        mydb = Database()
+        userEmail = request.form['email']
+        mydb.initialize()
+        mydb.selectWhere("password", "User", "email", "\"" + userEmail + "\"")
+        try:
+            dbpassword = mydb.cursor.fetchone()[0]
+        except:
+            return False
+        hashedUserPassword = (hashlib.sha1(request.form['password'].encode()).hexdigest())
+        mydb.end()
+        return hashedUserPassword == dbpassword
+
+    @staticmethod
+    def createUserCart(userEmail):
+        mydb = Database()
+        mydb.initialize()
+        userID = user.getUserID(userEmail, mydb)
+        mydb.insert("storeDB.shoppingcart", str(random.randint(1, 2147483647)) + "," + str(userID))
+        mydb.commit()
+        mydb.end()

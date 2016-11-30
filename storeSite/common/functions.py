@@ -6,8 +6,6 @@ try:
     from database.Database import Database
 except:
     from storeSite.database.Database import Database
-import hashlib
-import random
 try:
     from common.product import product
 except:
@@ -31,14 +29,7 @@ Function name: createUser
 Input variables: request that comes from the register route
 Info: Takes a specific request and takes all the data needed to create a user and returns an object of the class user
 """
-def createUser(request):
-    mydb = Database()
-    mydb.initialize()
-    newUser = user(name=request.form['name'], email=request.form['email'], password=request.form['password'], ssn=request.form['ssn'],
-                zip=request.form['ZIP'], address=request.form['address'], city=request.form['city'], country=request.form['country'],
-                phone=request.form['phone'], userID=None)
-    newUser.registerUser(mydb)
-    mydb.end()
+
 
 """
 Function name: checkUserLogin
@@ -48,168 +39,25 @@ Selects from the database the password of the user who is trying to log in, from
 get the password, then rehashes the password from the request, closes the database connection and then returns a boolean depending
 on if the password is correct.
 """
-def checkUserLogin(request):
-    mydb = Database()
-    # get user email
-    userEmail = request.form['email']
-    # lookup db
-    mydb.initialize()
-    mydb.selectWhere("password", "User", "email", "\"" + userEmail + "\"")
-    try:
-        dbpassword = mydb.cursor.fetchone()[0]
-    except:
-        return False
-    hashedUserPassword = (hashlib.sha1(request.form['password'].encode()).hexdigest())
-    mydb.end()
-    return hashedUserPassword == dbpassword
-
-
-def getfullCatalog():
-    mydb = Database()
-    mydb.initialize()
-    mydb.select("*", "storeDB.Product")
-    catalog = []
-    for(prodID, name, description, price, salePrice, grade, numbOfGrades,
-                 dateAdded, catID) in mydb.cursor:
-        newProd = product(prodID, name, description, price, salePrice, grade, numbOfGrades,
-                 dateAdded, catID)
-        catalog.append(newProd)
-    mydb.end()
-    return catalog
-
-def createCatalog(cursor):
-    catalog = []
-    for(prodID, name, description, price, salePrice, grade, numbOfGrades,
-                 dateAdded, catID) in cursor:
-        catalog.append(product(prodID, name, description, price, salePrice, grade, numbOfGrades,
-                 dateAdded, catID))
-    return catalog
-
-def getSpecificCatalog(data):
-    mydb = Database()
-    mydb.initialize()
-    mydb.selectWhere("*", "storeDB.Product", "catID", int(data))
-    catalog = createCatalog(mydb.cursor)
-    mydb.end()
-    return catalog
-
-
-def getCategories():
-    mydb = Database()
-    mydb.initialize()
-    mydb.selectGroup("storeDB.categories.name", "storeDB.subCategories.name,"+"\""+":"+"\""+
-                     ",storeDB.subCategories.subCatID", "storeDB.categories, storeDB.subCategories",
-                     "storeDB.categories.catID", "storeDB.subCategories.catID")
-    catList = []
-    for name, subCatList in mydb.cursor:
-        newCat = Category(name, subCatList)
-        newCat.formatSubCategories()
-        catList.append(newCat)
-    mydb.end()
-    return catList
-
-
-def getTimesAvaliable(prodID):
-    mydb = Database()
-    mydb.initialize()
-    mydb.selectWhereAndLargerThenZero("storeDB.ProductDate.dateStart, storeDB.ProductDate.dateEnd, " +
-                                      "storeDB.ProductDate.prodDateID", "storeDB.ProductDate",
-                                      "storeDB.ProductDate.prodID", prodID, "quantity")
-    prodList = []
-    for dateStart, dateEnd, prodDateID in mydb.cursor:
-        newProdDate = prodDate(dateStart, dateEnd, prodDateID)
-        prodList.append(newProdDate)
-    mydb.end()
-    return prodList
 
 
 def SearchFor(value):
-    mydb = Database()
-    mydb.initialize()
     searchDict = {}
-    searchDict['products'] = searchForProducts(value, mydb)
-    searchDict['subCategories'] = searchForSubCategories(value, mydb)
-    mydb.end()
+    searchDict['products'] = product.searchForProducts(value)
+    searchDict['subCategories'] = Category.searchForSubCategories(value)
     return searchDict
 
 
-def searchForProducts(value, mydb):
-    mydb.search("*", "storeDB.Product", "name", value)
-    prodSearch = createCatalog(mydb.cursor)
-    return prodSearch
-
-
-def searchForSubCategories(value, mydb):
-    subSearch = []
-    mydb.search("storeDB.subCategories.name, storeDB.subCategories.subCatID", "storeDB.subCategories", "name", value)
-    for (name, subCatID) in mydb.cursor:
-        subSearch.append(Category(catID=subCatID, name=name))
-    return subSearch
-
-
-def getProduct(prodID):
-    mydb = Database()
-    mydb.initialize()
-    mydb.selectWhere("*", "storeDB.Product", "prodID", int(prodID))
-    catalog = createCatalog(mydb.cursor)
-    mydb.end()
-    return catalog[0]
-
-
-def createUserCart(userEmail):
-    mydb = Database()
-    mydb.initialize()
-    userID = user.getUserID(userEmail, mydb)
-    mydb.insert("storeDB.shoppingcart", str(random.randint(1, 2147483647))+","+str(userID))
-    mydb.commit()
-    mydb.end()
-
-
-def addProduct(prodDate_id, session):
-    if 'cart' in session:
-        mydb = Database()
-        mydb.initialize()
-        shoppingCart.addToCart(session['cart'], prodDate_id, mydb)
-        mydb.end()
-        return True
-    else:
-        return False
-
-def removeProduct(prodDate_id, session):
-    cartID = session['cart']
-    mydb = Database()
-    mydb.initialize()
-    shoppingCart.removeProductFromCart(prodDate_id, cartID, mydb)
-    mydb.end()
-
-def getCarts(userEmail):
-    mydb = Database()
-    mydb.initialize()
-    userID = user.getUserID(userEmail, mydb)
-    carts = []
-    mydb.selectWhere("storeDB.shoppingcart.cartID", "storeDB.shoppingcart", "userID", userID)
-    for cartID in mydb.cursor:
-        carts.append(cartID[0])
-    mydb.end()
-    return carts
-
-
-def getCartProducts(cartID=None):
-    mydb = Database()
-    mydb.initialize()
-    return shoppingCart.getCart(cartID, mydb)
-
-
 def getDictionary(**kwargs):
-    data = {'categories': getCategories()}
+    data = {'categories': Category.getCategories()}
     try:
         data['userEmail'] = kwargs['session']['email']
-        data['shoppingCarts'] = getCarts(kwargs['session']['email'])
-        data['cartProds'] = getCartProducts(kwargs['session']['cart'])
+        data['shoppingCarts'] = shoppingCart.getCarts(kwargs['session']['email'])
+        data['cartProds'] = shoppingCart.getCartProducts(kwargs['session']['cart'])
     except:
         pass
     try:
-        data['catalog'] = getSpecificCatalog(kwargs['cat_id'])
+        data['catalog'] = Category.getSpecificCatalog(kwargs['cat_id'])
     except:
         pass
     try:
@@ -217,8 +65,8 @@ def getDictionary(**kwargs):
     except:
         pass
     try:
-        data['productDates'] = getTimesAvaliable(kwargs['prod_id'])
-        data['prodInfo'] = getProduct(kwargs['prod_id'])
+        data['productDates'] = prodDate.getTimesAvaliable(kwargs['prod_id'])
+        data['prodInfo'] = product.getProduct(kwargs['prod_id'])
     except:
         pass
     return data

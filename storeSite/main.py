@@ -1,13 +1,20 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session
 try:
-    from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, \
-        getTimesAvaliable, SearchFor, getProduct, createUserCart, addProduct, getCarts, getCartProducts, removeProduct,\
-        getDictionary
+    from common.functions import SearchFor, getDictionary
 except:
-    from storeSite.common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, \
-        getCategories, getTimesAvaliable, SearchFor, getProduct, createUserCart, addProduct, getCarts, getCartProducts,\
-        removeProduct, getDictionary
-
+    from storeSite.common.functions import SearchFor, getDictionary
+try:
+    from storeSite.common.user import user
+except:
+    from common.user import user
+try:
+    from common.shoppingCart import shoppingCart
+except:
+    from storeSite.common.shoppingCart import shoppingCart
+try:
+    from common.product import product
+except:
+    from storeSite.common.product import product
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
 
@@ -57,9 +64,9 @@ if post it uses the function chechUserLogin with the current request to see if t
 """
 @storeApp.route('/auth/login', methods=['POST', 'GET'])
 def login():
-    if checkUserLogin(request):
+    if user.checkUserLogin(request):
         session['email'] = request.form['email']
-        session['cart'] = getCarts(session['email'])[0]
+        session['cart'] = shoppingCart.getCarts(session['email'])[0]
     data = getDictionary(session=session)
     return render_template('home.html', dictionary=data)
 
@@ -77,7 +84,7 @@ then closes the connection
 def register():
     data = getDictionary(session=session)
     if request.method == 'POST':
-        createUser(request)
+        user.createUser(request)
     return render_template('register.html', dictionary=data)
 
 
@@ -108,25 +115,28 @@ def showProductDates(prod_id):
 
 @storeApp.route('/add/<string:prodDate_id>', methods=['POST', 'GET'])
 def addToCart(prodDate_id):
-    if addProduct(int(prodDate_id), session):
+    if shoppingCart.addProduct(int(prodDate_id), session):
         return storeHome()
     else:
         session['product'] = prodDate_id
         return createCart()
 
+
 @storeApp.route('/remove/<string:prodDate_id>', methods=['POST', 'GET'])
 def removeFromCart(prodDate_id):
-    removeProduct(int(prodDate_id), session)
+    shoppingCart.removeProduct(int(prodDate_id), session)
     return test()
+
 
 @storeApp.route('/createCart')
 def createCart():
     if 'email' in session:
-        createUserCart(session['email'])
-        session['cart'] = getCarts(session['email'])[0]
+        user.createUserCart(session['email'])
+        session['cart'] = shoppingCart.getCarts(session['email'])[0]
         return addToCart(session['product'])
     else:
         return register()
+
 
 @storeApp.route('/changeCart/<string:cart_ID>')
 def changeCart(cart_ID):
