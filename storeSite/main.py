@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect
 try:
     from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, \
         getTimesAvaliable, SearchFor, getProduct, createUserCart, addProduct, getCarts, getCartProducts
@@ -129,12 +129,9 @@ def showProductDates(prod_id):
         return render_template('test.html', categories=catList, productDates=prodDates, prodInfo=getProductInfo)
 
 
-
-@storeApp.route('/add/<string:prodDate_id>')
+@storeApp.route('/add/<string:prodDate_id>', methods=['POST', 'GET'])
 def addToCart(prodDate_id):
-    if 'email' in session:
-        userEmail = session['email']
-        addProduct(int(prodDate_id), userEmail)
+    if addProduct(int(prodDate_id), session):
         return storeHome()
     else:
         return storeHome()
@@ -163,3 +160,5 @@ def beforeFirstRequest():
 
 if __name__ == '__main__':
     storeApp.run(port=4995)#,host='0.0.0.0')
+
+

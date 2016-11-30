@@ -136,13 +136,10 @@ Designed to allow items to be in the center of the screen and keep the shoppingc
             {% block content %}
             {% endblock %}
         </div>
-        <div class="col-md-1">
-
-        </div>
         <!--
         This should be auto generated from database data and not as currently implemented with test data.
         -->
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="row">
                 <div class="well" style="margin-top: 20px;">
                 <li class="dropdown">
@@ -163,14 +160,17 @@ Designed to allow items to be in the center of the screen and keep the shoppingc
                         {% endfor %}
                     </ul>
                 </li>
-                    {% for product in cartProds %}
-                    <p>
-                        {{product.prodDateid}}
-                        {{product.name}}
-                        {{product.price}}
-                        {{product.amount}}
-                    </p>
-                    {% endfor %}
+                    <table class="table">
+                          {% for product in cartProds %}
+                      <tr>
+                        <td><a href="/more/{{product.prodID}}">{{ product.name[:8]}}...</a></td>
+                        <td>{{product.price}} kr</td>
+                        <td><span class="badge">{{product.amount}}</span></td>
+                          <td><a href="/remove/{{product.prodDateid}}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                      </tr>
+                          {% endfor %}
+                        </table>
+
                     </div>
             </div>
         </div>

@@ -165,12 +165,15 @@ def createUserCart(userEmail):
     mydb.end()
 
 
-def addProduct(prodDate_id, userEmail):
-    mydb = Database()
-    mydb.initialize()
-    userID = user.getUserID(userEmail, mydb)
-    shoppingCart.addToCart(userID, prodDate_id, mydb)
-    mydb.end()
+def addProduct(prodDate_id, session):
+    if 'cart' in session:
+        mydb = Database()
+        mydb.initialize()
+        shoppingCart.addToCart(session['cart'], prodDate_id, mydb)
+        mydb.end()
+        return True
+    else:
+        return False
 
 
 def getCarts(userEmail):
