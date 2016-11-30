@@ -41,6 +41,16 @@ class shoppingCart(object):
                           "storeDB.ProductDate", "storeDB.ProductDate.prodDateID", "shopping.prodDateID")
         return shoppingCart.insertProduct(mydb.cursor)
 
+    @staticmethod
+    def removeProductFromCart(prodDate_id, cartID, mydb):
+        mydb.startTransaction()
+        mydb.updateAnd("storeDB.shoppingProducts", "amount", "amount-1", "cartID", cartID, "prodDateID", prodDate_id)
+        if mydb.cursor.rowcount < 1:
+            mydb.deleteFromAnd("storeDB.shoppingProducts", "prodDateID", prodDate_id, "cartID", cartID)
+        mydb.update("storeDB.ProductDate", "quantity", "quantity+1", "prodDateID", prodDate_id)
+        mydb.commit()
+        mydb.deleteFromAnd("storeDB.shoppingProducts", "amount", 0, "cartID", cartID)
+        mydb.commit()
 
 class cartProduct(object):
 

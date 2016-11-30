@@ -3,11 +3,11 @@
 
 <div class="panel panel-default" style="margin-top: 20px;">
   <!-- Default panel contents -->
-  <div class="panel-heading">{{ prodInfo.name }}</div>
+  <div class="panel-heading">{{ dictionary.prodInfo.name }}</div>
   <div class="panel-body">
-    <p>BESKRIVNING: {{ prodInfo.description }}</p>
-      <p> PRIS: {{ prodInfo.price }}</p>
-      <p> BETYG: {{ prodInfo.grade }}</p>
+    <p>BESKRIVNING: {{ dictionary.prodInfo.description }}</p>
+      <p> PRIS: {{ dictionary.prodInfo.price }}</p>
+      <p> BETYG: {{ dictionary.prodInfo.grade }}</p>
   </div>
 
   <!-- Table -->
@@ -17,7 +17,7 @@
     <th>Slut tid</th>
     <th>Lägg till i varukorg</th>
   </tr>
-      {% for dateObject in productDates %}
+      {% for dateObject in dictionary.productDates %}
   <tr>
     <td>{{ dateObject.dateStart }}</td>
     <td>{{ dateObject.dateEnd }}</td>

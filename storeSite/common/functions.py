@@ -175,6 +175,12 @@ def addProduct(prodDate_id, session):
     else:
         return False
 
+def removeProduct(prodDate_id, session):
+    cartID = session['cart']
+    mydb = Database()
+    mydb.initialize()
+    shoppingCart.removeProductFromCart(prodDate_id, cartID, mydb)
+    mydb.end()
 
 def getCarts(userEmail):
     mydb = Database()

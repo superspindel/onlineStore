@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, session, redirect
 try:
     from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, \
-        getTimesAvaliable, SearchFor, getProduct, createUserCart, addProduct, getCarts, getCartProducts
+        getTimesAvaliable, SearchFor, getProduct, createUserCart, addProduct, getCarts, getCartProducts, removeProduct
 except:
     from storeSite.common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, \
-        getCategories, getTimesAvaliable, SearchFor, getProduct, createUserCart, addProduct, getCarts, getCartProducts
+        getCategories, getTimesAvaliable, SearchFor, getProduct, createUserCart, addProduct, getCarts, getCartProducts,\
+        removeProduct
 
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
@@ -16,12 +17,10 @@ Info: returns the home.html template
 """
 @storeApp.route('/')
 def storeHome():
-    catList = getCategories()
+    data = {'categories': getCategories()}
     if 'email' in session:
-        userEmail = session['email']
-        return render_template('home.html', userEmail=userEmail, categories=catList)
-    else:
-        return render_template('home.html', categories=catList)
+        data['userEmail'] = session['email']
+    return render_template('home.html', dictionary=data)
 
 
 """
@@ -32,12 +31,10 @@ objects in that category.
 """
 @storeApp.route('/Category/<string:cat_id>')
 def categories(cat_id):
-    catList = getCategories()
-    catalog = getSpecificCatalog(int(cat_id))
+    data = {'categories': getCategories(), 'catalog': getSpecificCatalog(int(cat_id))}
     if 'email' in session:
-        return render_template('generera.html', Database=catalog, categories=catList, userEmail=session['email'])
-    else:
-        return render_template('generera.html', Database=catalog, categories=catList)
+        data['userEmail'] = session['email']
+    return render_template('generera.html', dictionary=data)
 
 
 """
@@ -47,15 +44,15 @@ Info: Should get from database the data that matches the searchword in request.f
 """
 @storeApp.route('/search', methods=['POST', 'GET'])
 def search():
-    catList = getCategories()
+    data = {'categories': getCategories()}
     if request.method == 'GET':
         return storeHome()
     else:
-        searchResult = SearchFor(request.form['searchfield'])
+        data['searchResult'] = SearchFor(request.form['searchfield'])
         if 'email' in session:
-            return render_template('search.html', searchResult=searchResult, categories=catList, userEmail=session['email'])
-        else:
-            return render_template('search.html', searchResult=searchResult, categories=catList)
+            data['userEmail'] = session['email']
+        return render_template('search.html', dictionary=data)
+
 
 
 """
@@ -66,15 +63,15 @@ if post it uses the function chechUserLogin with the current request to see if t
 """
 @storeApp.route('/auth/login', methods=['POST', 'GET'])
 def login():
-    catList = getCategories()
+    data = {'categories': getCategories()}
     if request.method == 'GET':
-        return render_template('home.html')
+        return storeHome()
     else:
         if checkUserLogin(request):
             session['email'] = request.form['email']
-            return render_template('home.html', userEmail=session['email'], categories=catList)
-        else:
-            return render_template('home.html', categories=catList)
+            session['cart'] = getCarts(session['email'])[0]
+            data['userEmail'] = session['email']
+        return render_template('home.html', dictionary=data)
 
 
 
@@ -88,12 +85,12 @@ then closes the connection
 """
 @storeApp.route('/register', methods=['POST', 'GET'])
 def register():
-    catList = getCategories()
+    data = {'categories': getCategories()}
     if request.method == 'GET':
-        return render_template('register.html', register=False, categories=catList)
+        return render_template('register.html', dictionary=data)
     else:
         createUser(request)
-        return render_template('home.html', categories=catList)
+        return storeHome()
 
 
 """
@@ -103,30 +100,25 @@ Info: Test route for testing
 """
 @storeApp.route('/test')
 def test():
-    catList = getCategories()
-    carts = getCarts(session['email'])
-    cartProducts = getCartProducts(session['cart'])
-    return render_template('home.html', categories=catList, shoppingCarts=carts, userEmail=session['email'],
-                           cartProds=cartProducts)
+    data = {'categories': getCategories(), 'shoppingCarts': getCarts(session['email']),
+            'cartProds': getCartProducts(session['cart']), 'userEmail': session['email']}
+    return render_template('home.html', dictionary=data)
 
 
 @storeApp.route('/logout')
 def logout():
-    catList = getCategories()
+    data = {'categories': getCategories()}
     session.clear()
-    return render_template('home.html', categories=catList)
+    return render_template('home.html', dictionary=data)
 
 
 @storeApp.route('/more/<string:prod_id>')
 def showProductDates(prod_id):
-    catList = getCategories()
-    prodDates = getTimesAvaliable(int(prod_id))
-    getProductInfo = getProduct(int(prod_id))
+    data = {'categories': getCategories(), 'productDates': getTimesAvaliable(int(prod_id)),
+            'prodInfo': getProduct(int(prod_id))}
     if 'email' in session:
-        return render_template('test.html', categories=catList, productDates=prodDates, prodInfo=getProductInfo,
-                               userEmail=session['email'])
-    else:
-        return render_template('test.html', categories=catList, productDates=prodDates, prodInfo=getProductInfo)
+        data['userEmail'] = session['email']
+    return render_template('test.html', dictionary=data)
 
 
 @storeApp.route('/add/<string:prodDate_id>', methods=['POST', 'GET'])
@@ -134,16 +126,22 @@ def addToCart(prodDate_id):
     if addProduct(int(prodDate_id), session):
         return storeHome()
     else:
-        return storeHome()
+        session['product'] = prodDate_id
+        return createCart()
+
+@storeApp.route('/remove/<string:prodDate_id>', methods=['POST', 'GET'])
+def removeFromCart(prodDate_id):
+    removeProduct(int(prodDate_id), session)
+    return test()
 
 @storeApp.route('/createCart')
 def createCart():
     if 'email' in session:
-        userEmail = session['email']
-        createUserCart(userEmail)
-        return storeHome()
+        createUserCart(session['email'])
+        session['cart'] = getCarts(session['email'])[0]
+        return addToCart(session['product'])
     else:
-        return storeHome()
+        return register()
 
 @storeApp.route('/changeCart/<string:cart_ID>')
 def changeCart(cart_ID):

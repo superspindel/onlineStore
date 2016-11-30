@@ -77,3 +77,6 @@ class Database(object):
         sqlNestedSelect = "SELECT {} FROM {} WHERE {} = {} AND {} = (SELECT {} from {} where {} = {})"
         self.cursor.execute(sqlNestedSelect.format(parameters, table, value1, value2, value3, nestedParameters,
                                                    nestedTable, nestedValue1, nestedValue2))
+    def deleteFromAnd(self, table, value1, value2, value3, value4):
+        sqlDelete = "DELETE FROM {} WHERE {} = {} AND {} = {}"
+        self.cursor.execute(sqlDelete.format(table, value1, value2, value3, value4))

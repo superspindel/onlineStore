@@ -38,7 +38,7 @@ Login and register / logout should be the buttons available that change if user 
         <li class="active"><a href="#">Matlagning</a></li>
         <li><a href="#">Gården</a></li>
         -->
-          {% for category in categories %}
+          {% for category in dictionary.categories %}
             <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               {{ category.name }}
@@ -61,12 +61,12 @@ Login and register / logout should be the buttons available that change if user 
             </div>
       </form>
       <ul class="nav navbar-nav navbar-right">
-          {% if userEmail is defined %}
+          {% if dictionary.userEmail is defined %}
           <li>
               <a href="/logout">Log out</a>
           </li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ userEmail }} <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ dictionary.userEmail }} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Konto</a></li>
                     <li><a href="#">Ordrar</a></li>
@@ -151,7 +151,7 @@ Designed to allow items to be in the center of the screen and keep the shoppingc
                             </H6>
                     </a>
                     <ul class="dropdown-menu">
-                        {% for cartID in shoppingCarts %}
+                        {% for cartID in dictionary.shoppingCarts %}
                             <li>
                                 <a href="/changeCart/{{ cartID }}">
                                     {{ cartID }}
@@ -161,7 +161,7 @@ Designed to allow items to be in the center of the screen and keep the shoppingc
                     </ul>
                 </li>
                     <table class="table">
-                          {% for product in cartProds %}
+                          {% for product in dictionary.cartProds %}
                       <tr>
                         <td><a href="/more/{{product.prodID}}">{{ product.name[:8]}}...</a></td>
                         <td>{{product.price}} kr</td>

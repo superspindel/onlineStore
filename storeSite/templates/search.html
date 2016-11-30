@@ -5,7 +5,7 @@
         Produkter
     </H2>
 </center>
-{% for item in searchResult['products'] %}
+{% for item in dictionary.searchResult['products'] %}
         <p><a href="/more/{{item.prodID}}">{{ item.name }} </a></p>
 {% endfor %}
 
@@ -15,7 +15,7 @@
     </H2>
 </center>
 
-{% for subcategory in searchResult['subCategories'] %}
+{% for subcategory in dictionary.searchResult['subCategories'] %}
 
 <p><a href="/Category/{{ subcategory.catID }}">{{ subcategory.name }}</a></p>
 
