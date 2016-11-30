@@ -198,3 +198,27 @@ def getCartProducts(cartID=None):
     mydb = Database()
     mydb.initialize()
     return shoppingCart.getCart(cartID, mydb)
+
+
+def getDictionary(**kwargs):
+    data = {'categories': getCategories()}
+    try:
+        data['userEmail'] = kwargs['session']['email']
+        data['shoppingCarts'] = getCarts(kwargs['session']['email'])
+        data['cartProds'] = getCartProducts(kwargs['session']['cart'])
+    except:
+        pass
+    try:
+        data['catalog'] = getSpecificCatalog(kwargs['cat_id'])
+    except:
+        pass
+    try:
+        data['searchResult'] = SearchFor(kwargs['request'].form['searchfield'])
+    except:
+        pass
+    try:
+        data['productDates'] = getTimesAvaliable(kwargs['prod_id'])
+        data['prodInfo'] = getProduct(kwargs['prod_id'])
+    except:
+        pass
+    return data

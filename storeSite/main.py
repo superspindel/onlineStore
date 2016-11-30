@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, session, redirect
 try:
     from common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, getCategories, \
-        getTimesAvaliable, SearchFor, getProduct, createUserCart, addProduct, getCarts, getCartProducts, removeProduct
+        getTimesAvaliable, SearchFor, getProduct, createUserCart, addProduct, getCarts, getCartProducts, removeProduct,\
+        getDictionary
 except:
     from storeSite.common.functions import createUser, checkUserLogin, getfullCatalog, getSpecificCatalog, \
         getCategories, getTimesAvaliable, SearchFor, getProduct, createUserCart, addProduct, getCarts, getCartProducts,\
-        removeProduct
+        removeProduct, getDictionary
 
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
@@ -17,9 +18,7 @@ Info: returns the home.html template
 """
 @storeApp.route('/')
 def storeHome():
-    data = {'categories': getCategories()}
-    if 'email' in session:
-        data['userEmail'] = session['email']
+    data = getDictionary(session=session)
     return render_template('home.html', dictionary=data)
 
 
@@ -31,9 +30,7 @@ objects in that category.
 """
 @storeApp.route('/Category/<string:cat_id>')
 def categories(cat_id):
-    data = {'categories': getCategories(), 'catalog': getSpecificCatalog(int(cat_id))}
-    if 'email' in session:
-        data['userEmail'] = session['email']
+    data = getDictionary(session=session, cat_id=cat_id)
     return render_template('generera.html', dictionary=data)
 
 
@@ -44,13 +41,10 @@ Info: Should get from database the data that matches the searchword in request.f
 """
 @storeApp.route('/search', methods=['POST', 'GET'])
 def search():
-    data = {'categories': getCategories()}
+    data = getDictionary(session=session, request=request)
     if request.method == 'GET':
         return storeHome()
     else:
-        data['searchResult'] = SearchFor(request.form['searchfield'])
-        if 'email' in session:
-            data['userEmail'] = session['email']
         return render_template('search.html', dictionary=data)
 
 
@@ -63,15 +57,11 @@ if post it uses the function chechUserLogin with the current request to see if t
 """
 @storeApp.route('/auth/login', methods=['POST', 'GET'])
 def login():
-    data = {'categories': getCategories()}
-    if request.method == 'GET':
-        return storeHome()
-    else:
-        if checkUserLogin(request):
-            session['email'] = request.form['email']
-            session['cart'] = getCarts(session['email'])[0]
-            data['userEmail'] = session['email']
-        return render_template('home.html', dictionary=data)
+    if checkUserLogin(request):
+        session['email'] = request.form['email']
+        session['cart'] = getCarts(session['email'])[0]
+    data = getDictionary(session=session)
+    return render_template('home.html', dictionary=data)
 
 
 
@@ -85,12 +75,11 @@ then closes the connection
 """
 @storeApp.route('/register', methods=['POST', 'GET'])
 def register():
-    data = {'categories': getCategories()}
-    if request.method == 'GET':
-        return render_template('register.html', dictionary=data)
-    else:
+    data = getDictionary(session=session)
+    if request.method == 'POST':
         createUser(request)
-        return storeHome()
+    return render_template('register.html', dictionary=data)
+
 
 
 """
@@ -100,24 +89,20 @@ Info: Test route for testing
 """
 @storeApp.route('/test')
 def test():
-    data = {'categories': getCategories(), 'shoppingCarts': getCarts(session['email']),
-            'cartProds': getCartProducts(session['cart']), 'userEmail': session['email']}
+    data = getDictionary(session=session)
     return render_template('home.html', dictionary=data)
 
 
 @storeApp.route('/logout')
 def logout():
-    data = {'categories': getCategories()}
     session.clear()
+    data = getDictionary()
     return render_template('home.html', dictionary=data)
 
 
 @storeApp.route('/more/<string:prod_id>')
 def showProductDates(prod_id):
-    data = {'categories': getCategories(), 'productDates': getTimesAvaliable(int(prod_id)),
-            'prodInfo': getProduct(int(prod_id))}
-    if 'email' in session:
-        data['userEmail'] = session['email']
+    data = getDictionary(session=session, prod_id=int(prod_id))
     return render_template('test.html', dictionary=data)
 
 
