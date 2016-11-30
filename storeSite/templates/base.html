@@ -141,6 +141,7 @@ Designed to allow items to be in the center of the screen and keep the shoppingc
         -->
         <div class="col-md-3">
             <div class="row">
+                {% if dictionary.shoppingCarts is defined %}
                 <div class="well" style="margin-top: 20px;">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -172,6 +173,7 @@ Designed to allow items to be in the center of the screen and keep the shoppingc
                         </table>
 
                     </div>
+                {% endif %}
             </div>
         </div>
     </div>
