@@ -54,6 +54,7 @@ def getDictionary(**kwargs):
         data['userEmail'] = kwargs['session']['email']
         data['shoppingCarts'] = shoppingCart.getCarts(kwargs['session']['email'])
         data['cartProds'] = shoppingCart.getCartProducts(kwargs['session']['cart'])
+        data['activeCart'] = kwargs['session']['cart']
     except:
         pass
     try:
