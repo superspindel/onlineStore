@@ -152,6 +152,6 @@ def beforeFirstRequest():
     session.permanent = False
 
 if __name__ == '__main__':
-    storeApp.run(port=4995)#,host='0.0.0.0')
+    storeApp.run(port=4995, host='0.0.0.0')
 
 
