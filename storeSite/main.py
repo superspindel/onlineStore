@@ -84,8 +84,7 @@ def login():
             session['cart'] = shoppingCart.getCarts(session['email'])[0]
         except:
             pass
-    data = getDictionary(session=session)
-    return render_template('home.html', dictionary=data)
+    return redirect(request.referrer)
 
 
 
@@ -120,8 +119,7 @@ def test():
 @storeApp.route('/logout')
 def logout():
     session.clear()
-    data = getDictionary()
-    return render_template('home.html', dictionary=data)
+    return redirect(request.referrer)
 
 
 @storeApp.route('/more/<string:prod_id>')
@@ -150,7 +148,10 @@ def createCart():
     if 'email' in session:
         user.createUserCart(session['email'])
         session['cart'] = shoppingCart.getCarts(session['email'])[0]
-        return addToCart(session['product'])
+        if 'product' in session:
+            return addToCart(session['product'])
+        else:
+            return redirect(request.referrer)
     else:
         return register()
 
