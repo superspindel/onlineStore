@@ -17,7 +17,7 @@ import hashlib
 
 class review(object):
     def __init__(self, reviewID, userID, title, Description, grade, approved, prodID):
-        self.reviewID = str(randint(1, 2147483646)) if userID is None else reviewID
+        self.reviewID = str(randint(1, 2147483646)) if reviewID is None else reviewID
         self.userID = userID
         self.title = title
         self.Description = Description
@@ -40,8 +40,8 @@ class review(object):
     Info: Returns an appropriate string to insert into the database for a user
     """
     def format(self):
-        return (self.reviewID+","+"\""+self.userID+"\""+","+"\""+str(self.title)+"\""+","+"\""+str(self.Description)+"\""+","+str(self.grade)+","
-                + "\"" + str(self.approved) + "\"" + ","+"\""+str(self.prodID))
+        return (str(self.reviewID)+","+"\""+str(self.userID)+"\""+","+"\""+self.title+"\""+","+"\""+self.Description+"\""+","+str(self.grade)+","
+                + "\"" + str(self.approved) + "\"" + ","+""+str(self.prodID))
 				
     def fetchReviews(prodID):
         selectWhere("title, Description, grade", "reviews", "prodID", prodID)
@@ -50,6 +50,6 @@ class review(object):
         mydb = Database()
         mydb.initialize()
         newReview = review(reviewID=None, userID=user.getUserID(session['email'], mydb), title=request.form['titel'], Description=request.form['beskrivning'],
-        grade=request.form['grade'], approved=True, prodID=data)
+        grade=request.form['grade'], approved=1, prodID=data)
         newReview.addReview(mydb)
         mydb.end()
