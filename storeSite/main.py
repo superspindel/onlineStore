@@ -2,19 +2,23 @@ from flask import Flask, render_template, request, session
 try:
     from common.functions import SearchFor, getDictionary
 except:
-    from storeSite.common.functions import SearchFor, getDictionary
+    from common.functions import SearchFor, getDictionary
 try:
-    from storeSite.common.user import user
+    from common.user import user
 except:
     from common.user import user
 try:
     from common.shoppingCart import shoppingCart
 except:
-    from storeSite.common.shoppingCart import shoppingCart
+    from common.shoppingCart import shoppingCart
 try:
     from common.product import product
 except:
     from storeSite.common.product import product
+try:
+    from storeSite.common.review import review
+except:
+    from common.review import review
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
 
@@ -41,6 +45,14 @@ def categories(cat_id):
     return render_template('generera.html', dictionary=data)
 
 
+@storeApp.route('/Review/<int:prodID>', methods=['POST'])
+def Review(prodID):
+	if 'email' in session:
+		review.createReview(request, data = prodID, session=session)
+		return storeHome()
+	else:
+		return register()
+	
 """
 Function name: search
 Input variables:
