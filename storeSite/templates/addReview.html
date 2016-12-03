@@ -1,0 +1,28 @@
+{% block content %}
+<div class="row well register">
+        <form id="register-form" action="/Review/{{dictionary.prodInfo.prodID}}" method="POST" class="form-horizontal">
+            <div class="form-group">
+                <label for="name">Titel</label>
+                <input type="titel" id="titel" name="titel" class="form-control" placeholder="Titel">
+            </div>
+            <div class="form-group">
+                <label for="email">Beskrivning</label>
+                <input type="beskrivning" id="beskrivning" name="beskrivning" class="form-control" placeholder="Lägg till beskrivning här">
+            </div>
+			Grade:
+			<div class="form-group" name="grade" id = "grade" action="results.html" method='POST'>
+				<select name="grade">	
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="1">3</option>
+					<option value="2">4</option>
+					<option value="1">5</option>
+				</select>
+			</div>
+			<button type="submit" id="submit-button" class="btn btn-success">Add review</button>
+        </form>
+</div>
+
+
+
+{% endblock %}
