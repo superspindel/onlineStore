@@ -1,5 +1,4 @@
 from random import randint
-from datetime import date
 try:
     from storeSite.common.formCheck import formCheck
 except:
@@ -12,7 +11,7 @@ try:
     from common.user import user
 except:
     from common.user import user
-import hashlib
+
 
 
 class review(object):
@@ -32,6 +31,7 @@ class review(object):
     """
     def addReview(self, database):
         database.insert("reviews", self.format())
+        print (self.format())
         database.commit()
 
     """
@@ -40,7 +40,7 @@ class review(object):
     Info: Returns an appropriate string to insert into the database for a user
     """
     def format(self):
-        return (str(self.reviewID)+","+"\""+str(self.userID)+"\""+","+"\""+self.title+"\""+","+"\""+self.Description+"\""+","+str(self.grade)+","
+        return (str(self.reviewID)+","+str(self.userID)+","+"\""+self.title+"\""+","+"\""+self.Description+"\""+","+str(self.grade)+","
                 + "\"" + str(self.approved) + "\"" + ","+""+str(self.prodID))
 				
     def fetchReviews(prodID):

@@ -87,7 +87,9 @@ class shoppingCart(object):
         if 'cart' in session:
             mydb = Database()
             mydb.initialize()
-            shoppingCart.addToCart(session['cart'], prodDate_id, mydb)
+            mydb.selectWhere("storeDB.ProductDate.quantity", "storeDB.ProductDate", "prodDateID", prodDate_id)
+            if mydb.cursor.fetchone()[0] > 0:
+                shoppingCart.addToCart(session['cart'], prodDate_id, mydb)
             mydb.end()
             return True
         else:

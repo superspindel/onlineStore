@@ -1,14 +1,14 @@
 from flask import Flask, render_template, request, session
 try:
-    from common.functions import SearchFor, getDictionary
+    from storeSite.common.functions import SearchFor, getDictionary
 except:
     from common.functions import SearchFor, getDictionary
 try:
-    from common.user import user
+    from storeSite.common.user import user
 except:
     from common.user import user
 try:
-    from common.shoppingCart import shoppingCart
+    from storeSite.common.shoppingCart import shoppingCart
 except:
     from common.shoppingCart import shoppingCart
 try:
@@ -78,7 +78,10 @@ if post it uses the function chechUserLogin with the current request to see if t
 def login():
     if user.checkUserLogin(request):
         session['email'] = request.form['email']
-        session['cart'] = shoppingCart.getCarts(session['email'])[0]
+        try:
+            session['cart'] = shoppingCart.getCarts(session['email'])[0]
+        except:
+            pass
     data = getDictionary(session=session)
     return render_template('home.html', dictionary=data)
 
