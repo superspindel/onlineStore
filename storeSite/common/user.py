@@ -12,10 +12,10 @@ import hashlib
 
 
 class user(object):
-    def __init__(self, name, email, password, zip, address, city, country, phone, ssn, userID):
+    def __init__(self, name, email, password, zip, address, city, country, phone, ssn, userID, newUser = True, balance = None):
         self.name = name
         self.email = email
-        self.password = (hashlib.sha1(password.encode()).hexdigest())
+        self.password = (hashlib.sha1(password.encode()).hexdigest()) if newUser is None else password
         self.zip = zip
         self.address = address
         self.city = city
@@ -25,7 +25,7 @@ class user(object):
         self.ssn = ssn
         self.userID = str(random.randint(1, 2147483646)) if userID is None else userID
         self.registrationDate = date.today()
-        self.balance = "0.0"
+        self.balance = 0.0 if balance is None else balance
 
     """
     Function name: controllUser
@@ -64,10 +64,9 @@ class user(object):
         mydb = Database()
         mydb.initialize()
         newUser = user(name=request.form['name'], email=request.form['email'], password=request.form['password'],
-                       ssn=request.form['ssn'],
-                       zip=request.form['ZIP'], address=request.form['address'], city=request.form['city'],
-                       country=request.form['country'],
-                       phone=request.form['phone'], userID=None)
+                       ssn=request.form['ssn'], zip=request.form['ZIP'], address=request.form['address'],
+                       city=request.form['city'], country=request.form['country'], phone=request.form['phone'],
+                       userID=None)
         newUser.registerUser(mydb)
         mydb.end()
 
@@ -76,7 +75,7 @@ class user(object):
         mydb = Database()
         userEmail = request.form['email']
         mydb.initialize()
-        mydb.selectWhere("password", "User", "email", "\"" + userEmail + "\"")
+        mydb.selectWhere("password", "storeDB.User", "email", "\"" + userEmail + "\"")
         try:
             dbpassword = mydb.cursor.fetchone()[0]
         except:
@@ -93,3 +92,16 @@ class user(object):
         mydb.insert("storeDB.shoppingcart", str(random.randint(1, 2147483647)) + "," + str(userID))
         mydb.commit()
         mydb.end()
+
+    @staticmethod
+    def getAccountInfo(userEmail):
+        mydb = Database()
+        mydb.initialize()
+        mydb.selectWhere("*", "storeDB.User as user", "email", '"'+ userEmail +'"')
+        for userID, email, password, name, zip, adress, city, country, phone, userLevel, registrationDate, \
+            ssn, accountBalance in mydb.cursor :
+            accountUser = user(name, email, password, zip, adress, city, country, phone, ssn, userID, False, accountBalance)
+        return accountUser
+
+
+

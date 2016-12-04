@@ -70,4 +70,8 @@ def getDictionary(**kwargs):
         data['prodInfo'] = product.getProduct(kwargs['prod_id'])
     except:
         pass
+    try:
+        data['user'] = user.getAccountInfo(kwargs['accountEmail'])
+    except:
+        pass
     return data

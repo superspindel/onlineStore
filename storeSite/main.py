@@ -159,7 +159,14 @@ def createCart():
 @storeApp.route('/changeCart/<string:cart_ID>')
 def changeCart(cart_ID):
     session['cart'] = cart_ID
-    return test()
+    return redirect(request.referrer)
+
+
+@storeApp.route('/account')
+def accountPage():
+    data = getDictionary(session=session, accountEmail = session['email'])
+    return render_template('konto.html', dictionary = data)
+
 """
 Function name: beforeFirstRequest
 Input variables:
