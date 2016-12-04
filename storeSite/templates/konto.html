@@ -1,132 +1,454 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row well-sm login">
-	<div class="row register">
-		<div class="panel panel-default">
+{% if dictionary.user %}
+<div class="col-md-11">
+	<div class="row well-sm account">
+		<div class="row account">
 			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Namn
-					</h3>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Namn
+						</h3>
+					</div>
+					<div class="panel-body">
+						{{dictionary.user.name}}
+						<span style="float:right;">
+							<a data-toggle="modal" data-target="#nameModal">
+								<span class="glyphicon glyphicon-pencil">
+
+								</span>
+							</a>
+						</span>
+						{% with error = get_flashed_messages(category_filter=["name"]) %}
+							{% if error %}
+								{% for msg in error %}
+									<i style="color: red;">
+										{{ msg }}
+									</i>
+								{% endfor %}
+							{% endif %}
+						{% endwith %}
+					</div>
 				</div>
-				<div class="panel-body">
-					{{dictionary.user.name}}
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Email
+						</h3>
+					</div>
+					<div class="panel-body">
+						{{dictionary.user.email}}
+						<span style="float:right;">
+							<a data-toggle="modal" data-target="#emailModal">
+								<span class="glyphicon glyphicon-pencil">
+
+								</span>
+							</a>
+						</span>
+						{% with error = get_flashed_messages(category_filter=["email"]) %}
+							{% if error %}
+								{% for msg in error %}
+									<i style="color: red;">
+										{{ msg }}
+									</i>
+								{% endfor %}
+							{% endif %}
+						{% endwith %}
+					</div>
 				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Email
-					</h3>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Adress
+						</h3>
+					</div>
+					<div class="panel-body">
+						{{dictionary.user.address}}
+										<span style="float:right;">
+							<a data-toggle="modal" data-target="#adressModal">
+								<span class="glyphicon glyphicon-pencil">
+
+								</span>
+							</a>
+						</span>
+						{% with error = get_flashed_messages(category_filter=["adress"]) %}
+							{% if error %}
+								{% for msg in error %}
+									<i style="color: red;">
+										{{ msg }}
+									</i>
+								{% endfor %}
+							{% endif %}
+						{% endwith %}
+					</div>
 				</div>
-				<div class="panel-body">
-					{{dictionary.user.email}}
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							ZIP
+						</h3>
+					</div>
+					<div class="panel-body">
+						{{dictionary.user.zip}}
+						<span style="float:right;">
+							<a data-toggle="modal" data-target="#zipModal">
+								<span class="glyphicon glyphicon-pencil">
+
+								</span>
+							</a>
+						</span>
+						{% with error = get_flashed_messages(category_filter=["zip"]) %}
+							{% if error %}
+								{% for msg in error %}
+									<i style="color: red;">
+										{{ msg }}
+									</i>
+								{% endfor %}
+							{% endif %}
+						{% endwith %}
+					</div>
 				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Adress
-					</h3>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Stad
+						</h3>
+					</div>
+					<div class="panel-body">
+						{{dictionary.user.city}}
+						<span style="float:right;">
+							<a data-toggle="modal" data-target="#cityModal">
+								<span class="glyphicon glyphicon-pencil">
+
+								</span>
+							</a>
+						</span>
+						{% with error = get_flashed_messages(category_filter=["city"]) %}
+							{% if error %}
+								{% for msg in error %}
+									<i style="color: red;">
+										{{ msg }}
+									</i>
+								{% endfor %}
+							{% endif %}
+						{% endwith %}
+					</div>
 				</div>
-				<div class="panel-body">
-					{{dictionary.user.address}}
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Land
+						</h3>
+					</div>
+					<div class="panel-body">
+						{{dictionary.user.country}}
+						<span style="float:right;">
+							<a data-toggle="modal" data-target="#countryModal">
+								<span class="glyphicon glyphicon-pencil">
+
+								</span>
+							</a>
+						</span>
+						{% with error = get_flashed_messages(category_filter=["country"]) %}
+							{% if error %}
+								{% for msg in error %}
+									<i style="color: red;">
+										{{ msg }}
+									</i>
+								{% endfor %}
+							{% endif %}
+						{% endwith %}
+					</div>
 				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Stad
-					</h3>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Telefonnr
+						</h3>
+					</div>
+					<div class="panel-body">
+						{{dictionary.user.phone}}
+						<span style="float:right;">
+							<a data-toggle="modal" data-target="#phoneModal">
+								<span class="glyphicon glyphicon-pencil">
+
+								</span>
+							</a>
+						</span>
+						{% with error = get_flashed_messages(category_filter=["phone"]) %}
+							{% if error %}
+								{% for msg in error %}
+									<i style="color: red;">
+										{{ msg }}
+									</i>
+								{% endfor %}
+							{% endif %}
+						{% endwith %}
+					</div>
 				</div>
-				<div class="panel-body">
-					{{dictionary.user.city}}
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Land
-					</h3>
-				</div>
-				<div class="panel-body">
-					{{dictionary.user.country}}
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Telefonnr
-					</h3>
-				</div>
-				<div class="panel-body">
-					{{dictionary.user.phone}}
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Personnummer
-					</h3>
-				</div>
-				<div class="panel-body">
-					{{dictionary.user.ssn}}
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Personnummer
+						</h3>
+					</div>
+					<div class="panel-body">
+						{{dictionary.user.ssn}}
+						<span style="float:right;">
+							<a data-toggle="modal" data-target="#ssnModal">
+								<span class="glyphicon glyphicon-pencil">
+
+								</span>
+							</a>
+						</span>
+						{% with error = get_flashed_messages(category_filter=["ssn"]) %}
+							{% if error %}
+								{% for msg in error %}
+									<i style="color: red;">
+										{{ msg }}
+									</i>
+								{% endfor %}
+							{% endif %}
+						{% endwith %}
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-    <div class="col-md-7 well">
-        <form class="form-inline" id="konto-form" action="/konto" method="post">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Konto
-					</h3>
+		<div class="col-md-7 well">
+			<form class="form-inline" id="konto-form" action="/konto" method="post">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Konto
+						</h3>
+					</div>
+					<div class="panel-body">
+						{{dictionary.user.balance}}
+					</div>
 				</div>
-				<div class="panel-body">
-					{{dictionary.user.balance}}
+				<div class="form-group">
+					<h5>
+						Kort Nummer
+					</h5>
+					<label class="sr-only" for="Kortnr">
+						Kort Nummer
+					</label>
+					<input type="Kortnr" id="Kortnr" name="Kortnr" class="form-control" placeholder="xxxx-xxxx-xxxx-xxxx">
 				</div>
-			</div>
-            <div class="form-group">
-				<h5>
-					Kort Nummer
-				</h5>
-                <label class="sr-only" for="Kortnr">
-					Kort Nummer
-				</label>
-                <input type="Kortnr" id="Kortnr" name="Kortnr" class="form-control" placeholder="xxxx-xxxx-xxxx-xxxx">
-            </div>
-            <div class="form-group">
-				<h5>
-					OCR Nummer
-				</h5>
-                <label class="sr-only" for="Ocr-nummer">
-					OCR-nummer
-				</label>
-                <input type="Ocr-nummer" id="Ocr-nummer" name="Ocr-nummer" class="form-control" placeholder="xxx">
-            </div>
-			<div class="form-group">
-				<h5>
-					Utgångs Datum
-				</h5>
-				<label class ="sr-only" for="month">
-					Månad
-				</label>
-				<input type="Month" id="Month" name="Month" class="form-control" placeholder="Månad">
-			</div>
-			<div class="form-group">
-				<h5>
-					Insättning
-				</h5>
-				<label class ="sr-only" for="Amount">
-					Kronor
-				</label>
-				<input type="Amount" id="Amount" name="Amount" class="form-control" placeholder="Kronor">
-			</div>
-			<button type="submit" id="submit-button" class="btn btn-success btn-xs login">
-				Sätt in
-			</button>
-		</form>
+				<div class="form-group">
+					<h5>
+						OCR Nummer
+					</h5>
+					<label class="sr-only" for="Ocr-nummer">
+						OCR-nummer
+					</label>
+					<input type="Ocr-nummer" id="Ocr-nummer" name="Ocr-nummer" class="form-control" placeholder="xxx">
+				</div>
+				<div class="form-group">
+					<h5>
+						Utgångs Datum
+					</h5>
+					<label class ="sr-only" for="month">
+						Månad
+					</label>
+					<input type="Month" id="Month" name="Month" class="form-control" placeholder="Månad">
+				</div>
+				<div class="form-group">
+					<h5>
+						Insättning
+					</h5>
+					<label class ="sr-only" for="Amount">
+						Kronor
+					</label>
+					<input type="Amount" id="Amount" name="Amount" class="form-control" placeholder="Kronor">
+				</div>
+				<button type="submit" id="submit-button" class="btn btn-success btn-xs login">
+					Sätt in
+				</button>
+			</form>
+		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="emailLabel">Ny Email</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='/change/email' name="email_form">
+                    <p>
+                        <input type="text" class="span3" name="email" id="email" placeholder="Ny email">
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-inverse">Ändra</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="nameModal" tabindex="-1" role="dialog" aria-labelledby="nameModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="nameLabel">Nytt namn</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='/change/name' name="name_form">
+                    <p>
+                        <input type="text" class="span3" name="name" id="name" placeholder="Nytt namn">
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-inverse">Ändra</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="adressModal" tabindex="-1" role="dialog" aria-labelledby="adressModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="adressLabel">Ny adress</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='/change/adress' name="adress_form">
+                    <p>
+                        <input type="text" class="span3" name="adress" id="adress" placeholder="Ny adress">
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-inverse">Ändra</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cityModal" tabindex="-1" role="dialog" aria-labelledby="cityModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">
+						&times;
+					</span>
+				</button>
+                <h4 class="modal-title" id="cityLabel">
+					Ny stad
+				</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='/change/city' name="city_form">
+                    <p>
+                        <input type="text" class="span3" name="city" id="city" placeholder="Ny stad">
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-inverse">Ändra</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="countryModal" tabindex="-1" role="dialog" aria-labelledby="countryModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="countryLabel">Nytt land</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='/change/country' name="country_form">
+                    <p>
+                        <input type="text" class="span3" name="country" id="country" placeholder="Nytt land">
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-inverse">Ändra</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="phoneModal" tabindex="-1" role="dialog" aria-labelledby="phoneModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="phoneLabel">Nytt telefonnummer</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='/change/phone' name="email_form">
+                    <p>
+                        <input type="text" class="span3" name="phone" id="phone" placeholder="Nytt telefonnummer">
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-inverse">Ändra</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ssnModal" tabindex="-1" role="dialog" aria-labelledby="ssnModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ssnLabel">Nytt personnummer</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='/change/ssn' name="email_form">
+                    <p>
+                        <input type="text" class="span3" name="ssn" id="ssn" placeholder="Nytt personnummer">
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-inverse">Ändra</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="zipModal" tabindex="-1" role="dialog" aria-labelledby="zipModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;
+					</span>
+				</button>
+                <h4 class="modal-title" id="zipLabel">
+					Ny zip
+				</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='/change/zip' name="zip_form">
+                    <p>
+                        <input type="text" class="span3" name="zip" id="zip" placeholder="Ny zip">
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-inverse">Ändra</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}
+

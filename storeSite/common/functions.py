@@ -71,7 +71,8 @@ def getDictionary(**kwargs):
     except:
         pass
     try:
-        data['user'] = user.getAccountInfo(kwargs['accountEmail'])
+        if kwargs['accountInfo']:
+            data['user'] = user.getAccountInfo(kwargs['session']['email'])
     except:
         pass
     return data

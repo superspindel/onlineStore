@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 from urllib.parse import urlparse, urljoin
 from flask import request, url_for
 try:
@@ -119,7 +119,10 @@ def test():
 @storeApp.route('/logout')
 def logout():
     session.clear()
-    return redirect(request.referrer)
+    try:
+        return redirect(request.referrer)
+    except:
+        return storeHome()
 
 
 @storeApp.route('/more/<string:prod_id>')
@@ -164,8 +167,14 @@ def changeCart(cart_ID):
 
 @storeApp.route('/account')
 def accountPage():
-    data = getDictionary(session=session, accountEmail = session['email'])
+    data = getDictionary(session=session, accountInfo = True)
     return render_template('konto.html', dictionary = data)
+
+@storeApp.route('/change/<string:column>', methods=['POST', 'GET'])
+def changeAccount(column):
+    if not user.change(column, session, request.form[column]):
+        flash("Gick inte att genomföra byte av "+column, category=column)
+    return redirect(request.referrer)
 
 """
 Function name: beforeFirstRequest
@@ -177,5 +186,5 @@ def beforeFirstRequest():
     session.permanent = False
 
 if __name__ == '__main__':
-    storeApp.run(port=4995, host='0.0.0.0')
+    storeApp.run(port=4995)#, host='0.0.0.0')
 

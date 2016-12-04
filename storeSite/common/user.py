@@ -103,5 +103,21 @@ class user(object):
             accountUser = user(name, email, password, zip, adress, city, country, phone, ssn, userID, False, accountBalance)
         return accountUser
 
+    @staticmethod
+    def change(column, session, setValue):
+        mydb = Database()
+        mydb.initialize()
+        try:
+            mydb.update("storeDB.User", column, "'"+setValue+"'", "email", "'"+session['email']+"'")
+            if column == "email":
+                session['email'] = setValue
+            mydb.commit()
+            mydb.end()
+            return True
+        except:
+            mydb.commit()
+            mydb.end()
+            return False
+
 
 
