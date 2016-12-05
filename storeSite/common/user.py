@@ -107,17 +107,35 @@ class user(object):
     def change(column, session, setValue):
         mydb = Database()
         mydb.initialize()
+        success = False
         try:
             mydb.update("storeDB.User", column, "'"+setValue+"'", "email", "'"+session['email']+"'")
             if column == "email":
                 session['email'] = setValue
-            mydb.commit()
-            mydb.end()
-            return True
+            success = True
         except:
+            pass
+        mydb.commit()
+        mydb.end()
+        return success
+
+    @staticmethod
+    def addMoney(session, request):
+        mydb = Database()
+        mydb.initialize()
+        success = 0
+        if      (request.form['Month'] is None or request.form['Month']== "") or \
+                (request.form['OCR'] is None or request.form['OCR']== "") or \
+                (request.form['cardnumber'] is None or request.form['cardnumber']== ""):
             mydb.commit()
             mydb.end()
-            return False
-
-
-
+            return 1
+        try:
+            mydb.update("storeDB.User", "accountBalance", "accountBalance+"+str(request.form['Amount']), "email", "'"+session['email']+
+                        "'")
+            success = 2
+        except:
+            pass
+        mydb.commit()
+        mydb.end()
+        return success

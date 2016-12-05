@@ -166,10 +166,19 @@ def changeCart(cart_ID):
     return redirect(request.referrer)
 
 
-@storeApp.route('/account')
+@storeApp.route('/account', methods=['POST', 'GET'])
 def accountPage():
+    if request.method == 'POST':
+        depositSuccess = user.addMoney(session, request)
+        if depositSuccess == 0:
+            flash("Går inte att överföra pengar för tillfället", category="money")
+        elif depositSuccess == 1:
+            flash("Var vänlig fyll i all viktig information", category="money")
+        else:
+            flash("Insättning genomförd", category="money")
     data = getDictionary(session=session, accountInfo = True)
     return render_template('konto.html', dictionary = data)
+
 
 @storeApp.route('/change/<string:column>', methods=['POST', 'GET'])
 def changeAccount(column):

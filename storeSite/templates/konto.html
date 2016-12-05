@@ -216,7 +216,7 @@
 			</div>
 		</div>
 		<div class="col-md-7 well">
-			<form class="form-inline" id="konto-form" action="/konto" method="post">
+			<form class="form-inline" id="konto-form" action="/account" method="post">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
@@ -231,19 +231,19 @@
 					<h5>
 						Kort Nummer
 					</h5>
-					<label class="sr-only" for="Kortnr">
+					<label class="sr-only" for="cardnumber">
 						Kort Nummer
 					</label>
-					<input type="Kortnr" id="Kortnr" name="Kortnr" class="form-control" placeholder="xxxx-xxxx-xxxx-xxxx">
+					<input type="number" id="cardnumber" name="cardnumber" class="form-control" placeholder="xxxx-xxxx-xxxx-xxxx">
 				</div>
 				<div class="form-group">
 					<h5>
 						OCR Nummer
 					</h5>
-					<label class="sr-only" for="Ocr-nummer">
+					<label class="sr-only" for="OCR">
 						OCR-nummer
 					</label>
-					<input type="Ocr-nummer" id="Ocr-nummer" name="Ocr-nummer" class="form-control" placeholder="xxx">
+					<input type="number" id="OCR" name="OCR" class="form-control" placeholder="xxx">
 				</div>
 				<div class="form-group">
 					<h5>
@@ -261,12 +261,21 @@
 					<label class ="sr-only" for="Amount">
 						Kronor
 					</label>
-					<input type="Amount" id="Amount" name="Amount" class="form-control" placeholder="Kronor">
+					<input type="number" id="Amount" name="Amount" class="form-control" placeholder="Kronor">
 				</div>
 				<button type="submit" id="submit-button" class="btn btn-success btn-xs login">
 					Sätt in
 				</button>
 			</form>
+			{% with error = get_flashed_messages(category_filter=["money"]) %}
+				{% if error %}
+					{% for msg in error %}
+						<i style="color: red;">
+							{{ msg }}
+						</i>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
 		</div>
 	</div>
 </div>
