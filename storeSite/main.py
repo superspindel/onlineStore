@@ -134,6 +134,7 @@ def showProductDates(prod_id):
 @storeApp.route('/add/<string:prodDate_id>', methods=['POST', 'GET'])
 def addToCart(prodDate_id):
     if shoppingCart.addProduct(int(prodDate_id), session):
+        session.pop('product', None)
         return redirect(request.referrer)
     else:
         session['product'] = prodDate_id
@@ -174,6 +175,16 @@ def accountPage():
 def changeAccount(column):
     if not user.change(column, session, request.form[column]):
         flash("Gick inte att genomföra byte av "+column, category=column)
+    return redirect(request.referrer)
+
+
+@storeApp.route('/delete/<int:cart_id>')
+def removeCart(cart_id):
+    shoppingCart.removeCart(cart_id)
+    try:
+        session['cart'] = shoppingCart.getCarts(session['email'])[0]
+    except:
+        session.pop('cart', None)
     return redirect(request.referrer)
 
 """

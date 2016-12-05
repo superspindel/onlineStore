@@ -95,6 +95,24 @@ class shoppingCart(object):
         else:
             return False
 
+    @staticmethod
+    def removeCart(cart_id):
+        mydb = Database()
+        mydb.initialize()
+        mydb.startTransaction()
+        prodList = []
+        mydb.selectWhere("storeDB.shoppingProducts.prodDateID, storeDB.shoppingProducts.amount",
+                         "storeDB.shoppingProducts", "cartID", cart_id)
+        for prodDateID, amount in mydb.cursor:
+            prodList.append([prodDateID, amount])
+        for prodDateID, amount in prodList:
+            mydb.update("storeDB.ProductDate", "quantity", "quantity+"+str(amount), "prodDateID", prodDateID)
+        mydb.deleteFrom("storeDB.shoppingProducts", "cartID", cart_id)
+        mydb.deleteFrom("storeDB.shoppingcart", "cartID", cart_id)
+        mydb.commit()
+        mydb.end()
+
+
 class cartProduct(object):
 
     def __init__(self, name, prodDateid, price, amount, prodID):

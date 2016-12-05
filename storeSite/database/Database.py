@@ -80,3 +80,7 @@ class Database(object):
     def deleteFromAnd(self, table, value1, value2, value3, value4):
         sqlDelete = "DELETE FROM {} WHERE {} = {} AND {} = {}"
         self.cursor.execute(sqlDelete.format(table, value1, value2, value3, value4))
+
+    def deleteFrom(self, table, value1, value2):
+        sqlDelete = "DELETE FROM {} WHERE {} = {}"
+        self.cursor.execute(sqlDelete.format(table, value1, value2))
