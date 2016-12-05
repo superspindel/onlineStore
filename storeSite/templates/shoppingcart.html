@@ -1,0 +1,43 @@
+<div class="row">
+                {% if dictionary.shoppingCarts is defined %}
+                <div class="well" style="margin-top: 20px;">
+                    {% if dictionary.activeCart is defined %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {{ dictionary.activeCart }}
+                        <span class="caret">
+
+                        </span>
+                    </a>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-remove" style="float:right;">
+
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for cartID in dictionary.shoppingCarts %}
+                            <li>
+                                <a href="/changeCart/{{ cartID }}">
+                                    {{ cartID }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                    {% else %}
+                            <H6>SHOPPINGCART</H6>
+                            {% endif %}
+                    <table class="table">
+                          {% for product in dictionary.cartProds %}
+                      <tr>
+                        <td><a href="/more/{{product.prodID}}" title="{{ product.name }}">{{ product.name[:8]}}...</a></td>
+                        <td>{{product.price}} kr</td>
+                        <td><span class="badge">{{product.amount}}</span></td>
+                          <td><a href="/remove/{{product.prodDateid}}" title="REMOVE"><span class="glyphicon glyphicon-trash"></span></a></td>
+                      </tr>
+                          {% endfor %}
+                        </table>
+
+                    </div>
+                {% endif %}
+</div>
