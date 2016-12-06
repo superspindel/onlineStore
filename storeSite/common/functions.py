@@ -22,7 +22,10 @@ try:
     from common.shoppingCart import shoppingCart, cartProduct
 except:
     from storeSite.common.shoppingCart import shoppingCart, cartProduct
-
+try:
+    from common.review import review
+except:
+    from common.review import review
 
 """
 Function name: createUser
@@ -71,13 +74,13 @@ def getDictionary(**kwargs):
     except:
         pass
     try:
-        if kwargs['accountInfo']:
-            data['user'] = user.getAccountInfo(kwargs['session']['email'])
+        data['reviewList'] = review.fetchReviews(kwargs['prod_id'], kwargs['session'])
+        data['myReviews'] = review.fetchMyReviews(kwargs['prod_id'], kwargs['session'])
     except:
         pass
     try:
-        data['reviewList'] = review.fetchReviews(kwargs['prod_id'], kwargs['session'])
-        data['myReviews'] = review.fetchMyReviews(kwargs['prod_id'], kwargs['session'])
+        if kwargs['accountInfo']:
+            data['user'] = user.getAccountInfo(kwargs['session']['email'])
     except:
         pass
     return data
