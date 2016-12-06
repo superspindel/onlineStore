@@ -23,7 +23,7 @@
     <td>{{ dateObject.dateEnd }}</td>
     <td>
         <a href="/add/{{ dateObject.prodDateID }}" type="GET">
-            <button type="button">
+            <button type="button"> 
                 <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">
                 </span>
             </button>
@@ -33,7 +33,7 @@
       {% endfor %}
 </table>
 </div>
-
 {% include "addReview.html" %}
+{% include "showReviews.html" %}
 
 {% endblock %}
