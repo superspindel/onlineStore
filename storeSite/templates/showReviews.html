@@ -1,0 +1,30 @@
+{% block content %}
+<div class="row well register">
+	{% for myReview in dictionary.myReviews %}
+	<div class="row well register">
+    <div class="thumbnail">
+		<div class="caption" id="review">
+        <h3 class="title">{{ myReview.title }}</h3>
+        <p class="description">{{ myReview.Description }}</p>
+		<p class="price">Grade: {{myReview.grade}}</p>
+		<td><a href="/removeReview/{{myReview.reviewID}}/{{dictionary.prodInfo.prodID}}"><span class="glyphicon glyphicon-trash"></span></a></td>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+<div class="row well register">
+	{% for review in dictionary.reviewList %}
+	<div class="row well register">
+    <div class="thumbnail">
+		<div class="caption" id="review">
+        <h3 class="title">{{ review.title }}</h3>
+        <p class="description">{{ review.Description }}</p>
+		<p class="price">Grade: {{review.grade}}</p>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}
