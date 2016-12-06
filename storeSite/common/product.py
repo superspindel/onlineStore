@@ -16,6 +16,7 @@ class product():
         self.numbOfGrades = numbOfGrades
         self.dateAdded = dateAdded
         self.catID = catID
+        self.picture = None
 
     def format(self):
         return (str(self.prodID)+","+"\""+self.name+"\""+","+"\""+self.description+"\""+","+str(self.price)+","+str(self.salePrice)+","
@@ -35,8 +36,10 @@ class product():
         catalog = []
         for (prodID, name, description, price, salePrice, grade, numbOfGrades,
              dateAdded, catID) in cursor:
-            catalog.append(product(prodID, name, description, price, salePrice, grade, numbOfGrades,
-                                   dateAdded, catID))
+            thisProduct = product(prodID, name, description, price, salePrice, grade, numbOfGrades,
+                                   dateAdded, catID)
+            thisProduct.getPicture()
+            catalog.append(thisProduct)
         return catalog
 
     @staticmethod
@@ -53,3 +56,8 @@ class product():
         catalog = product.createCatalog(mydb.cursor)
         mydb.end()
         return catalog[0]
+
+    def getPicture(self):
+        mydb = Database()
+        mydb.selectWhere("storeDB.Images.imageSource", "storeDB.Images", "storeDB.Images.prodID", self.prodID)
+        self.picture = mydb.cursor.fetchone()[0]

@@ -5,7 +5,7 @@
   {% for item in dictionary.catalog %}
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="/static/images/disk.jpg" style="min-height:150px;height:150px;min-width:181px;width:181px;" id="lol">
+      <img src="/static/images/{{ item.picture }}" style="min-height:150px;height:150px;min-width:181px;width:181px;" id="lol">
       <div class="caption" id="product">
         <h3 class="title">{{ item.name }}</h3>
         <p class="description">{{ item. description }}</p>
