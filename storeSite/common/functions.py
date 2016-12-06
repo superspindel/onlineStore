@@ -75,4 +75,9 @@ def getDictionary(**kwargs):
             data['user'] = user.getAccountInfo(kwargs['session']['email'])
     except:
         pass
+    try:
+        data['reviewList'] = review.fetchReviews(kwargs['prod_id'], kwargs['session'])
+        data['myReviews'] = review.fetchMyReviews(kwargs['prod_id'], kwargs['session'])
+    except:
+        pass
     return data
