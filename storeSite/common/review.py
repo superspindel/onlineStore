@@ -1,6 +1,4 @@
 from random import randint
-from datetime import date
-
 try:
     from storeSite.common.formCheck import formCheck
 except:
@@ -17,6 +15,12 @@ try:
     from common.product import product
 except:
     from storeSite.common.product import product
+
+    from common.user import user
+try:
+    from common.product import product
+except:
+    from common.product import product
 
 
 

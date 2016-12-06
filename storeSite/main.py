@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
-from urllib.parse import urlparse, urljoin
 from flask import request, url_for
 try:
     from storeSite.common.functions import SearchFor, getDictionary, getAdminDict
@@ -59,7 +58,8 @@ def Review(prodID):
 @storeApp.route('/removeReview/<int:reviewID>/<string:prodID>', methods=['POST', 'GET'])
 def removeFromReviews(reviewID, prodID):
     review.removeReview(reviewID, session, prodID)
-    return redirect(request.referrer)
+    return showProductDates(prodID)
+
 """
 Function name: search
 Input variables:
