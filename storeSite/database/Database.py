@@ -5,16 +5,10 @@ class Database(object):
     cursor = None
     connection = None
 
-    """
-    Function name: initialize
-    Input variables: self
-    Info: Creates the connection to the database and sets the connection and cursor variable
-    """
-    def initialize(self):
+    def __init__(self):
         self.connection = mysql.connector.connect(user='storeserver', password='password123',
                                                   host='79.136.28.49', database='storeDB')
         self.cursor = self.connection.cursor(buffered=True)
-
     """
     Function name: end
     Input variables: self
@@ -84,3 +78,11 @@ class Database(object):
     def deleteFrom(self, table, value1, value2):
         sqlDelete = "DELETE FROM {} WHERE {} = {}"
         self.cursor.execute(sqlDelete.format(table, value1, value2))
+
+    def selectWhereAnd(self, parameter, table, value1, value2, value3, value4):
+        sqlSelectWhereAnd = "SELECT {} FROM {} WHERE {} = {} AND {} = {}"
+        self.cursor.execute(sqlSelectWhereAnd.format(parameter, table, value1, value2, value3, value4))
+
+    def selectWhereAndNot(self, parameter, table, value1, value2, value3, value4):
+        sqlSelectWhereAnd = "SELECT {} FROM {} WHERE {} = {} AND {} <> {}"
+        self.cursor.execute(sqlSelectWhereAnd.format(parameter, table, value1, value2, value3, value4))

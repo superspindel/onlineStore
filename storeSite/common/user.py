@@ -62,7 +62,6 @@ class user(object):
     @staticmethod
     def createUser(request):
         mydb = Database()
-        mydb.initialize()
         newUser = user(name=request.form['name'], email=request.form['email'], password=request.form['password'],
                        ssn=request.form['ssn'], zip=request.form['ZIP'], address=request.form['address'],
                        city=request.form['city'], country=request.form['country'], phone=request.form['phone'],
@@ -74,7 +73,6 @@ class user(object):
     def checkUserLogin(request):
         mydb = Database()
         userEmail = request.form['email']
-        mydb.initialize()
         mydb.selectWhere("password", "storeDB.User", "email", "\"" + userEmail + "\"")
         try:
             dbpassword = mydb.cursor.fetchone()[0]
@@ -87,7 +85,6 @@ class user(object):
     @staticmethod
     def createUserCart(userEmail):
         mydb = Database()
-        mydb.initialize()
         userID = user.getUserID(userEmail, mydb)
         mydb.insert("storeDB.shoppingcart", str(random.randint(1, 2147483647)) + "," + str(userID))
         mydb.commit()
@@ -96,17 +93,22 @@ class user(object):
     @staticmethod
     def getAccountInfo(userEmail):
         mydb = Database()
-        mydb.initialize()
         mydb.selectWhere("*", "storeDB.User as user", "email", '"'+ userEmail +'"')
+        userInfo = user.getUserList(mydb.cursor)[0]
+        mydb.end()
+        return userInfo
+
+    @staticmethod
+    def getUserList(cursor):
+        userList = []
         for userID, email, password, name, zip, adress, city, country, phone, userLevel, registrationDate, \
-            ssn, accountBalance in mydb.cursor :
-            accountUser = user(name, email, password, zip, adress, city, country, phone, ssn, userID, False, accountBalance)
-        return accountUser
+            ssn, accountBalance in cursor :
+            userList.append(user(name, email, password, zip, adress, city, country, phone, ssn, userID, False, accountBalance))
+        return userList
 
     @staticmethod
     def change(column, session, setValue):
         mydb = Database()
-        mydb.initialize()
         success = False
         try:
             mydb.update("storeDB.User", column, "'"+setValue+"'", "email", "'"+session['email']+"'")
@@ -122,7 +124,6 @@ class user(object):
     @staticmethod
     def addMoney(session, request):
         mydb = Database()
-        mydb.initialize()
         success = 0
         if      (request.form['Month'] is None or request.form['Month']== "") or \
                 (request.form['OCR'] is None or request.form['OCR']== "") or \
@@ -139,3 +140,19 @@ class user(object):
         mydb.commit()
         mydb.end()
         return success
+
+    @staticmethod
+    def isAdmin(session):
+        mydb = Database()
+        mydb.selectWhere("storeDB.User.userLevel", "storeDB.User", "email", '"'+session['email']+'"')
+        if mydb.cursor.fetchone()[0] > 4:
+            return True
+        return False
+
+    @staticmethod
+    def GetAllUsers():
+        mydb = Database()
+        mydb.select("*", "storeDB.User")
+        userList = user.getUserList(mydb.cursor)
+        mydb.end()
+        return userList

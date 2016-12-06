@@ -13,7 +13,6 @@ class prodDate(object):
     @staticmethod
     def getTimesAvaliable(prodID):
         mydb = Database()
-        mydb.initialize()
         mydb.selectWhereAndLargerThenZero("storeDB.ProductDate.dateStart, storeDB.ProductDate.dateEnd, " +
                                           "storeDB.ProductDate.prodDateID", "storeDB.ProductDate",
                                           "storeDB.ProductDate.prodID", prodID, "quantity")

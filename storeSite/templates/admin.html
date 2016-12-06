@@ -1,0 +1,109 @@
+{% extends "adminBase.html" %}
+{% block content %}
+{% if dictionary.products %}
+<table class="table" style="color: white;">
+    <tr>
+        <th>Produktens ID nummer</th>
+        <th>Namn</th>
+        <th>Beskrivning</th>
+        <th>Pris</th>
+        <th>Reapris</th>
+        <th>Betyg</th>
+        <th>Antal recensioner</th>
+        <th>Datum tillagd</th>
+        <th>Kategori ID</th>
+    </tr>
+    {% for product in dictionary.products %}
+        <tr>
+            <td>{{ product.prodID }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description[:8] }}...</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.salePrice }}</td>
+            <td>{{ product.grade }}</td>
+            <td>{{ product.numbOfGrades }}</td>
+            <td>{{ product.dateAdded }}</td>
+            <td>{{ product.catID }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if dictionary.categories %}
+<table class="table" style="color: white;">
+    <tr>
+        <th>Överkategory</th>
+        <th>Underkategori</th>
+        <th>Underkategorins ID</th>
+    </tr>
+    {% for category in dictionary.categories %}
+        {% for subcategory in category.subCategories%}
+            <tr>
+                <td>{{ category.name }}</td>
+                <td>{{ subcategory[0] }}</td>
+                <td>{{ subcategory[1] }}</td>
+            </tr>
+        {% endfor %}
+    {% endfor %}
+</table>
+{% endif %}
+
+
+{% if dictionary.users %}
+<table class="table" style="color: white;">
+    <tr>
+        <th>Produktens ID nummer</th>
+        <th>Namn</th>
+        <th>Beskrivning</th>
+        <th>Pris</th>
+        <th>Reapris</th>
+        <th>Betyg</th>
+        <th>Antal recensioner</th>
+        <th>Datum tillagd</th>
+        <th>Kategori ID</th>
+    </tr>
+    {% for product in dictionary.products %}
+        <tr>
+            <td>{{ product.prodID }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description[:8] }}...</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.salePrice }}</td>
+            <td>{{ product.grade }}</td>
+            <td>{{ product.numbOfGrades }}</td>
+            <td>{{ product.dateAdded }}</td>
+            <td>{{ product.catID }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if dictionary.shoppingCarts %}
+<table class="table" style="color: white;">
+    <tr>
+        <th>Produktens ID nummer</th>
+        <th>Namn</th>
+        <th>Beskrivning</th>
+        <th>Pris</th>
+        <th>Reapris</th>
+        <th>Betyg</th>
+        <th>Antal recensioner</th>
+        <th>Datum tillagd</th>
+        <th>Kategori ID</th>
+    </tr>
+    {% for product in dictionary.products %}
+        <tr>
+            <td>{{ product.prodID }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description[:8] }}...</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.salePrice }}</td>
+            <td>{{ product.grade }}</td>
+            <td>{{ product.numbOfGrades }}</td>
+            <td>{{ product.dateAdded }}</td>
+            <td>{{ product.catID }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

@@ -11,8 +11,8 @@ except:
 class Category(object):
     def __init__(self, name, subCategories=None, catID=None):
         self.name = name
-        self.subCategories = None if subCategories is None else subCategories
-        self.catID = None if catID is None else catID
+        self.subCategories = subCategories
+        self.catID = catID
 
     def formatSubCategories(self):
         self.subCategories = self.subCategories.split(",")
@@ -25,7 +25,6 @@ class Category(object):
     @staticmethod
     def getSpecificCatalog(data):
         mydb = Database()
-        mydb.initialize()
         mydb.selectWhere("*", "storeDB.Product", "catID", int(data))
         catalog = product.createCatalog(mydb.cursor)
         mydb.end()
@@ -34,7 +33,6 @@ class Category(object):
     @staticmethod
     def getCategories():
         mydb = Database()
-        mydb.initialize()
         mydb.selectGroup("storeDB.categories.name", "storeDB.subCategories.name," + "\"" + ":" + "\"" +
                          ",storeDB.subCategories.subCatID", "storeDB.categories, storeDB.subCategories",
                          "storeDB.categories.catID", "storeDB.subCategories.catID")
@@ -49,10 +47,10 @@ class Category(object):
     @staticmethod
     def searchForSubCategories(value):
         mydb = Database()
-        mydb.initialize()
         subSearch = []
         mydb.search("storeDB.subCategories.name, storeDB.subCategories.subCatID", "storeDB.subCategories", "name",
                     value)
         for (name, subCatID) in mydb.cursor:
             subSearch.append(Category(catID=subCatID, name=name))
+        mydb.end()
         return subSearch

@@ -25,14 +25,8 @@ class product():
     @staticmethod
     def getfullCatalog():
         mydb = Database()
-        mydb.initialize()
         mydb.select("*", "storeDB.Product")
-        catalog = []
-        for (prodID, name, description, price, salePrice, grade, numbOfGrades,
-             dateAdded, catID) in mydb.cursor:
-            newProd = product(prodID, name, description, price, salePrice, grade, numbOfGrades,
-                              dateAdded, catID)
-            catalog.append(newProd)
+        catalog = product.createCatalog(mydb.cursor)
         mydb.end()
         return catalog
 
@@ -48,7 +42,6 @@ class product():
     @staticmethod
     def searchForProducts(value):
         mydb = Database()
-        mydb.initialize()
         mydb.search("*", "storeDB.Product", "name", value)
         prodSearch = product.createCatalog(mydb.cursor)
         return prodSearch
@@ -56,7 +49,6 @@ class product():
     @staticmethod
     def getProduct(prodID):
         mydb = Database()
-        mydb.initialize()
         mydb.selectWhere("*", "storeDB.Product", "prodID", int(prodID))
         catalog = product.createCatalog(mydb.cursor)
         mydb.end()

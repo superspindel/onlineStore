@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HRH</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+</head>
+<body>
+<!--
+Static menu bar at the top of the site with Home button,
+categories to be generated from data sent from the database,
+login/register button aswell as a profile button.
+
+Login and register / logout should be the buttons available that change if user is logged in or not.
+-->
+<div class="row">
+    <div class="col-md-3">
+    {% include "adminLeftSide.html" %}
+    </div>
+    <div class="col-md-6">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div class="col-md-3">
+    {% include "adminRightSide.html" %}
+    </div>
+</div>
+</body>
+</html>

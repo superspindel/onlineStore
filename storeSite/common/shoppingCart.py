@@ -11,8 +11,9 @@ import random
 
 class shoppingCart(object):
 
-    def __init__(self, cartID):
+    def __init__(self, cartID, userID):
         self.cartID = cartID
+        self.userID = userID
 
     @staticmethod
     def insertProduct(cursor):
@@ -60,14 +61,12 @@ class shoppingCart(object):
     def removeProduct(prodDate_id, session):
         cartID = session['cart']
         mydb = Database()
-        mydb.initialize()
         shoppingCart.removeProductFromCart(prodDate_id, cartID, mydb)
         mydb.end()
 
     @staticmethod
     def getCarts(userEmail):
         mydb = Database()
-        mydb.initialize()
         userID = user.getUserID(userEmail, mydb)
         carts = []
         mydb.selectWhere("storeDB.shoppingcart.cartID", "storeDB.shoppingcart", "userID", userID)
@@ -79,14 +78,12 @@ class shoppingCart(object):
     @staticmethod
     def getCartProducts(cartID=None):
         mydb = Database()
-        mydb.initialize()
         return shoppingCart.getCart(cartID, mydb)
 
     @staticmethod
     def addProduct(prodDate_id, session):
         if 'cart' in session:
             mydb = Database()
-            mydb.initialize()
             mydb.selectWhere("storeDB.ProductDate.quantity", "storeDB.ProductDate", "prodDateID", prodDate_id)
             if mydb.cursor.fetchone()[0] > 0:
                 shoppingCart.addToCart(session['cart'], prodDate_id, mydb)
@@ -98,7 +95,6 @@ class shoppingCart(object):
     @staticmethod
     def removeCart(cart_id):
         mydb = Database()
-        mydb.initialize()
         mydb.startTransaction()
         prodList = []
         mydb.selectWhere("storeDB.shoppingProducts.prodDateID, storeDB.shoppingProducts.amount",
@@ -111,6 +107,21 @@ class shoppingCart(object):
         mydb.deleteFrom("storeDB.shoppingcart", "cartID", cart_id)
         mydb.commit()
         mydb.end()
+
+    @staticmethod
+    def cartList(cursor):
+        cartList = []
+        for cartID, userID in cursor:
+            cartList.append(shoppingCart(cartID, userID))
+        return cartList
+
+    @staticmethod
+    def getAllCarts():
+        mydb = Database()
+        mydb.select("*", "storeDB.shoppingcart")
+        cartList = shoppingCart.cartList(mydb.cursor)
+        mydb.end()
+        return cartList
 
 
 class cartProduct(object):

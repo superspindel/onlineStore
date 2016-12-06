@@ -5,7 +5,6 @@ import datetime
 
 def insertProducts(categoryID, name, description, price, salePrice, timevariable, prodDate, prodID, prodDateID, quantity):
     mydb = Database()
-    mydb.initialize()
     table = "Product"
     newProduct = product(prodID, name, description,
                          price, salePrice, 0.0, 0, datetime.date.today(), categoryID)
@@ -22,7 +21,6 @@ def insertProducts(categoryID, name, description, price, salePrice, timevariable
 def createCategory(categoryID, name):
     mydb = Database()
     table = "categories"
-    mydb.initialize()
     mydb.insert(table, str(categoryID)+","+"\""+name+"\"")
     mydb.end()
 
@@ -30,7 +28,6 @@ def createCategory(categoryID, name):
 def createSubCategory(subCatID, nameList, catID):
     mydb = Database()
     table = "subCategories"
-    mydb.initialize()
     i = subCatID
     for name in nameList:
         mydb.insert(table, "\""+name+"\""+","+str(catID)+","+str(i))

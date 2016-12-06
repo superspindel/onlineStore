@@ -22,6 +22,10 @@ try:
     from common.shoppingCart import shoppingCart, cartProduct
 except:
     from storeSite.common.shoppingCart import shoppingCart, cartProduct
+try:
+    from storeSite.common.review import review
+except:
+    from common.review import review
 
 
 """
@@ -39,6 +43,17 @@ Selects from the database the password of the user who is trying to log in, from
 get the password, then rehashes the password from the request, closes the database connection and then returns a boolean depending
 on if the password is correct.
 """
+def getAdminDict(**kwargs):
+    data = {}
+    if kwargs['select'] == 'products':
+        data['products'] = product.getfullCatalog()
+    if kwargs['select'] == 'categories':
+        data['categories'] = Category.getCategories()
+    if kwargs['select'] == 'users':
+        data['users'] = user.GetAllUsers()
+    if kwargs['select'] == 'shoppingCarts':
+        data['shoppingCarts'] = shoppingCart.getAllCarts()
+    return data
 
 
 def SearchFor(value):
@@ -73,6 +88,11 @@ def getDictionary(**kwargs):
     try:
         if kwargs['accountInfo']:
             data['user'] = user.getAccountInfo(kwargs['session']['email'])
+    except:
+        pass
+    try:
+        data['reviewList'] = review.fetchReviews(kwargs['prod_id'], kwargs['session'])
+        data['myReviews'] = review.fetchMyReviews(kwargs['prod_id'], kwargs['session'])
     except:
         pass
     return data

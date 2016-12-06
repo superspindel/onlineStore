@@ -2,9 +2,9 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 from urllib.parse import urlparse, urljoin
 from flask import request, url_for
 try:
-    from storeSite.common.functions import SearchFor, getDictionary
+    from storeSite.common.functions import SearchFor, getDictionary, getAdminDict
 except:
-    from common.functions import SearchFor, getDictionary
+    from common.functions import SearchFor, getDictionary, getAdminDict
 try:
     from storeSite.common.user import user
 except:
@@ -47,14 +47,19 @@ def categories(cat_id):
     return render_template('generera.html', dictionary=data)
 
 
-@storeApp.route('/Review/<int:prodID>', methods=['POST'])
+@storeApp.route('/Review/<int:prodID>', methods=['POST', 'GET'])
 def Review(prodID):
-	if 'email' in session:
-		review.createReview(request, data = prodID, session=session)
-		return storeHome()
-	else:
-		return register()
-	
+    if 'email' in session:
+        review.createReview(request, data = prodID, session=session)
+        return showProductDates(prodID)
+    else:
+        return register()
+
+
+@storeApp.route('/removeReview/<int:reviewID>/<string:prodID>', methods=['POST', 'GET'])
+def removeFromReviews(reviewID, prodID):
+    review.removeReview(reviewID, session, prodID)
+    return redirect(request.referrer)
 """
 Function name: search
 Input variables:
@@ -196,6 +201,28 @@ def removeCart(cart_id):
         session.pop('cart', None)
     return redirect(request.referrer)
 
+
+
+"""
+    ADMIN SITES
+"""
+
+@storeApp.route('/Admin')
+def adminHome():
+    if user.isAdmin(session):
+        session['isAdmin'] = True
+        return render_template("adminBase.html")
+    return storeHome()
+
+@storeApp.route('/Admin/<string:activity>')
+def adminSelect(activity):
+    adminDictionary = getAdminDict(select=activity)
+    if 'isAdmin' in session or user.isAdmin(session):
+        return render_template("admin.html", dictionary=adminDictionary)
+    return storeHome()
+
+
+
 """
 Function name: beforeFirstRequest
 Input variables:
@@ -207,4 +234,7 @@ def beforeFirstRequest():
 
 if __name__ == '__main__':
     storeApp.run(port=4995)#, host='0.0.0.0')
+
+
+
 
