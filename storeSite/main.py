@@ -51,10 +51,15 @@ def categories(cat_id):
 def Review(prodID):
 	if 'email' in session:
 		review.createReview(request, data = prodID, session=session)
-		return storeHome()
+		return showProductDates(prodID)
 	else:
 		return register()
-	
+
+@storeApp.route('/removeReview/<int:reviewID>/<string:prodID>', methods=['POST', 'GET'])
+def removeFromReviews(reviewID, prodID):
+    review.removeReview(reviewID, session, prodID)
+    return showProductDates(prodID)		
+
 """
 Function name: search
 Input variables:
