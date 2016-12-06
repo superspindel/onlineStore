@@ -47,6 +47,14 @@ class Database(object):
     def selectWhere(self, parameter, table, value1, value2):
         sqlSelectWhere = "SELECT {} FROM {} WHERE {} = {}"
         self.cursor.execute(sqlSelectWhere.format(parameter, table, value1, value2))
+		
+    def selectWhereAnd(self, parameter, table, value1, value2, value3, value4):
+        sqlSelectWhereAnd = "SELECT {} FROM {} WHERE {} = {} AND {} = {}"
+        self.cursor.execute(sqlSelectWhereAnd.format(parameter, table, value1, value2, value3, value4))
+    
+    def selectWhereAndNot(self, parameter, table, value1, value2, value3, value4):
+        sqlSelectWhereAnd = "SELECT {} FROM {} WHERE {} = {} AND {} <> {}"
+        self.cursor.execute(sqlSelectWhereAnd.format(parameter, table, value1, value2, value3, value4))
 
     def selectWhereAndLargerThenZero(self, parameter, table, value1, value2, value3):
         selectWhereAndLargerThenZero = "SELECT {} FROM {} where {} = {} AND {} > 0"
