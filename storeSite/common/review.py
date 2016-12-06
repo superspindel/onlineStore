@@ -90,10 +90,10 @@ class review(object):
             mydb.update("storeDB.Product", "numbOfGrades", "numbOfGrades+1", "prodID", prodID)
             finalGrade = (float(newProd.numbOfGrades) * float(newProd.grade) + float(reviewObject.grade)) / (float(newProd.numbOfGrades)+1)
         elif switch == 2:
-            mydb.update("storeDB.Product", "numbOfGrades", "numbOfGrades-1", "prodID", prodID)
             if newProd.numbOfGrades == 0:
                 finalGrade = 0.0
             else:
+                mydb.update("storeDB.Product", "numbOfGrades", "numbOfGrades-1", "prodID", prodID)
                 finalGrade = (newProd.numbOfGrades * newProd.grade - reviewObject.grade) / (newProd.numbOfGrades-1)
         mydb.startTransaction()
         mydb.update("storeDB.Product", "grade", finalGrade, "prodID", prodID)
