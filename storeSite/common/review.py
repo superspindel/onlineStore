@@ -56,28 +56,33 @@ class review(object):
             self.grade) + ","
                 + "\"" + str(self.approved) + "\"" + "," + "" + str(self.prodID))
 
+
+    @staticmethod
+    def getReviewList(cursor):
+        reviewList = []
+        for reviewID, userID, title, Description, grade, approved, prodID in cursor:
+            reviewList.append(review(reviewID, userID, title, Description, grade, approved, prodID))
+        return reviewList
+
+    @staticmethod
     def fetchReviews(prodID, session):
         mydb = Database()
-        reviewList = []
         currentUserID = user.getUserID(session['email'], mydb)
         mydb.selectWhereAndNot("*", "storeDB.reviews", "prodID", prodID, "userID", currentUserID)
-        for reviewID, userID, title, Description, grade, approved, prodID in mydb.cursor:
-            newReview = review(reviewID, userID, title, Description, grade, approved, prodID)
-            reviewList.append(newReview)
+        reviewList = review.getReviewList(mydb.cursor)
         mydb.end()
         return reviewList
 
+    @staticmethod
     def fetchMyReviews(prodID, session):
         mydb = Database()
-        reviewList = []
         currentUserID = user.getUserID(session['email'], mydb)
         mydb.selectWhereAnd("*", "storeDB.reviews", "userID", currentUserID, "prodID", prodID)
-        for reviewID, userID, title, Description, grade, approved, prodID in mydb.cursor:
-            newReview = review(reviewID, userID, title, Description, grade, approved, prodID)
-            reviewList.append(newReview)
+        reviewList = review.getReviewList(mydb.cursor)
         mydb.end()
         return reviewList
 
+    @staticmethod
     def removeReview(reviewID, session, prodID):
         mydb = Database()
         mydb.selectWhere("*", "storeDB.reviews", "reviewID", reviewID)
@@ -88,6 +93,7 @@ class review(object):
         review.updateGrade(prodID, mydb, newReview, 2)
         mydb.end()
 
+    @staticmethod
     def updateGrade(prodID, mydb, reviewObject, switch):
         mydb.selectWhere("*", "Product", "prodID", prodID)
         for (productID, name, description, price, salePrice, grade, numbOfGrades, dateAdded, catID) in mydb.cursor:
@@ -106,6 +112,7 @@ class review(object):
         mydb.update("storeDB.Product", "grade", finalGrade, "prodID", prodID)
         mydb.commit()
 
+    @staticmethod
     def createReview(request, data, session):
         mydb = Database()
         mydb.startTransaction()
@@ -116,3 +123,11 @@ class review(object):
         mydb.commit()
         review.updateGrade(data, mydb, newReview, 1)
         mydb.end()
+
+    @staticmethod
+    def getAllReviews():
+        mydb = Database()
+        mydb.select("*", "storeDB.reviews")
+        reviewList = review.getReviewList(mydb.cursor)
+        mydb.end()
+        return reviewList

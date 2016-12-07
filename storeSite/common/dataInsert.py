@@ -1,5 +1,11 @@
-from storeSite.database.Database import Database
-from storeSite.common.product import product
+try:
+    from storeSite.database.Database import Database
+except:
+    from database.Database import Database
+try:
+    from storeSite.common.product import product
+except:
+    from common.product import product
 import datetime
 
 

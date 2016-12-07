@@ -1,0 +1,59 @@
+{% with error = get_flashed_messages(category_filter=["product"]) %}
+<div class="modal fade" id="createProductModal" tabindex="-1" role="dialog" aria-labelledby="createProductModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;
+					</span>
+				</button>
+                <h4 class="modal-title" id="createProductLabel">
+					Ny produkt
+				</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='/Admin/create/product' name="product_form" id="product_form">
+                    <p>
+                        <input type="text" class="span3" name="prodID" id="prodID" placeholder="ID">
+                    </p>
+                    <p>
+                        <input type="text" class="span3" name="prodName" id="prodName" placeholder="Namn">
+                    </p>
+                    <p>
+                        <input type="text" class="span3" name="prodDesc" id="prodDesc" placeholder="Beskrivning">
+                    </p>
+                    <p>
+                        <input type="text" class="span3" name="prodPrice" id="prodPrice" placeholder="Pris">
+                    </p>
+                    <p>
+                        <input type="text" class="span3" name="prodSale" id="prodSale" placeholder="Reapris">
+                    </p>
+                    <p>
+                        <input type="text" class="span3" name="catID" id="catID" placeholder="Kategori ID">
+                    </p>
+                    <p>
+                        {% if error %}
+                            {% for msg in error %}
+                                <i style="color: red;">
+                                    {{ msg }}
+                                </i>
+                            {% endfor %}
+                        {% endif %}
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-inverse">Lägg till</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if error %}
+<script>
+$(document).ready(function(){
+$("#createProductModal").modal("show");
+});
+</script>
+{% endif %}
+{% endwith %}

@@ -3,10 +3,12 @@ try:
 except:
     from storeSite.database.Database import Database
 
+import datetime
+
 class product():
 
-    def __init__(self, prodID, name, description, price, salePrice, grade, numbOfGrades,
-                 dateAdded, catID):
+    def __init__(self, prodID, name, description, price, salePrice, catID, picture = None,
+                 dateAdded=datetime.date.today(), numbOfGrades=0, grade=0):
         self.prodID = prodID
         self.name = name
         self.description = description
@@ -16,12 +18,18 @@ class product():
         self.numbOfGrades = numbOfGrades
         self.dateAdded = dateAdded
         self.catID = catID
-        self.picture = None
+        self.picture = picture
 
     def format(self):
         return (str(self.prodID)+","+"\""+self.name+"\""+","+"\""+self.description+"\""+","+str(self.price)+","+str(self.salePrice)+","
                 + str(self.grade) + ","+str(self.numbOfGrades)+","+"\""+str(self.dateAdded)+"\""
                 + ","+str(self.catID))
+
+    def insert(self):
+        mydb = Database()
+        mydb.insert("storeDB.Product", self.format())
+        mydb.commit()
+        mydb.end()
 
     @staticmethod
     def getfullCatalog():
@@ -60,4 +68,7 @@ class product():
     def getPicture(self):
         mydb = Database()
         mydb.selectWhere("storeDB.Images.imageSource", "storeDB.Images", "storeDB.Images.prodID", self.prodID)
-        self.picture = mydb.cursor.fetchone()[0]
+        try:
+            self.picture = mydb.cursor.fetchone()[0]
+        except:
+            self.picture = "83712837218.jpg"

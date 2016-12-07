@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from flask import request, url_for
 try:
-    from storeSite.common.functions import SearchFor, getDictionary, getAdminDict
+    from storeSite.common.functions import SearchFor, getDictionary, getAdminDict, createFunction
 except:
-    from common.functions import SearchFor, getDictionary, getAdminDict
+    from common.functions import SearchFor, getDictionary, getAdminDict, createFunction
 try:
     from storeSite.common.user import user
 except:
@@ -214,12 +214,26 @@ def adminHome():
         return render_template("adminBase.html")
     return storeHome()
 
-@storeApp.route('/Admin/<string:activity>')
+@storeApp.route('/Admin/view/<string:activity>')
 def adminSelect(activity):
     adminDictionary = getAdminDict(select=activity)
-    if 'isAdmin' in session or user.isAdmin(session):
+    if user.isAdmin(session):
         return render_template("admin.html", dictionary=adminDictionary)
     return storeHome()
+
+@storeApp.route('/Admin/create/<string:activity>', methods=['POST', 'GET'])
+def create(activity):
+    if user.isAdmin(session):
+        if request.method == 'POST':
+            if createFunction(choice=activity, request=request):
+                flash("Insättning genomförd av " + activity, category=activity)
+            else:
+                flash("Gick inte att genomföra insättning av " + activity, category=activity)
+        return redirect(request.referrer)
+    else:
+        return storeHome()
+
+
 
 
 

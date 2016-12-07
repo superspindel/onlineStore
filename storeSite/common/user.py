@@ -12,19 +12,20 @@ import hashlib
 
 
 class user(object):
-    def __init__(self, name, email, password, zip, address, city, country, phone, ssn, userID, newUser = True, balance = None):
+    def __init__(self, name, email, password, zip, address, city, country, phone, ssn, userID, userLevel = None,
+                 regDate = None, newUser = True, balance = None):
         self.name = name
         self.email = email
-        self.password = (hashlib.sha1(password.encode()).hexdigest()) if newUser is None else password
+        self.password = (hashlib.sha1(password.encode()).hexdigest()) if newUser else password
         self.zip = zip
         self.address = address
         self.city = city
         self.country = country
         self.phone = phone
-        self.userLvl = "1"
+        self.userLvl = "1" if userLevel is None else userLevel
         self.ssn = ssn
         self.userID = str(random.randint(1, 2147483646)) if userID is None else userID
-        self.registrationDate = date.today()
+        self.registrationDate = date.today() if regDate is None else regDate
         self.balance = 0.0 if balance is None else balance
 
     """
@@ -103,7 +104,9 @@ class user(object):
         userList = []
         for userID, email, password, name, zip, adress, city, country, phone, userLevel, registrationDate, \
             ssn, accountBalance in cursor :
-            userList.append(user(name, email, password, zip, adress, city, country, phone, ssn, userID, False, accountBalance))
+            userList.append(user(name=name, email=email, password=password, zip=zip, address=adress, city=city,
+                                 regDate=registrationDate, country=country, phone=phone, ssn=ssn, userID=userID,
+                                 newUser=False, balance=accountBalance))
         return userList
 
     @staticmethod
@@ -143,11 +146,14 @@ class user(object):
 
     @staticmethod
     def isAdmin(session):
-        mydb = Database()
-        mydb.selectWhere("storeDB.User.userLevel", "storeDB.User", "email", '"'+session['email']+'"')
-        if mydb.cursor.fetchone()[0] > 4:
+        if 'isAdmin' in session:
             return True
-        return False
+        else:
+            mydb = Database()
+            mydb.selectWhere("storeDB.User.userLevel", "storeDB.User", "email", '"'+session['email']+'"')
+            if mydb.cursor.fetchone()[0] > 4:
+                return True
+            return False
 
     @staticmethod
     def GetAllUsers():

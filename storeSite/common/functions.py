@@ -26,7 +26,11 @@ try:
     from storeSite.common.review import review
 except:
     from common.review import review
-
+try:
+    from common.Image import Image
+except:
+    from storeSite.common.Image import Image
+import os
 
 """
 Function name: createUser
@@ -47,14 +51,33 @@ def getAdminDict(**kwargs):
     data = {}
     if kwargs['select'] == 'products':
         data['products'] = product.getfullCatalog()
-    if kwargs['select'] == 'categories':
+    elif kwargs['select'] == 'categories':
         data['categories'] = Category.getCategories()
-    if kwargs['select'] == 'users':
+    elif kwargs['select'] == 'users':
         data['users'] = user.GetAllUsers()
-    if kwargs['select'] == 'shoppingCarts':
+    elif kwargs['select'] == 'shoppingCarts':
         data['shoppingCarts'] = shoppingCart.getAllCarts()
+    elif kwargs['select'] == 'Images':
+        data['images'] = Image.getAllImages()
+    elif kwargs['select'] == 'reviews':
+        data['reviews'] = review.getAllReviews()
+    try:
+        data['pictureNames'] = os.listdir("/Users/viktor/PycharmProjects/storeSite/storeSite/static/images/products")
+    except:
+        data['pictureNames'] = os.listdir("/var/www/onlineStore/storeSite/static/images/products")
     return data
 
+
+def createFunction(choice, request):
+    if choice == 'product':
+        try:
+            newProduct = product(prodID=request.form['prodID'], name=request.form['prodName'],
+                                 description=request.form['prodDesc'], price=request.form['prodPrice'],
+                                 salePrice=request.form['prodSale'], grade=0, numbOfGrades=0, catID=request.form['catID'])
+            newProduct.insert()
+            return True
+        except:
+            return False
 
 def SearchFor(value):
     searchDict = {}

@@ -17,16 +17,17 @@ login/register button aswell as a profile button.
 Login and register / logout should be the buttons available that change if user is logged in or not.
 -->
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
     {% include "adminLeftSide.html" %}
     </div>
-    <div class="col-md-6">
+    <div class="col-md-8">
         {% block content %}
         {% endblock %}
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
     {% include "adminRightSide.html" %}
     </div>
 </div>
+{% include "adminModals.html" %}
 </body>
 </html>
