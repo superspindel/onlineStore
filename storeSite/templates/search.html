@@ -1,9 +1,11 @@
 {% extends "base.html"%}
     {% block content %}
         {% if dictionary.searchText %}
-            <p>
-                SEARCHRESULT FOR: {{ dictionary.searchText }}
-            </p>
+            <center>
+                <H1 style="color: white;">
+                    SEARCHRESULT FOR: {{ dictionary.searchText }}
+                </H1>
+            </center>
         {% endif %}
         {% if dictionary.searchResult %}
             {% if dictionary.searchResult['products'] %}

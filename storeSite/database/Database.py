@@ -87,10 +87,3 @@ class Database(object):
         sqlDelete = "DELETE FROM {} WHERE {} = {}"
         self.cursor.execute(sqlDelete.format(table, value1, value2))
 
-    def selectWhereAnd(self, parameter, table, value1, value2, value3, value4):
-        sqlSelectWhereAnd = "SELECT {} FROM {} WHERE {} = {} AND {} = {}"
-        self.cursor.execute(sqlSelectWhereAnd.format(parameter, table, value1, value2, value3, value4))
-
-    def selectWhereAndNot(self, parameter, table, value1, value2, value3, value4):
-        sqlSelectWhereAnd = "SELECT {} FROM {} WHERE {} = {} AND {} <> {}"
-        self.cursor.execute(sqlSelectWhereAnd.format(parameter, table, value1, value2, value3, value4))

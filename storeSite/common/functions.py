@@ -100,7 +100,6 @@ def getDictionary(**kwargs):
         pass
     try:
         data['searchResult'] = SearchFor(str(kwargs['request'].form['searchfield']))
-        data['searchText'] = str(kwargs['request'].form['searchfield'])
     except:
         pass
     try:
@@ -121,6 +120,10 @@ def getDictionary(**kwargs):
     try:
         data['reviewList'] = review.fetchReviews(kwargs['prod_id'], kwargs['session'])
         data['myReviews'] = review.fetchMyReviews(kwargs['prod_id'], kwargs['session'])
+    except:
+        pass
+    try:
+        data['searchText'] = str(kwargs['request'].form['searchfield'])
     except:
         pass
     return data
