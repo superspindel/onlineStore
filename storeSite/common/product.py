@@ -44,8 +44,8 @@ class product():
         catalog = []
         for (prodID, name, description, price, salePrice, grade, numbOfGrades,
              dateAdded, catID) in cursor:
-            thisProduct = product(prodID, name, description, price, salePrice, grade, numbOfGrades,
-                                   dateAdded, catID)
+            thisProduct = product(prodID=prodID, name=name, description=description, price=price, salePrice=salePrice,
+                                  grade=grade, numbOfGrades=numbOfGrades, dateAdded=dateAdded, catID=catID)
             thisProduct.getPicture()
             catalog.append(thisProduct)
         return catalog

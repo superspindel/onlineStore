@@ -99,7 +99,8 @@ def getDictionary(**kwargs):
     except:
         pass
     try:
-        data['searchResult'] = SearchFor(kwargs['request'].form['searchfield'])
+        data['searchResult'] = SearchFor(str(kwargs['request'].form['searchfield']))
+        data['searchText'] = str(kwargs['request'].form['searchfield'])
     except:
         pass
     try:

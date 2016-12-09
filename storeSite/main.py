@@ -49,7 +49,7 @@ def categories(cat_id):
 @storeApp.route('/Review/<int:prodID>', methods=['POST', 'GET'])
 def Review(prodID):
     if 'email' in session:
-        review.createReview(request, data = prodID, session=session)
+        review.createReview(request=request, prodID=prodID, session=session)
         return showProductDates(prodID)
     else:
         return register()

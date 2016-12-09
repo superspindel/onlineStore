@@ -1,24 +1,38 @@
 {% extends "base.html"%}
-{% block content %}
-<center>
-    <H2 style="color: white;">
-        Produkter
-    </H2>
-</center>
-{% for item in dictionary.searchResult['products'] %}
-        <p><a href="/more/{{item.prodID}}">{{ item.name }} </a></p>
-{% endfor %}
-
-<center>
-    <H2 style="color: white;">
-        Kategorier
-    </H2>
-</center>
-
-{% for subcategory in dictionary.searchResult['subCategories'] %}
-
-<p><a href="/Category/{{ subcategory.catID }}">{{ subcategory.name }}</a></p>
-
-{% endfor %}
-
-{% endblock %}
+    {% block content %}
+        {% if dictionary.searchText %}
+            <p>
+                SEARCHRESULT FOR: {{ dictionary.searchText }}
+            </p>
+        {% endif %}
+        {% if dictionary.searchResult %}
+            {% if dictionary.searchResult['products'] %}
+                <center>
+                    <H2 style="color: white;">
+                        Produkter
+                    </H2>
+                </center>
+                {% for item in dictionary.searchResult['products'] %}
+                    <p>
+                        <a href="/more/{{item.prodID}}">
+                            {{ item.name }}
+                        </a>
+                    </p>
+                {% endfor %}
+            {% endif %}
+            {% if dictionary.searchResult['subCategories'] %}
+                <center>
+                    <H2 style="color: white;">
+                        Kategorier
+                    </H2>
+                </center>
+                {% for subcategory in dictionary.searchResult['subCategories'] %}
+                    <p>
+                        <a href="/Category/{{ subcategory.catID }}">
+                            {{ subcategory.name }}
+                        </a>
+                    </p>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    {% endblock %}

@@ -97,7 +97,8 @@ class review(object):
     def updateGrade(prodID, mydb, reviewObject, switch):
         mydb.selectWhere("*", "Product", "prodID", prodID)
         for (productID, name, description, price, salePrice, grade, numbOfGrades, dateAdded, catID) in mydb.cursor:
-            newProd = product(productID, name, description, price, salePrice, grade, numbOfGrades, dateAdded, catID)
+            newProd = product(prodID=productID, name=name, description=description, price=price, salePrice=salePrice,
+                              grade=grade, numbOfGrades=numbOfGrades, dateAdded=dateAdded, catID=catID)
         if switch == 1:
             mydb.update("storeDB.Product", "numbOfGrades", "numbOfGrades+1", "prodID", prodID)
             finalGrade = (float(newProd.numbOfGrades) * float(newProd.grade) + float(reviewObject.grade)) / (
@@ -107,21 +108,24 @@ class review(object):
                 finalGrade = 0.0
             else:
                 mydb.update("storeDB.Product", "numbOfGrades", "numbOfGrades-1", "prodID", prodID)
-                finalGrade = (newProd.numbOfGrades * newProd.grade - reviewObject.grade) / (newProd.numbOfGrades - 1)
+                try:
+                    finalGrade = (newProd.numbOfGrades * newProd.grade - reviewObject.grade) / (newProd.numbOfGrades - 1)
+                except:
+                    finalGrade = 0.0
         mydb.startTransaction()
         mydb.update("storeDB.Product", "grade", finalGrade, "prodID", prodID)
         mydb.commit()
 
     @staticmethod
-    def createReview(request, data, session):
+    def createReview(request, prodID, session):
         mydb = Database()
         mydb.startTransaction()
         newReview = review(reviewID=None, userID=user.getUserID(session['email'], mydb), title=request.form['titel'],
                            Description=request.form['beskrivning'],
-                           grade=request.form['grade'], approved=1, prodID=data)
+                           grade=request.form['grade'], approved=1, prodID=prodID)
+        review.updateGrade(prodID, mydb, newReview, 1)
         newReview.addReview(mydb)
         mydb.commit()
-        review.updateGrade(data, mydb, newReview, 1)
         mydb.end()
 
     @staticmethod
