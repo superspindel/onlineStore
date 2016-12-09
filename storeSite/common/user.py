@@ -12,7 +12,7 @@ import hashlib
 
 
 class user(object):
-    def __init__(self, name, email, password, zip, address, city, country, phone, ssn, userID, userLevel = None,
+    def __init__(self, name, email, password, zip, address, city, country, phone, ssn, userID = None, userLevel = None,
                  regDate = None, newUser = True, balance = None):
         self.name = name
         self.email = email
@@ -42,12 +42,9 @@ class user(object):
     Info: Inserts the user in the database
     """
     def registerUser(self, database):
-        try:
-            database.insert("User", self.format())
-            database.commit()
-            return True
-        except:
-            return False
+        database.insert("User", self.format())
+        database.commit()
+
 
     """
     Function name: format
@@ -57,7 +54,7 @@ class user(object):
     def format(self):
         return (self.userID+","+"\""+self.email+"\""+","+"\""+self.password+"\""+","+"\""+self.name+"\""+","+self.zip+","
                 + "\"" + self.address + "\"" + ","+"\""+self.city+"\""+","+"\""+self.country+"\""+","+"\""+self.phone+"\""+","+self.userLvl+","
-                + "\"" + str(self.registrationDate) + "\"" + ","+"\""+self.ssn+"\""+","+self.balance)
+                + "\"" + str(self.registrationDate) + "\"" + ","+"\""+self.ssn+"\""+","+str(self.balance))
 
     @staticmethod
     def getUserID(email, mydb):
@@ -67,12 +64,16 @@ class user(object):
     @staticmethod
     def createUser(request):
         mydb = Database()
-        newUser = user(name=request.form['name'], email=request.form['email'], password=request.form['password'],
-                       ssn=request.form['ssn'], zip=request.form['ZIP'], address=request.form['address'],
-                       city=request.form['city'], country=request.form['country'], phone=request.form['phone'],
-                       userID=None)
-        newUser.registerUser(mydb)
-        mydb.end()
+        try:
+            newUser = user(name=request.form['name'], email=request.form['email'], password=request.form['password'],
+                   ssn=request.form['ssn'], zip=request.form['ZIP'], address=request.form['address'],
+                   city=request.form['city'], country=request.form['country'], phone=request.form['phone'])
+            newUser.registerUser(mydb)
+            mydb.end()
+            return True
+        except:
+            mydb.end()
+            return False
 
     @staticmethod
     def checkUserLogin(request):
