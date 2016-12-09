@@ -123,7 +123,71 @@ $("#createProductModal").modal("show");
 {% if error %}
 <script>
 $(document).ready(function(){
-$("#createProductModal").modal("show");
+$("#createImageModal").modal("show");
+});
+</script>
+{% endif %}
+{% endwith %}
+
+
+
+<div class="modal fade" id="createProdTimesModal" tabindex="-1" role="dialog" aria-labelledby="createProdTimesModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;
+					</span>
+				</button>
+                <h4 class="modal-title" id="createProdTimesLabel">
+					Tider för produkt
+				</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='/Admin/create/prodDate' name="prodDate_form" id="prodDate_form">
+                    <p>
+                        <input type="text" class="span3" name="prodDateID" id="prodDateID" placeholder="Tidsbokningens ID">
+                    </p>
+                    <p>
+                        <label for="prodDateProdID">Produktens ID</label>
+                          <select name="prodDateProdID" id="prodDateProdID">
+                              {% for product in dictionary.products %}
+                            <option value="{{ product.prodID }}">{{ product.name }}</option>
+                              {% endfor %}
+                          </select>
+                    </p>
+                    <p>
+                        <input type="datetime" class="span3" name="dateStart" id="dateStart" placeholder="Start">
+                    </p>
+                    <p>
+                        <input type="text" class="span3" name="dateEnd" id="dateEnd" placeholder="Slut">
+                    </p>
+                    <p>
+                        <input type="text" class="span3" name="quantity" id="quantity" placeholder="Antal">
+                    </p>
+                    <p>
+                        {% with error = get_flashed_messages(category_filter=["prodDate"]) %}
+                            {% if error %}
+                                {% for msg in error %}
+                                    <i style="color: red;">
+                                        {{ msg }}
+                                    </i>
+                                {% endfor %}
+                            {% endif %}
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-inverse">Lägg till</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if error %}
+<script>
+$(document).ready(function(){
+$("#createProdTimesModal").modal("show");
 });
 </script>
 {% endif %}

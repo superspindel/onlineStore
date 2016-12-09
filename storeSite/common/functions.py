@@ -64,6 +64,7 @@ def getAdminDict(**kwargs):
         data['pictureNames'] = os.listdir("/Users/viktor/PycharmProjects/storeSite/storeSite/static/images/products")
     except:
         data['pictureNames'] = os.listdir("/var/www/onlineStore/storeSite/static/images/products")
+    data['select'] = kwargs['select']
     return data
 
 
@@ -74,6 +75,23 @@ def createFunction(choice, request):
                                  description=request.form['prodDesc'], price=request.form['prodPrice'],
                                  salePrice=request.form['prodSale'], grade=0, numbOfGrades=0, catID=request.form['catID'])
             newProduct.insert()
+            return True
+        except:
+            return False
+    elif choice == 'image':
+        try:
+            newImage = Image(imageID=request.form['imageID'], prodID=request.form['imgProdID'],
+                             imagePlacement=request.form['imgPlacement'], imageSource=request.form['imgSource'])
+            newImage.insert()
+            return True
+        except:
+            return False
+    elif choice == 'prodDate':
+        try:
+            newDate = prodDate(dateStart=request.form['dateStart'], dateEnd=request.form['dateEnd'],
+                               prodDateID=request.form['prodDateID'], prodID=request.form['prodDateProdID'],
+                               quantity=request.form['quantity'])
+            newDate.insert()
             return True
         except:
             return False

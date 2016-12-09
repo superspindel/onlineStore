@@ -1,7 +1,7 @@
 {% extends "base.html"%}
 {% block content %}
 <div class="row well register">
-        <form id="register-form" action="/register" method="POST" class="form-horizontal">
+        <form id="register-form" action="/register" method="POST" class="form-horizontal" onsubmit="return validateForm(this)" name="register">
             <div class="form-group">
                 <label for="name">Namn</label>
                 <input type="text" id="name" name="name" class="form-control" placeholder="Förnamn Efternamn">

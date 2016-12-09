@@ -1,6 +1,6 @@
 {% extends "adminBase.html" %}
 {% block content %}
-{% if dictionary.products %}
+{% if dictionary.select == 'products' %}
 <table class="table" style="color: white;">
     <tr>
         <th>Produktens ID nummer</th>
@@ -36,7 +36,7 @@
 </table>
 {% endif %}
 
-{% if dictionary.categories %}
+{% if dictionary.select == 'categories' %}
 <table class="table" style="color: white;">
     <tr>
         <th>Överkategory</th>
@@ -63,7 +63,7 @@
 {% endif %}
 
 
-{% if dictionary.users %}
+{% if dictionary.select == 'users' %}
 <table class="table" style="color: white;">
     <tr>
         <th>Användarens ID</th>
@@ -92,7 +92,7 @@
 </table>
 {% endif %}
 
-{% if dictionary.shoppingCarts %}
+{% if dictionary.select == 'shoppingCarts' %}
 <table class="table" style="color: white;">
     <tr>
         <th>Användarens ID</th>
@@ -116,7 +116,7 @@
 {% endif %}
 
 
-{% if dictionary.images %}
+{% if dictionary.select == 'Images' %}
 <table class="table" style="color: white;">
     <tr>
         <th>Bild ID</th>
@@ -142,7 +142,7 @@
 </table>
 {% endif %}
 
-{% if dictionary.reviews %}
+{% if dictionary.select == 'reviews' %}
 <table class="table" style="color: white;">
     <tr>
         <th>Recensionens ID/th>
