@@ -214,7 +214,7 @@ def removeCart(cart_id):
 def adminHome():
     if user.isAdmin(session):
         session['isAdmin'] = True
-        return render_template("adminBase.html", dictionary=getAdminDict())
+        return render_template("adminBase.html", dictionary=getAdminDict(select=None))
     return storeHome()
 
 @storeApp.route('/Admin/view/<string:activity>')
