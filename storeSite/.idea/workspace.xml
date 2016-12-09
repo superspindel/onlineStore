@@ -18,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="216" column="84" lean-forward="false" selection-start-line="216" selection-start-column="84" selection-end-line="216" selection-end-column="84" />
+            <state relative-caret-position="875">
+              <caret line="252" column="42" lean-forward="false" selection-start-line="252" selection-start-column="42" selection-end-line="252" selection-end-column="42" />
               <folding>
                 <element signature="e#0#84#0" expanded="true" />
               </folding>
@@ -103,11 +103,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="user.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/common/user.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2340">
-              <caret line="156" column="13" lean-forward="false" selection-start-line="156" selection-start-column="13" selection-end-line="156" selection-end-column="13" />
+            <state relative-caret-position="290">
+              <caret line="156" column="24" lean-forward="false" selection-start-line="156" selection-start-column="24" selection-end-line="156" selection-end-column="24" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -189,9 +189,9 @@
         <option value="$PROJECT_DIR$/templates/adminRightSide.html" />
         <option value="$PROJECT_DIR$/common/functions.py" />
         <option value="$PROJECT_DIR$/templates/adminModals.html" />
-        <option value="$PROJECT_DIR$/common/user.py" />
         <option value="$PROJECT_DIR$/templates/register.html" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/common/user.py" />
       </list>
     </option>
   </component>
@@ -830,16 +830,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2340">
-          <caret line="156" column="13" lean-forward="false" selection-start-line="156" selection-start-column="13" selection-end-line="156" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/adminBase.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
@@ -869,10 +859,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="216" column="84" lean-forward="false" selection-start-line="216" selection-start-column="84" selection-end-line="216" selection-end-column="84" />
+        <state relative-caret-position="875">
+          <caret line="252" column="42" lean-forward="false" selection-start-line="252" selection-start-column="42" selection-end-line="252" selection-end-column="42" />
           <folding>
             <element signature="e#0#84#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/user.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="156" column="24" lean-forward="false" selection-start-line="156" selection-start-column="24" selection-end-line="156" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>

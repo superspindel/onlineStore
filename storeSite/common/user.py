@@ -153,6 +153,8 @@ class user(object):
     def isAdmin(session):
         if 'isAdmin' in session:
             return True
+        elif not 'email' in session:
+            return False
         else:
             mydb = Database()
             mydb.selectWhere("storeDB.User.userLevel", "storeDB.User", "email", '"'+session['email']+'"')
