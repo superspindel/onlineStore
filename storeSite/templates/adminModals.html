@@ -1,4 +1,3 @@
-{% with error = get_flashed_messages(category_filter=["product"]) %}
 <div class="modal fade" id="createProductModal" tabindex="-1" role="dialog" aria-labelledby="createProductModal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -32,13 +31,85 @@
                         <input type="text" class="span3" name="catID" id="catID" placeholder="Kategori ID">
                     </p>
                     <p>
-                        {% if error %}
-                            {% for msg in error %}
-                                <i style="color: red;">
-                                    {{ msg }}
-                                </i>
-                            {% endfor %}
-                        {% endif %}
+                        {% with error = get_flashed_messages(category_filter=["product"]) %}
+                            {% if error %}
+                                {% for msg in error %}
+                                    <i style="color: red;">
+                                        {{ msg }}
+                                    </i>
+                                {% endfor %}
+                            {% endif %}
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-inverse">Lägg till</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if error %}
+<script>
+$(document).ready(function(){
+$("#createProductModal").modal("show");
+});
+</script>
+{% endif %}
+{% endwith %}
+
+
+<div class="modal fade" id="createImageModal" tabindex="-1" role="dialog" aria-labelledby="createImageModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;
+					</span>
+				</button>
+                <h4 class="modal-title" id="createImageLabel">
+					Ny Bild
+				</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='/Admin/create/image' name="image_form" id="image_form">
+                    <p>
+                        <input type="text" class="span3" name="imageID" id="imageID" placeholder="Bildens ID">
+                    </p>
+                    <p>
+                        <label for="imgProdID">Produktens ID:</label>
+                          <select name="imgProdID" id="imgProdID">
+                              {% for product in dictionary.products %}
+                            <option value="{{ product.prodID }}">{{ product.name }}</option>
+                              {% endfor %}
+                          </select>
+                    </p>
+                    <p>
+                        <label for="imgPlacement">BildPlacering</label>
+                          <select name="imgPlacement" id="imgPlacement">
+                            <option value="1">Stor bild</option>
+                            <option value="2">Liten bild</option>
+                            <option value="3">Extra bild</option>
+                            <option value="4">Order bild</option>
+                          </select>
+                    </p>
+                    <p>
+                        <label for="imgSource">Bildkälla</label>
+                          <select name="imgSource" id="imgSource">
+                              {% for image in dictionary.pictureNames %}
+                            <option value="{{ image }}">{{ image }}</option>
+                              {% endfor %}
+                          </select>
+                    </p>
+                    <p>
+                        {% with error = get_flashed_messages(category_filter=["image"]) %}
+                            {% if error %}
+                                {% for msg in error %}
+                                    <i style="color: red;">
+                                        {{ msg }}
+                                    </i>
+                                {% endfor %}
+                            {% endif %}
                     </p>
                     <p>
                         <button type="submit" class="btn btn-inverse">Lägg till</button>

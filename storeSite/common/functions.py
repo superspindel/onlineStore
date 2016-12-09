@@ -49,9 +49,8 @@ on if the password is correct.
 """
 def getAdminDict(**kwargs):
     data = {}
-    if kwargs['select'] == 'products':
-        data['products'] = product.getfullCatalog()
-    elif kwargs['select'] == 'categories':
+    data['products'] = product.getfullCatalog()
+    if kwargs['select'] == 'categories':
         data['categories'] = Category.getCategories()
     elif kwargs['select'] == 'users':
         data['users'] = user.GetAllUsers()

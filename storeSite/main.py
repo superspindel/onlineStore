@@ -105,7 +105,10 @@ then closes the connection
 def register():
     data = getDictionary(session=session)
     if request.method == 'POST':
-        user.createUser(request)
+        if user.createUser(request):
+            flash("Registrering genomförd", category="register")
+        else:
+            flash("Registrering gick inte att genomföra", category="register")
     return render_template('register.html', dictionary=data)
 
 

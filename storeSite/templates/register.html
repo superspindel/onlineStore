@@ -38,6 +38,15 @@
                 <label for="ssn">Personnummer</label>
                 <input type="text" id="ssn" name="ssn" class="form-control" placeholder="XXXXXX-XXXX">
             </div>
+            {% with error = get_flashed_messages(category_filter=["register"]) %}
+                {% if error %}
+                    {% for msg in error %}
+                        <i style="color: red;">
+                            {{ msg }}
+                        </i>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
             <button type="submit" id="submit-button" class="btn btn-success">Sign up</button>
         </form>
 </div>

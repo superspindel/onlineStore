@@ -42,8 +42,12 @@ class user(object):
     Info: Inserts the user in the database
     """
     def registerUser(self, database):
-        database.insert("User", self.format())
-        database.commit()
+        try:
+            database.insert("User", self.format())
+            database.commit()
+            return True
+        except:
+            return False
 
     """
     Function name: format
