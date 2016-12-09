@@ -59,10 +59,14 @@ class shoppingCart(object):
 
     @staticmethod
     def removeProduct(prodDate_id, session):
-        cartID = session['cart']
-        mydb = Database()
-        shoppingCart.removeProductFromCart(prodDate_id, cartID, mydb)
-        mydb.end()
+        try:
+            cartID = session['cart']
+            mydb = Database()
+            shoppingCart.removeProductFromCart(prodDate_id, cartID, mydb)
+            mydb.end()
+            return True
+        except:
+            return False
 
     @staticmethod
     def getCarts(userEmail):

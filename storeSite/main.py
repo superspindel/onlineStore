@@ -83,12 +83,19 @@ if post it uses the function chechUserLogin with the current request to see if t
 """
 @storeApp.route('/auth/login', methods=['POST', 'GET'])
 def login():
+    if request.method=='GET':
+        return storeHome()
     if user.checkUserLogin(request):
         session['email'] = request.form['email']
         try:
             session['cart'] = shoppingCart.getCarts(session['email'])[0]
         except:
-            pass
+            user.createUserCart(session['email'])
+            session['cart'] = shoppingCart.getCarts(session['email'])[0]
+        if 'product' in session:
+            if shoppingCart.addProduct(int(session['product']), session):
+                session.pop('product', None)
+                return storeHome()
     return redirect(request.referrer)
 
 
@@ -151,8 +158,9 @@ def addToCart(prodDate_id):
 
 @storeApp.route('/remove/<string:prodDate_id>', methods=['POST', 'GET'])
 def removeFromCart(prodDate_id):
-    shoppingCart.removeProduct(int(prodDate_id), session)
-    return redirect(request.referrer)
+    if shoppingCart.removeProduct(int(prodDate_id), session):
+        return redirect(request.referrer)
+    return storeHome()
 
 
 @storeApp.route('/createCart')
