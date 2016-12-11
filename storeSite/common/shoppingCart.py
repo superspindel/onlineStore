@@ -17,10 +17,8 @@ class shoppingCart(object):
 
     @staticmethod
     def insertProduct(cursor):
-        cartProducts = []
-        for name, prodDateid, price, amount , prodID in cursor:
-            cartProducts.append(cartProduct(name, prodDateid, price, amount, prodID))
-        return cartProducts
+        return [cartProduct(name=name, prodDateid=prodDateid, price=price, amount=amount, prodID=prodID) for
+                name, prodDateid, price, amount, prodID in cursor]
 
     @staticmethod
     def addToCart(cartID, prodDate_ID, mydb):
@@ -72,10 +70,8 @@ class shoppingCart(object):
     def getCarts(userEmail):
         mydb = Database()
         userID = user.getUserID(userEmail, mydb)
-        carts = []
         mydb.selectWhere("storeDB.shoppingcart.cartID", "storeDB.shoppingcart", "userID", userID)
-        for cartID in mydb.cursor:
-            carts.append(cartID[0])
+        carts = [cartID[0] for cartID in mydb.cursor]
         mydb.end()
         return carts
 
@@ -100,11 +96,9 @@ class shoppingCart(object):
     def removeCart(cart_id):
         mydb = Database()
         mydb.startTransaction()
-        prodList = []
         mydb.selectWhere("storeDB.shoppingProducts.prodDateID, storeDB.shoppingProducts.amount",
                          "storeDB.shoppingProducts", "cartID", cart_id)
-        for prodDateID, amount in mydb.cursor:
-            prodList.append([prodDateID, amount])
+        prodList = [(prodDateID, amount) for prodDateID, amount in mydb.cursor]
         for prodDateID, amount in prodList:
             mydb.update("storeDB.ProductDate", "quantity", "quantity+"+str(amount), "prodDateID", prodDateID)
         mydb.deleteFrom("storeDB.shoppingProducts", "cartID", cart_id)
@@ -114,10 +108,7 @@ class shoppingCart(object):
 
     @staticmethod
     def cartList(cursor):
-        cartList = []
-        for cartID, userID in cursor:
-            cartList.append(shoppingCart(cartID, userID))
-        return cartList
+        return [shoppingCart(cartID, userID) for cartID, userID in cursor]
 
     @staticmethod
     def getAllCarts():

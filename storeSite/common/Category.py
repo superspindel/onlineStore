@@ -13,19 +13,17 @@ class Category(object):
         self.name = name
         self.subCategories = subCategories
         self.catID = catID
+        if subCategories is not None:
+            self.formatSubCategories()
 
     def formatSubCategories(self):
         self.subCategories = self.subCategories.split(",")
-        prelimList = []
-        for catInfo in self.subCategories:
-            catInfo = catInfo.split(":")
-            prelimList.append(catInfo)
-        self.subCategories = prelimList
+        self.subCategories = [catInfo.split(":") for catInfo in self.subCategories]
 
     @staticmethod
     def getSpecificCatalog(data):
         mydb = Database()
-        mydb.selectWhere("*", "storeDB.Product", "catID", int(data))
+        mydb.selectWhere("*", "storeDB.Product", "catID", data)
         catalog = product.createCatalog(mydb.cursor)
         mydb.end()
         return catalog
@@ -36,21 +34,15 @@ class Category(object):
         mydb.selectGroup("storeDB.categories.name", "storeDB.subCategories.name," + "\"" + ":" + "\"" +
                          ",storeDB.subCategories.subCatID", "storeDB.categories, storeDB.subCategories",
                          "storeDB.categories.catID", "storeDB.subCategories.catID")
-        catList = []
-        for name, subCatList in mydb.cursor:
-            newCat = Category(name, subCatList)
-            newCat.formatSubCategories()
-            catList.append(newCat)
+        catList = [Category(name=name, subCategories=subCatList) for name, subCatList in mydb.cursor]
         mydb.end()
         return catList
 
     @staticmethod
     def searchForSubCategories(value):
         mydb = Database()
-        subSearch = []
         mydb.search("storeDB.subCategories.name, storeDB.subCategories.subCatID", "storeDB.subCategories", "name",
                     value)
-        for (name, subCatID) in mydb.cursor:
-            subSearch.append(Category(catID=subCatID, name=name))
+        subSearch = [Category(catID=subCatID, name=name) for name, subCatID in mydb.cursor]
         mydb.end()
         return subSearch

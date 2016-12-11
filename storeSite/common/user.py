@@ -13,7 +13,7 @@ import hashlib
 
 class user(object):
     def __init__(self, name, email, password, zip, address, city, country, phone, ssn, userID = None, userLevel = None,
-                 regDate = None, newUser = True, balance = None):
+                 regDate = None, balance = None, newUser = True):
         self.name = name
         self.email = email
         self.password = (hashlib.sha1(password.encode()).hexdigest()) if newUser else password
@@ -52,19 +52,23 @@ class user(object):
     Info: Returns an appropriate string to insert into the database for a user
     """
     def format(self):
-        return (self.userID+","+"\""+self.email+"\""+","+"\""+self.password+"\""+","+"\""+self.name+"\""+","+self.zip+","
-                + "\"" + self.address + "\"" + ","+"\""+self.city+"\""+","+"\""+self.country+"\""+","+"\""+self.phone+"\""+","+self.userLvl+","
-                + "\"" + str(self.registrationDate) + "\"" + ","+"\""+self.ssn+"\""+","+str(self.balance))
+        return "{}, '{}', '{}', '{}', {}, '{}', '{}', '{}', '{}', {}, '{}', '{}', {}".format(self.userID, self.email,
+                                                                                            self.password, self.name,
+                                                                                            self.zip, self.address,
+                                                                                            self.city, self.country,
+                                                                                            self.phone, self.userLvl,
+                                                                                            self.registrationDate,
+                                                                                            self.ssn, self.balance)
 
     @staticmethod
     def getUserID(email, mydb):
-        mydb.selectWhere("userID", "storeDB.User", "email", "\"" + str(email) + "\"")
+        mydb.selectWhere("userID", "storeDB.User", "email", "'{}'".format(email))
         return mydb.cursor.fetchone()[0]
 
     @staticmethod
     def createUser(request):
-        mydb = Database()
         try:
+            mydb = Database()
             newUser = user(name=request.form['name'], email=request.form['email'], password=request.form['password'],
                    ssn=request.form['ssn'], zip=request.form['ZIP'], address=request.form['address'],
                    city=request.form['city'], country=request.form['country'], phone=request.form['phone'])
@@ -72,14 +76,12 @@ class user(object):
             mydb.end()
             return True
         except:
-            mydb.end()
             return False
 
     @staticmethod
     def checkUserLogin(request):
         mydb = Database()
-        userEmail = request.form['email']
-        mydb.selectWhere("password", "storeDB.User", "email", "\"" + userEmail + "\"")
+        mydb.selectWhere("password", "storeDB.User", "email", "'{}'".format(request.form['email']))
         try:
             dbpassword = mydb.cursor.fetchone()[0]
         except:
@@ -99,35 +101,32 @@ class user(object):
     @staticmethod
     def getAccountInfo(userEmail):
         mydb = Database()
-        mydb.selectWhere("*", "storeDB.User as user", "email", '"'+ userEmail +'"')
+        mydb.selectWhere("*", "storeDB.User", "email", "'{}'".format(userEmail))
         userInfo = user.getUserList(mydb.cursor)[0]
         mydb.end()
         return userInfo
 
     @staticmethod
     def getUserList(cursor):
-        userList = []
-        for userID, email, password, name, zip, adress, city, country, phone, userLevel, registrationDate, \
-            ssn, accountBalance in cursor :
-            userList.append(user(name=name, email=email, password=password, zip=zip, address=adress, city=city,
-                                 regDate=registrationDate, country=country, phone=phone, ssn=ssn, userID=userID,
-                                 newUser=False, balance=accountBalance))
-        return userList
+        return [user(name=name, email=email, password=password, zip=zip, address=adress, city=city,
+                     regDate=registrationDate, country=country, phone=phone, ssn=ssn, userID=userID, newUser=False,
+                     balance=accountBalance)
+                for userID, email, password, name, zip, adress, city, country, phone, userLevel, registrationDate, ssn,
+                    accountBalance in cursor]
+
 
     @staticmethod
     def change(column, session, setValue):
-        mydb = Database()
-        success = False
         try:
-            mydb.update("storeDB.User", column, "'"+setValue+"'", "email", "'"+session['email']+"'")
+            mydb = Database()
+            mydb.update("storeDB.User", column, "'{}'".format(setValue), "email", "'{}'".format(session['email']))
             if column == "email":
                 session['email'] = setValue
-            success = True
+            mydb.commit()
+            mydb.end()
+            return True
         except:
-            pass
-        mydb.commit()
-        mydb.end()
-        return success
+            return False
 
     @staticmethod
     def addMoney(session, request):
@@ -153,13 +152,13 @@ class user(object):
     def isAdmin(session):
         if 'isAdmin' in session:
             return True
-        elif not 'email' in session:
-            return False
-        else:
+        try:
             mydb = Database()
-            mydb.selectWhere("storeDB.User.userLevel", "storeDB.User", "email", '"'+session['email']+'"')
+            mydb.selectWhere("storeDB.User.userLevel", "storeDB.User", "email", "'{}'".format(session['email']))
             if mydb.cursor.fetchone()[0] > 4:
                 return True
+            return False
+        except:
             return False
 
     @staticmethod

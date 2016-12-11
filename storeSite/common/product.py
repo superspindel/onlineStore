@@ -18,18 +18,26 @@ class product():
         self.numbOfGrades = numbOfGrades
         self.dateAdded = dateAdded
         self.catID = catID
-        self.picture = picture
+        self.picture = self.getPicture() if picture is None else picture
 
     def format(self):
-        return (str(self.prodID)+","+"\""+self.name+"\""+","+"\""+self.description+"\""+","+str(self.price)+","+str(self.salePrice)+","
-                + str(self.grade) + ","+str(self.numbOfGrades)+","+"\""+str(self.dateAdded)+"\""
-                + ","+str(self.catID))
+        return "{}, '{}', '{}', {}, {}, {}, {}, '{}', {}".format(self.prodID, self.name, self.description, self.price,
+                                                                 self.salePrice, self.grade, self.numbOfGrades,
+                                                                 self.dateAdded, self.catID)
 
     def insert(self):
         mydb = Database()
         mydb.insert("storeDB.Product", self.format())
         mydb.commit()
         mydb.end()
+
+    def getPicture(self):
+        mydb = Database()
+        mydb.selectWhere("storeDB.Images.imageSource", "storeDB.Images", "storeDB.Images.prodID", self.prodID)
+        try:
+            return mydb.cursor.fetchone()[0]
+        except:
+            return "83712837218.jpg"
 
     @staticmethod
     def getfullCatalog():
@@ -41,14 +49,9 @@ class product():
 
     @staticmethod
     def createCatalog(cursor):
-        catalog = []
-        for (prodID, name, description, price, salePrice, grade, numbOfGrades,
-             dateAdded, catID) in cursor:
-            thisProduct = product(prodID=prodID, name=name, description=description, price=price, salePrice=salePrice,
-                                  grade=grade, numbOfGrades=numbOfGrades, dateAdded=dateAdded, catID=catID)
-            thisProduct.getPicture()
-            catalog.append(thisProduct)
-        return catalog
+        return [product(prodID=prodID, name=name, description=description, price=price, salePrice=salePrice,
+                        grade=grade, numbOfGrades=numbOfGrades, dateAdded=dateAdded, catID=catID)
+                for (prodID, name, description, price, salePrice, grade, numbOfGrades,dateAdded, catID) in cursor]
 
     @staticmethod
     def searchForProducts(value):
@@ -64,11 +67,3 @@ class product():
         catalog = product.createCatalog(mydb.cursor)
         mydb.end()
         return catalog[0]
-
-    def getPicture(self):
-        mydb = Database()
-        mydb.selectWhere("storeDB.Images.imageSource", "storeDB.Images", "storeDB.Images.prodID", self.prodID)
-        try:
-            self.picture = mydb.cursor.fetchone()[0]
-        except:
-            self.picture = "83712837218.jpg"

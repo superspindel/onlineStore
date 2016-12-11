@@ -25,11 +25,11 @@ except:
 
 
 class review(object):
-    def __init__(self, reviewID, userID, title, Description, grade, approved, prodID):
+    def __init__(self, reviewID, userID, title, description, grade, approved, prodID):
         self.reviewID = str(randint(1, 2147483646)) if reviewID is None else reviewID
         self.userID = userID
         self.title = title
-        self.Description = Description
+        self.description = description
         self.grade = grade
         self.approved = approved
         self.prodID = prodID
@@ -51,18 +51,15 @@ class review(object):
     """
 
     def format(self):
-        return (str(self.reviewID) + "," + "\"" + str(
-            self.userID) + "\"" + "," + "\"" + self.title + "\"" + "," + "\"" + self.Description + "\"" + "," + str(
-            self.grade) + ","
-                + "\"" + str(self.approved) + "\"" + "," + "" + str(self.prodID))
+        return "{}, {}, '{}', '{}', {}, {}, {}".format(self.reviewID, self.userID, self.title, self.description,
+                                                      self.grade, self.approved, self.prodID)
 
 
     @staticmethod
     def getReviewList(cursor):
-        reviewList = []
-        for reviewID, userID, title, Description, grade, approved, prodID in cursor:
-            reviewList.append(review(reviewID, userID, title, Description, grade, approved, prodID))
-        return reviewList
+        return [review(reviewID=reviewID, userID=userID, title=title, description=description, grade=grade,
+                       approved=approved, prodID=prodID)
+                for reviewID, userID, title, description, grade, approved, prodID in cursor]
 
     @staticmethod
     def fetchReviews(prodID, session):
@@ -85,9 +82,9 @@ class review(object):
     @staticmethod
     def removeReview(reviewID, session, prodID):
         mydb = Database()
+        mydb.startTransaction()
         mydb.selectWhere("*", "storeDB.reviews", "reviewID", reviewID)
-        for reviewID, userID, title, Description, grade, approved, prodID in mydb.cursor:
-            newReview = review(reviewID, userID, title, Description, grade, approved, prodID)
+        newReview = review.getReviewList(mydb.cursor)[0]
         mydb.deleteFrom("storeDB.reviews", "reviewID", reviewID)
         mydb.commit()
         review.updateGrade(prodID, mydb, newReview, 2)
@@ -96,13 +93,11 @@ class review(object):
     @staticmethod
     def updateGrade(prodID, mydb, reviewObject, switch):
         mydb.selectWhere("*", "Product", "prodID", prodID)
-        for (productID, name, description, price, salePrice, grade, numbOfGrades, dateAdded, catID) in mydb.cursor:
-            newProd = product(prodID=productID, name=name, description=description, price=price, salePrice=salePrice,
-                              grade=grade, numbOfGrades=numbOfGrades, dateAdded=dateAdded, catID=catID)
+        newProd = product.createCatalog(mydb.cursor)[0]
         if switch == 1:
             mydb.update("storeDB.Product", "numbOfGrades", "numbOfGrades+1", "prodID", prodID)
-            finalGrade = (float(newProd.numbOfGrades) * float(newProd.grade) + float(reviewObject.grade)) / (
-            float(newProd.numbOfGrades) + 1)
+            finalGrade = (float(newProd.numbOfGrades) * float(newProd.grade) + float(reviewObject.grade)) /\
+                         (float(newProd.numbOfGrades) + 1)
         elif switch == 2:
             if newProd.numbOfGrades == 0:
                 finalGrade = 0.0
@@ -112,7 +107,6 @@ class review(object):
                     finalGrade = (newProd.numbOfGrades * newProd.grade - reviewObject.grade) / (newProd.numbOfGrades - 1)
                 except:
                     finalGrade = 0.0
-        mydb.startTransaction()
         mydb.update("storeDB.Product", "grade", finalGrade, "prodID", prodID)
         mydb.commit()
 
@@ -121,7 +115,7 @@ class review(object):
         mydb = Database()
         mydb.startTransaction()
         newReview = review(reviewID=None, userID=user.getUserID(session['email'], mydb), title=request.form['titel'],
-                           Description=request.form['beskrivning'],
+                           description=request.form['beskrivning'],
                            grade=request.form['grade'], approved=1, prodID=prodID)
         review.updateGrade(prodID, mydb, newReview, 1)
         newReview.addReview(mydb)

@@ -6,6 +6,11 @@ try:
     from storeSite.common.product import product
 except:
     from common.product import product
+
+try:
+    import common.user as user
+except:
+    import storeSite.common.user as user
 import datetime
 
 

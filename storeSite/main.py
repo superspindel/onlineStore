@@ -57,7 +57,10 @@ def Review(prodID):
 
 @storeApp.route('/removeReview/<int:reviewID>/<string:prodID>', methods=['POST', 'GET'])
 def removeFromReviews(reviewID, prodID):
-    review.removeReview(reviewID, session, prodID)
+    try:
+        review.removeReview(reviewID, session, prodID)
+    except:
+        pass
     return showProductDates(prodID)
 
 """

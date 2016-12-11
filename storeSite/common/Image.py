@@ -20,7 +20,7 @@ class Image(object):
         mydb.end()
 
     def format(self):
-        return str(self.imageID)+","+str(self.prodID)+","+str(self.imagePlacement)+","+"'"+str(self.imageSource)+"'"
+        return "{}, {}, {}, '{}'".format(self.imageID, self.prodID, self.imagePlacement, self.imageSource)
 
     @staticmethod
     def getAllImages():
@@ -33,9 +33,6 @@ class Image(object):
 
     @staticmethod
     def imageCatalog(cursor):
-        catalog = []
-        for imageID, prodID, imagePlacement, imageSource in cursor:
-            catalog.append(Image(imageID=imageID, prodID=prodID, imagePlacement=imagePlacement,
-                                 imageSource=imageSource))
-        return catalog
+        return [Image(imageID=imageID, prodID=prodID, imagePlacement=imagePlacement, imageSource=imageSource) for
+                imageID, prodID, imagePlacement, imageSource in cursor]
 

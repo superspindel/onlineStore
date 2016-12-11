@@ -13,8 +13,7 @@ class prodDate(object):
         self.quantity = quantity
 
     def format(self):
-        string = "{}, '{}', '{}', {}, {}"
-        return string.format(self.prodID, self.dateStart, self.dateEnd, self.prodDateID, self.quantity)
+        return "{}, '{}', '{}', {}, {}".format(self.prodID, self.dateStart, self.dateEnd, self.prodDateID, self.quantity)
 
     def insert(self):
         mydb = Database()
@@ -28,10 +27,7 @@ class prodDate(object):
         mydb.selectWhereAndLargerThenZero("storeDB.ProductDate.dateStart, storeDB.ProductDate.dateEnd, " +
                                           "storeDB.ProductDate.prodDateID", "storeDB.ProductDate",
                                           "storeDB.ProductDate.prodID", prodID, "quantity")
-        prodList = []
-        for dateStart, dateEnd, prodDateID in mydb.cursor:
-            newProdDate = prodDate(dateStart, dateEnd, prodDateID)
-            prodList.append(newProdDate)
+        prodList = [prodDate(dateStart, dateEnd, prodDateID) for dateStart, dateEnd, prodDateID in mydb.cursor]
         mydb.end()
         return prodList
 
