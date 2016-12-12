@@ -143,7 +143,7 @@ def showOrders():
 
 @storeApp.route('/showOrderProducts/<int:orderID>', methods=['POST', 'GET'])
 def showOrderProducts(orderID):
-    data = getDictionary(orderID=orderID)
+    data = getDictionary(orderID=orderID, session=session)
     return render_template('showOrderProducts.html', dictionary=data)
 """
 Function name: test
@@ -280,6 +280,13 @@ def sendOrder(order_id):
     if user.isAdmin(session):
         order.send(order_id)
         return render_template("adminOrderFinish.html", dictionary=getAdminDict(select='orders'))
+    return redirect(request.referrer)
+
+@storeApp.route('/Admin/orderInfo/<string:order_id>')
+def orderInfo(order_id):
+    if user.isAdmin(session):
+        orderInfo = order.getOrderInfo(order_id)
+        return render_template("adminOrderInfo.html", dictionary=getAdminDict(select='orders'), orderInfo=orderInfo)
     return redirect(request.referrer)
 
 

@@ -44,6 +44,10 @@ class Database(object):
         self.cursor.execute( sqlSelectMaxxa.format(parameter, table, value1, parameter2, table2, value2, parameter3,
                                                    table3, value3, value4))
 
+    def selectMaxxaMindre(self, parameter, table, value1, parameter2, table2, value2, value3):
+        sqlSelectMaxxa = "select {} from {} where {} in ( select {} from {} where {} = {})"
+        self.cursor.execute(sqlSelectMaxxa.format(parameter, table, value1, parameter2, table2, value2, value3))
+
     def selectWhere(self, parameter, table, value1, value2):
         sqlSelectWhere = "SELECT {} FROM {} WHERE {} = {}"
         self.cursor.execute(sqlSelectWhere.format(parameter, table, value1, value2))

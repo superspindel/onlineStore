@@ -3,35 +3,73 @@
 
 <div class="panel panel-default" style="margin-top: 20px;">
   <!-- Default panel contents -->
-  <div class="panel-heading"></div>
-  <div class="panel-body">
-    <p>Order nummer: {{dictionary.currentOrder.orderID}} </p>
-      <p> Beställnings datum: {{dictionary.currentOrder.orderDate}} </p>
-      <p> Order status: {{dictionary.currentOrder.orderStatus}}</p>
-	  <p>Order pris: {{dictionary.orderPrice}}</p>
-  </div>
-<table class="table">
-  <tr>
-    <th>Produkt namn</th>
-    <th>Produkt pris</th>
-      <th>Antal</th>
-    <th>Mer information</th>
-  </tr>
-      {% for product in dictionary.myOrderProducts %}
-  <tr>
-    <td>{{ product.name }}</td>
-    <td>{{ product.price }}</td>
-      <td></td>
-    <td>
-        <a href="/more/{{product.prodID}}" type="GET">
-            <button type="button"> 
-                <span class="glyphicon glyphicon-info-sign" aria-hidden="true">
-                </span>
-            </button>
-        </a>
-    </td>
-  </tr>
-      {% endfor %}
-</table>
+    <div class="panel-heading">
+
+    </div>
+        <div class="panel-body">
+            <p>
+                Order nummer: {{dictionary.currentOrder.orderID}}
+            </p>
+            <p>
+                Beställnings datum: {{dictionary.currentOrder.orderDate}}
+            </p>
+            <p>
+                Order status: {{dictionary.currentOrder.orderStatus}}
+            </p>
+            <p>
+                Order pris: {{dictionary.orderPrice}}
+            </p>
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    Produkt namn
+                </th>
+                <th>
+                    Produkt pris
+                </th>
+                <th>
+                    Start datum
+                </th>
+                <th>
+                    Slut datum
+                </th>
+                <th>
+                    Mer information om produkt
+                </th>
+            </tr>
+            {% for shoppingProduct in dictionary.myOrderProducts %}
+                {% for dateProduct in dictionary.myOrderProductsExtra %}
+                    {% if shoppingProduct.prodDateID == dateProduct.prodDateID %}
+                        {% for Product in dictionary.myOrderProductsInfo %}
+                            {% if dateProduct.prodID == Product.prodID %}
+                                <tr>
+                                    <td>
+                                        {{ Product.name }}
+                                    </td>
+                                    <td>
+                                        {{ Product.salePrice }}
+                                    </td>
+                                    <td>
+                                        {{dateProduct.dateStart}}
+                                    </td>
+                                    <td>
+                                        {{dateProduct.dateEnd}}
+                                    </td>
+                                    <td>
+                                        <a href="/more/{{Product.prodID}}" type="GET">
+                                            <button type="button">
+                                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true">
+                                                </span>
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </table>
 </div>
 {% endblock %}

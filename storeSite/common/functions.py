@@ -155,6 +155,8 @@ def getDictionary(**kwargs):
         pass
     try:
         data['myOrderProducts'] = order.fetchOrderProducts(kwargs['orderID'])
+        data['myOrderProductsInfo'] = order.fetchOrderProductsInfo(kwargs['orderID'])
+        data['myOrderProductsExtra'] = order.fetchOrderProductsExtra(kwargs['orderID'])
         data['currentOrder'] = order.fetchSpecificOrder(kwargs['orderID'])
         data['orderPrice'] = order.getOrderPrice(kwargs['orderID'])
     except:

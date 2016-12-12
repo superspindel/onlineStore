@@ -1,0 +1,19 @@
+{% extends "adminBase.html" %}
+{% block content %}
+
+
+<table class="table" style="color: white;">
+    <tr>
+        <th>Start tid</th>
+        <th>Slut tid</th>
+        <th>Produkt ID</th>
+    </tr>
+    {% for product in orderInfo %}
+        <tr>
+            <td>{{ product.dateStart }}</td>
+            <td>{{ product.dateEnd }}</td>
+            <td>{{ product.prodID }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

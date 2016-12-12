@@ -27,7 +27,11 @@ class prodDate(object):
         mydb.selectWhereAndLargerThenZero("storeDB.ProductDate.dateStart, storeDB.ProductDate.dateEnd, " +
                                           "storeDB.ProductDate.prodDateID", "storeDB.ProductDate",
                                           "storeDB.ProductDate.prodID", prodID, "quantity")
-        prodList = [prodDate(dateStart, dateEnd, prodDateID) for dateStart, dateEnd, prodDateID in mydb.cursor]
+        prodList = [prodDate(dateStart=dateStart, dateEnd=dateEnd, prodDateID=prodDateID) for dateStart, dateEnd, prodDateID in mydb.cursor]
         mydb.end()
         return prodList
 
+    @staticmethod
+    def getProdDateList(cursor):
+        return [prodDate(prodID=prodID, dateStart=dateStart, dateEnd=dateEnd, prodDateID=prodDateID, quantity=quantity)
+                for prodID, dateStart, dateEnd, prodDateID, quantity in cursor]
