@@ -42,16 +42,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shoppingCart.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/shoppingCart.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="107" column="0" lean-forward="true" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="product.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/product.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -84,7 +74,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="orders.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="orders.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/orders.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="720">
@@ -92,6 +82,16 @@
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="adminRightSide.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/adminRightSide.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="5" lean-forward="true" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -173,7 +173,6 @@
         <option value="$PROJECT_DIR$/common/product.py" />
         <option value="$PROJECT_DIR$/templates/orderFinish.html" />
         <option value="$PROJECT_DIR$/templates/admin.html" />
-        <option value="$PROJECT_DIR$/templates/adminRightSide.html" />
         <option value="$PROJECT_DIR$/templates/adminLeftSide.html" />
         <option value="$PROJECT_DIR$/templates/showOrder.html" />
         <option value="$PROJECT_DIR$/templates/adminModals.html" />
@@ -187,6 +186,7 @@
         <option value="$PROJECT_DIR$/common/prodDate.py" />
         <option value="$PROJECT_DIR$/common/orders.py" />
         <option value="$PROJECT_DIR$/templates/showOrderProducts.html" />
+        <option value="$PROJECT_DIR$/templates/adminRightSide.html" />
       </list>
     </option>
   </component>
@@ -826,14 +826,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/adminRightSide.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="55" lean-forward="false" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/shoppingcart.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
@@ -951,6 +943,14 @@
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/adminRightSide.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="5" lean-forward="true" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
