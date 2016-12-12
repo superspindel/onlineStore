@@ -38,6 +38,12 @@ class Database(object):
     Input variables: self, parameter to get from select, table to get it from, value of column, data for what the columnvalue should be.
     Info: The cursor executes a select statement and gets filled with the data that is returned from the database
     """
+
+    def selectMaxxa(self, parameter, table, value1, parameter2, table2, value2, parameter3, table3, value3, value4):
+        sqlSelectMaxxa = "SELECT {} from {} where {} in (select {} from {} where {} in ( select {} from {} where {} = {}))"
+        self.cursor.execute( sqlSelectMaxxa.format(parameter, table, value1, parameter2, table2, value2, parameter3,
+                                                   table3, value3, value4))
+
     def selectWhere(self, parameter, table, value1, value2):
         sqlSelectWhere = "SELECT {} FROM {} WHERE {} = {}"
         self.cursor.execute(sqlSelectWhere.format(parameter, table, value1, value2))

@@ -52,7 +52,23 @@
                       </tr>
                           {% endfor %}
                         </table>
-
+						<form id="register-form" action="/buy/{{session['cart']}}" method="POST" class="form-horizontal">
+                            <div class="form-group">
+						        <input type="text" id="discount" name="discount" class="form-control" placeholder="Discount code">
+                            </div>
+						    <button type="submit" id="submit-button" class="btn btn-success">
+                                Buy
+                            </button>
+                        </form>
+                        {% with error = get_flashed_messages(category_filter=["order"]) %}
+							{% if error %}
+								{% for msg in error %}
+									<i style="color: red;">
+										{{ msg }}
+									</i>
+								{% endfor %}
+							{% endif %}
+						{% endwith %}
                     </div>
                 {% endif %}
 </div>

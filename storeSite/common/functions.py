@@ -30,6 +30,10 @@ try:
     from common.Image import Image
 except:
     from storeSite.common.Image import Image
+try:
+    from storeSite.common.orders import order
+except:
+    from common.orders import order
 import os
 
 """
@@ -136,12 +140,21 @@ def getDictionary(**kwargs):
     except:
         pass
     try:
-        data['reviewList'] = review.fetchReviews(kwargs['prod_id'], kwargs['session'])
-        data['myReviews'] = review.fetchMyReviews(kwargs['prod_id'], kwargs['session'])
+        data['searchText'] = str(kwargs['request'].form['searchfield'])
     except:
         pass
     try:
-        data['searchText'] = str(kwargs['request'].form['searchfield'])
+        data['allReviews'] = review.fetchAllReviews(kwargs['prod_id'])
+    except:
+        pass
+    try:
+        data['myOrders'] = order.fetchOrders(kwargs['session'])
+    except:
+        pass
+    try:
+        data['myOrderProducts'] = order.fetchOrderProducts(kwargs['orderID'])
+        data['currentOrder'] = order.fetchSpecificOrder(kwargs['orderID'])
+        data['orderPrice'] = order.getOrderPrice(kwargs['orderID'])
     except:
         pass
     return data

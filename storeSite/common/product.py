@@ -67,3 +67,19 @@ class product():
         catalog = product.createCatalog(mydb.cursor)
         mydb.end()
         return catalog[0]
+
+
+class shoppingProduct():
+
+    def __init__(self, shoppingProdID, amount, cartID, orderID, prodDateID, Price):
+        self.shoppingProdID = shoppingProdID
+        self.amount = amount
+        self.cartID = cartID
+        self.orderID = orderID
+        self.prodDateID = prodDateID
+        self.Price = Price
+
+    @staticmethod
+    def getShoppingProductList(cursor):
+        return [shoppingProduct(shoppingProdID, amount, cartID, orderID, prodDateID, Price)
+                for shoppingProdID, amount, cartID, orderID, prodDateID, Price in cursor]

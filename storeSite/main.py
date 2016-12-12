@@ -20,6 +20,10 @@ try:
     from storeSite.common.review import review
 except:
     from common.review import review
+try:
+    from storeSite.common.orders import order
+except:
+    from common.orders import order
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
 
@@ -122,7 +126,25 @@ def register():
     return render_template('register.html', dictionary=data)
 
 
+@storeApp.route('/buy/<string:cartID>', methods=['POST', 'GET'])
+def performOrder(cartID):
+    if order.createOrder(request, session, cartID):
+        flash("Beställning genomförd", category="order")
+    else:
+        flash("Beställningen gick inte att genomföra", category="order")
+    return redirect(request.referrer)
 
+
+@storeApp.route('/showOrders', methods=['POST', 'GET'])
+def showOrders():
+    data = getDictionary(session=session)
+    return render_template('showOrder.html', dictionary=data)
+
+
+@storeApp.route('/showOrderProducts/<int:orderID>', methods=['POST', 'GET'])
+def showOrderProducts(orderID):
+    data = getDictionary(orderID=orderID)
+    return render_template('showOrderProducts.html', dictionary=data)
 """
 Function name: test
 Input variables:

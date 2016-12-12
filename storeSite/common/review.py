@@ -40,9 +40,9 @@ class review(object):
     Info: Inserts the user in the database
     """
 
-    def addReview(self, database):
-        database.insert("reviews", self.format())
-        database.commit()
+    def addReview(self, mydb):
+        mydb.insert("reviews", self.format())
+        mydb.commit()
 
     """
     Function name: format
@@ -60,6 +60,16 @@ class review(object):
         return [review(reviewID=reviewID, userID=userID, title=title, description=description, grade=grade,
                        approved=approved, prodID=prodID)
                 for reviewID, userID, title, description, grade, approved, prodID in cursor]
+
+    @staticmethod
+    def fetchAllReviews(prodID):
+        mydb = Database()
+        mydb.selectWhere("*", "storeDB.reviews", "prodID", prodID)
+        reviewList = [review(reviewID=reviewID, userID=userID, title=title, description=description, grade=grade,
+                             approved=approved, prodID=prodId)
+                      for reviewID, userID, title, description, grade, approved, prodId in mydb.cursor]
+        mydb.end()
+        return reviewList
 
     @staticmethod
     def fetchReviews(prodID, session):
