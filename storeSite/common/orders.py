@@ -18,9 +18,9 @@ except:
     from storeSite.common.prodDate import prodDate
 
 class order(object):
-    def __init__(self, orderID, orderDate, orderStatus, userID, discCode):
+    def __init__(self, orderID, orderStatus, userID, discCode, orderDate=None):
         self.orderID = str(randint(1, 2147483646)) if orderID is None else orderID
-        self.orderDate = date.today()
+        self.orderDate = date.today() if orderDate is None else orderDate
         self.orderStatus = orderStatus
         self.userID = userID
         self.discCode = discCode
