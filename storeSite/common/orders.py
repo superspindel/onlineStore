@@ -1,4 +1,4 @@
-from datetime import date
+import datetime
 from random import randint
 try:
     from database.Database import Database
@@ -20,7 +20,7 @@ except:
 class order(object):
     def __init__(self, orderID, orderStatus, userID, discCode, orderDate=None):
         self.orderID = str(randint(1, 2147483646)) if orderID is None else orderID
-        self.orderDate = date.today() if orderDate is None else orderDate
+        self.orderDate = datetime.datetime.today() if orderDate is None else orderDate
         self.orderStatus = orderStatus
         self.userID = userID
         self.discCode = discCode
@@ -97,13 +97,13 @@ class order(object):
             mydb.selectWhere("*", "storeDB.discounts", "code", "'"+request.form['discount']+"'")
             if mydb.cursor.rowcount < 1:
                 mydb.startTransaction()
-                newOrder = order(orderID=None, orderDate=date.today(), orderStatus=1,
+                newOrder = order(orderID=None, orderStatus=1,
                                  userID=user.getUserID(session['email'], mydb), discCode=False)
                 newOrder.addOrder(mydb)
                 order.updateProducts(mydb, cartID, newOrder.orderID)
             else:
                 mydb.startTransaction()
-                newOrder = order(orderID=None, orderDate=date.today(), orderStatus=1,
+                newOrder = order(orderID=None, orderStatus=1,
                                  userID=user.getUserID(session['email'], mydb), discCode=request.form['discount'])
                 newOrder.addOrder(mydb)
                 order.updateProducts(mydb, cartID, newOrder.orderID)
