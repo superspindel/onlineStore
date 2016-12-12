@@ -109,3 +109,19 @@ class order(object):
         mydb.update("storeDB.shoppingProducts", "orderID", orderID, "cartID", cartID)
         mydb.update("storeDB.shoppingProducts", "cartID", "NULL", "cartID", cartID)
         mydb.commit()
+
+    @staticmethod
+    def getAllOrders():
+        mydb = Database()
+        mydb.select("*", "storeDB.orders")
+        orderList = order.getOrderList(mydb.cursor)
+        mydb.end()
+        return orderList
+
+    @staticmethod
+    def send(orderID):
+        mydb = Database()
+        mydb.update("storeDB.orders", "orderStatus", 2, "orderID", orderID)
+        mydb.commit()
+        mydb.end()
+

@@ -64,6 +64,8 @@ def getAdminDict(**kwargs):
         data['images'] = Image.getAllImages()
     elif kwargs['select'] == 'reviews':
         data['reviews'] = review.getAllReviews()
+    elif kwargs['select'] == 'orders':
+        data['orders'] = order.getAllOrders()
     try:
         data['pictureNames'] = os.listdir("/Users/viktor/PycharmProjects/storeSite/storeSite/static/images/products")
     except:

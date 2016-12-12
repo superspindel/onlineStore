@@ -1,0 +1,30 @@
+{% extends "adminBase.html" %}
+{% block content %}
+
+
+<table class="table" style="color: white;">
+    <tr>
+        <th>Order ID</th>
+        <th>Order datum</th>
+        <th>Order status</th>
+        <th>Användarens ID</th>
+        <th>Rabatt kod</th>
+        <th>Slutför</th>
+    </tr>
+    {% for order in dictionary.orders %}
+        <tr>
+            <td>{{ order.orderID }}</td>
+            <td>{{ order.orderDate }}</td>
+            <td>{{ order.orderStatus }}</td>
+            <td>{{ order.userID }}</td>
+            <td>{{ order.discCode }}</td>
+            <td>
+                <a href="/Admin/finishOrder/{{ order.orderID }}">
+                    <span class="glyphicon glyphicon-ok">
+                    </span>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

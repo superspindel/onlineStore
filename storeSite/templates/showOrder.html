@@ -2,25 +2,48 @@
 {% block content %}
 
 <div class="panel panel-default" style="margin-top: 20px;">
-<table class="table">
+    <h1>EJ SKICKADE ORDRAR</h1>
+    <table class="table">
+      <tr>
+        <th>Order nummer</th>
+        <th>Mer information</th>
+      </tr>
+          {% for order in dictionary.myOrders %}
+        {% if order.orderStatus == 1 %}
+      <tr>
+        <td>{{ order.orderID }}</td>
+        <td>
+            <a href="/showOrderProducts/{{order.orderID}}" type="GET">
+                <button type="button">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true">
+                    </span>
+                </button>
+            </a>
+        </td>
+      </tr>
+        {% endif %}
+          {% endfor %}
+    </table>
+    <h1>SKICKADE ORDRAR</h1>
+    <table class="table">
   <tr>
     <th>Order nummer</th>
-    <th>Order status</th>
     <th>Mer information</th>
   </tr>
       {% for order in dictionary.myOrders %}
+        {% if order.orderStatus == 2 %}
   <tr>
     <td>{{ order.orderID }}</td>
-    <td>{{ order.orderStatus }}</td>
     <td>
         <a href="/showOrderProducts/{{order.orderID}}" type="GET">
-            <button type="button"> 
+            <button type="button">
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true">
                 </span>
             </button>
         </a>
     </td>
   </tr>
+        {% endif %}
       {% endfor %}
 </table>
 </div>

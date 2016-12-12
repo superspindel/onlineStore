@@ -269,8 +269,18 @@ def create(activity):
     else:
         return storeHome()
 
+@storeApp.route('/Admin/finishOrder')
+def finishOrder():
+    if user.isAdmin(session):
+        return render_template("adminOrderFinish.html", dictionary=getAdminDict(select='orders'))
+    return redirect(request.referrer)
 
-
+@storeApp.route('/Admin/finishOrder/<string:order_id>')
+def sendOrder(order_id):
+    if user.isAdmin(session):
+        order.send(order_id)
+        return render_template("adminOrderFinish.html", dictionary=getAdminDict(select='orders'))
+    return redirect(request.referrer)
 
 
 """
