@@ -52,11 +52,14 @@ def categories(cat_id):
 
 @storeApp.route('/Review/<int:prodID>', methods=['POST', 'GET'])
 def Review(prodID):
-    if 'email' in session:
-        review.createReview(request=request, prodID=prodID, session=session)
-        return showProductDates(prodID)
+    if request.method == 'POST':
+        if 'email' in session:
+            review.createReview(request=request, prodID=prodID, session=session)
+            return showProductDates(prodID)
+        else:
+            return register()
     else:
-        return register()
+        return showProductDates(prodID)
 
 
 @storeApp.route('/removeReview/<int:reviewID>/<string:prodID>', methods=['POST', 'GET'])
