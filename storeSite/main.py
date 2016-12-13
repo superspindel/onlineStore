@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from flask import request, url_for
 try:
-    from storeSite.common.functions import SearchFor, getDictionary, getAdminDict, createFunction
+    from storeSite.common.functions import SearchFor, getDictionary, getAdminDict, createFunction, getChangeDict
 except:
-    from common.functions import SearchFor, getDictionary, getAdminDict, createFunction
+    from common.functions import SearchFor, getDictionary, getAdminDict, createFunction, getChangeDict
 try:
     from storeSite.common.user import user
 except:
@@ -291,6 +291,20 @@ def orderInfo(order_id):
         orderInfo = order.getOrderInfo(order_id)
         return render_template("adminOrderInfo.html", dictionary=getAdminDict(select='orders'), orderInfo=orderInfo)
     return redirect(request.referrer)
+
+@storeApp.route('/Admin/changeProduct/<string:prod_id>', methods=['GET', 'POST'])
+def changeProduct(prod_id):
+    if user.isAdmin(session):
+        if request.method == 'GET':
+            return render_template("adminChange.html",
+                                   changeDictionary=getChangeDict(change='products', prod_id=prod_id),
+                                   dictionary = getAdminDict(select='products'))
+        else:
+            Error = product.update(request, prod_id)
+            flash(Error, category='changeProduct')
+            return redirect(request.referrer)
+    else:
+        return storeHome()
 
 
 """

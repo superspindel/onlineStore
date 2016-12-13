@@ -9,7 +9,14 @@
         <div class="caption" id="product">
           <h3 class="title">{{ item.name }}</h3>
           <p class="description">{{ item. description }}</p>
-          <p class="price">Price: {{item.salePrice}}kr</p>
+          <p class="price">Price:
+            {% if item.salePrice < item.price %}
+              {{ item.salePrice }}
+            {% else %}
+              {{ item.price }}
+            {% endif %}
+            kr
+          </p>
           <p class="grade">Grade: {{item.grade}}</p>
             <!--<p class="dateStart">Start time: {{ item.dateOfProdStart }}</p>
             <p class="dateEnd">End time: {{item.dateOfProdEnd }}</p>-->

@@ -68,6 +68,45 @@ class product():
         mydb.end()
         return catalog[0]
 
+    @staticmethod
+    def update(request, prod_id):
+        error = []
+        mydb = Database()
+        try:
+            mydb.update("storeDB.Product", "storeDB.Product.name", "'{}'".format(request.form['prodName']), "storeDB.Product.prodID", str(prod_id))
+            error.append("Namnbyte genomfört")
+        except:
+            error.append("Gick inte att byta namn")
+        try:
+            mydb.update("storeDB.Product", "storeDB.Product.description", "'{}'".format(request.form['prodDesc']),
+                        "storeDB.Product.prodID", str(prod_id))
+            error.append("Byte av beskrivning genomfört")
+        except:
+            error.append("Gick inte att byta beskrivning")
+        try:
+            if float(request.form['prodPrice']) > 0:
+                mydb.update("storeDB.Product", "storeDB.Product.price", "{}".format(request.form['prodPrice']),
+                        "storeDB.Product.prodID", str(prod_id))
+                error.append("Prisbyte genomfört")
+            else:
+                error.append("Pris måste vara större än 0")
+        except:
+            error.append("Gick inte att byta pris")
+        try:
+            if float(request.form['prodSalePrice']) > 0:
+                mydb.update("storeDB.Product", "storeDB.Product.salePrice", "{}".format(request.form['prodSalePrice']),
+                        "storeDB.Product.prodID", str(prod_id))
+                error.append("Reaprisbyte genomfört")
+            else:
+                error.append("Reapris måste vara större än 0")
+        except:
+            error.append("Gick inte att byta reapris")
+        mydb.commit()
+        mydb.end()
+        return error
+
+
+
 
 class shoppingProduct():
 

@@ -51,10 +51,19 @@ Selects from the database the password of the user who is trying to log in, from
 get the password, then rehashes the password from the request, closes the database connection and then returns a boolean depending
 on if the password is correct.
 """
+def getChangeDict(**kwargs):
+    data = {}
+    if kwargs['change'] == 'products':
+        data['changeProduct'] = product.getProduct(kwargs['prod_id'])
+        data['change'] = 'products'
+    return data
+
 def getAdminDict(**kwargs):
     data = {}
     data['products'] = product.getfullCatalog()
     data['primaryCategories'] = Category.getPrimaryCategories()
+    data['subCategories'] = Category.getSubCategories()
+    data['select'] = kwargs['select']
     if kwargs['select'] == 'categories':
         data['categories'] = Category.getCategories()
     elif kwargs['select'] == 'users':
@@ -71,7 +80,6 @@ def getAdminDict(**kwargs):
         data['pictureNames'] = os.listdir("/Users/viktor/PycharmProjects/storeSite/storeSite/static/images/products")
     except:
         data['pictureNames'] = os.listdir("/var/www/onlineStore/storeSite/static/images/products")
-    data['select'] = kwargs['select']
     return data
 
 

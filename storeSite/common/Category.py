@@ -48,6 +48,14 @@ class Category(object):
         return [Category(catID=catId, name=name) for catId, name in list]
 
     @staticmethod
+    def getSubCategories():
+        mydb = Database()
+        mydb.select("*", "storeDB.subCategories")
+        list = mydb.cursor.fetchall()
+        mydb.end()
+        return [Category(name=name, catID=catID, subCatID=subCatID) for name, catID, subCatID in list]
+
+    @staticmethod
     def getSpecificCatalog(data):
         mydb = Database()
         mydb.selectWhere("*", "storeDB.Product", "catID", data)

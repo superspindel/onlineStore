@@ -1,0 +1,37 @@
+{% extends "adminBase.html" %}
+{% block content %}
+{% if changeDictionary.change == 'products' %}
+<div class="row well">
+        <form id="changeProduct-form" action="/Admin/changeProduct/{{changeDictionary.changeProduct.prodID}}" method="POST" class="form-horizontal"  name="changeProduct">
+            <div class="form-group">
+                <label for="prodName">Namn</label>
+                <input type="text" id="prodName" name="prodName" class="form-control" placeholder="{{ changeDictionary.changeProduct.name }}" value="{{ changeDictionary.changeProduct.name }}">
+            </div>
+            <div class="form-group">
+                <label for="prodDesc">Beskrivning</label>
+                <input type="text" id="prodDesc" name="prodDesc" class="form-control" placeholder="{{ changeDictionary.changeProduct.description }}" value="{{ changeDictionary.changeProduct.description }}">
+            </div>
+            <div class="form-group">
+                <label for="prodPrice">Pris</label>
+                <input type="text" id="prodPrice" name="prodPrice" class="form-control" placeholder="{{ changeDictionary.changeProduct.price }}" value="{{ changeDictionary.changeProduct.price }}">
+            </div>
+            <div class="form-group">
+                <label for="prodSalePrice">Rea Pris</label>
+                <input type="text" id="prodSalePrice" name="prodSalePrice" class="form-control" placeholder="{{ changeDictionary.changeProduct.salePrice }}" value="{{ changeDictionary.changeProduct.salePrice }}">
+            </div>
+            {% with error = get_flashed_messages(category_filter=["changeProduct"]) %}
+                {% if error %}
+                    {% for errormessage in error %}
+                        {% for msg in errormessage %}
+                        <i style="color: red;">
+                            {{ msg }}.
+                        </i>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <button type="submit" id="submit-button" class="btn btn-success">Ändra</button>
+        </form>
+</div>
+{% endif %}
+{% endblock %}

@@ -28,7 +28,12 @@
                         <input type="text" class="span3" name="prodSale" id="prodSale" placeholder="Reapris">
                     </p>
                     <p>
-                        <input type="text" class="span3" name="catID" id="prodCatID" placeholder="Kategori ID">
+                        <label for="prodCatID">Överkategori ID</label>
+                          <select name="prodCatID" id="prodCatID">
+                              {% for subCategory in dictionary.subCategories %}
+                            <option value="{{ subCategory.subCatID }}">{{ subCategory.name }}</option>
+                              {% endfor %}
+                          </select>
                     </p>
                     <p>
                         {% with error = get_flashed_messages(category_filter=["product"]) %}
