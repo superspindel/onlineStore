@@ -42,7 +42,6 @@ class review(object):
 
     def addReview(self, mydb):
         mydb.insert("reviews", self.format())
-        mydb.commit()
 
     """
     Function name: format
@@ -96,8 +95,8 @@ class review(object):
         mydb.selectWhere("*", "storeDB.reviews", "reviewID", reviewID)
         newReview = review.getReviewList(mydb.cursor)[0]
         mydb.deleteFrom("storeDB.reviews", "reviewID", reviewID)
-        mydb.commit()
         review.updateGrade(prodID, mydb, newReview, 2)
+        mydb.commit()
         mydb.end()
 
     @staticmethod
@@ -118,7 +117,6 @@ class review(object):
                 except:
                     finalGrade = 0.0
         mydb.update("storeDB.Product", "grade", finalGrade, "prodID", prodID)
-        mydb.commit()
 
     @staticmethod
     def createReview(request, prodID, session):
