@@ -97,3 +97,7 @@ class Database(object):
         sqlDelete = "DELETE FROM {} WHERE {} = {}"
         self.cursor.execute(sqlDelete.format(table, value1, value2))
 
+    def selectFromNotIn(self, parameters1, table1, value1, parameters2, table2):
+        sqlSelectFromNotIn = "SELECT {} FROM {} WHERE {} NOT IN (SELECT {} FROM {})"
+        self.cursor.execute(sqlSelectFromNotIn.format(parameters1, table1, value1, parameters2, table2))
+

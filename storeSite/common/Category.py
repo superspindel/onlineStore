@@ -9,16 +9,43 @@ except:
 
 
 class Category(object):
-    def __init__(self, name, subCategories=None, catID=None):
+    def __init__(self, name, subCategories=None, catID=None, subCatID=None):
         self.name = name
         self.subCategories = subCategories
         self.catID = catID
+        self.subCatID = subCatID
         if subCategories is not None:
-            self.formatSubCategories()
+            self.splitSubCategories()
 
-    def formatSubCategories(self):
+    def splitSubCategories(self):
         self.subCategories = self.subCategories.split(",")
         self.subCategories = [catInfo.split(":") for catInfo in self.subCategories]
+
+    def formatMainCategory(self):
+        return "{}, '{}'".format(self.catID, self.name)
+
+    def formatSubCategory(self):
+        return "'{}', {}, {}".format(self.name, self.catID, self.subCatID)
+
+    def insertMainCategory(self):
+        mydb = Database()
+        mydb.insert("storeDB.categories", self.formatMainCategory())
+        mydb.commit()
+        mydb.end()
+
+    def insertSubCategory(self):
+        mydb = Database()
+        mydb.insert("storeDB.subCategories", self.formatSubCategory())
+        mydb.commit()
+        mydb.end()
+
+    @staticmethod
+    def getPrimaryCategories():
+        mydb = Database()
+        mydb.select("*", "storeDB.categories")
+        list = mydb.cursor.fetchall()
+        mydb.end()
+        return [Category(catID=catId, name=name) for catId, name in list]
 
     @staticmethod
     def getSpecificCatalog(data):
@@ -34,9 +61,12 @@ class Category(object):
         mydb.selectGroup("storeDB.categories.name", "storeDB.subCategories.name," + "\"" + ":" + "\"" +
                          ",storeDB.subCategories.subCatID", "storeDB.categories, storeDB.subCategories",
                          "storeDB.categories.catID", "storeDB.subCategories.catID")
-        catList = [Category(name=name, subCategories=subCatList) for name, subCatList in mydb.cursor]
+        categoriesWithSub = [Category(name=name, subCategories=subCatList) for name, subCatList in mydb.cursor]
+        mydb.selectFromNotIn("*", "storeDB.categories", "storeDB.categories.catID", "storeDB.subCategories.catID",
+                             "storeDB.subCategories")
+        categoriesNotSub = [Category(catID=catid, name=name) for catid, name in mydb.cursor]
         mydb.end()
-        return catList
+        return(categoriesWithSub+categoriesNotSub)
 
     @staticmethod
     def searchForSubCategories(value):

@@ -28,7 +28,7 @@
                         <input type="text" class="span3" name="prodSale" id="prodSale" placeholder="Reapris">
                     </p>
                     <p>
-                        <input type="text" class="span3" name="catID" id="catID" placeholder="Kategori ID">
+                        <input type="text" class="span3" name="catID" id="prodCatID" placeholder="Kategori ID">
                     </p>
                     <p>
                         {% with error = get_flashed_messages(category_filter=["product"]) %}
@@ -188,6 +188,112 @@ $("#createImageModal").modal("show");
 <script>
 $(document).ready(function(){
 $("#createProdTimesModal").modal("show");
+});
+</script>
+{% endif %}
+{% endwith %}
+
+
+<div class="modal fade" id="createCategoryModal" tabindex="-1" role="dialog" aria-labelledby="createCategoryModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;
+					</span>
+				</button>
+                <h4 class="modal-title" id="createCategoryLabel">
+					Lägg till överkategori
+				</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='/Admin/create/category' name="category_form" id="category_form">
+                    <p>
+                        <input type="number" class="span3" name="catID" id="catID" placeholder="Överkategori ID">
+                    </p>
+                    <p>
+                        <input type="text" class="span3" name="catName" id="catName" placeholder="Överkategori namn">
+                    </p>
+                    <p>
+                        {% with error = get_flashed_messages(category_filter=["category"]) %}
+                            {% if error %}
+                                {% for msg in error %}
+                                    <i style="color: red;">
+                                        {{ msg }}
+                                    </i>
+                                {% endfor %}
+                            {% endif %}
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-inverse">Lägg till</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if error %}
+<script>
+$(document).ready(function(){
+$("#createCategoryModal").modal("show");
+});
+</script>
+{% endif %}
+{% endwith %}
+
+
+<div class="modal fade" id="createSubCategoryModal" tabindex="-1" role="dialog" aria-labelledby="createSubCategoryModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;
+					</span>
+				</button>
+                <h4 class="modal-title" id="createSubCategoryLabel">
+					Lägg till underkategori
+				</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='/Admin/create/subcategory' name="subcategory_form" id="subcategory_form">
+                    <p>
+                        <input type="number" class="span3" name="subID" id="subID" placeholder="Underkategori ID">
+                    </p>
+                    <p>
+                        <input type="text" class="span3" name="subCatName" id="subCatName" placeholder="Underkategori Namn">
+                    </p>
+                    <p>
+                        <label for="subCatID">Överkategori ID</label>
+                          <select name="subCatID" id="subCatID">
+                              {% for Category in dictionary.primaryCategories %}
+                            <option value="{{ Category.catID }}">{{ Category.name }}</option>
+                              {% endfor %}
+                          </select>
+                    </p>
+                    <p>
+                        {% with error = get_flashed_messages(category_filter=["subcategory"]) %}
+                            {% if error %}
+                                {% for msg in error %}
+                                    <i style="color: red;">
+                                        {{ msg }}
+                                    </i>
+                                {% endfor %}
+                            {% endif %}
+                    </p>
+                    <p>
+                        <button type="submit" class="btn btn-inverse">Lägg till</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if error %}
+<script>
+$(document).ready(function(){
+$("#createSubCategoryModal").modal("show");
 });
 </script>
 {% endif %}

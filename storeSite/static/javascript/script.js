@@ -13,19 +13,19 @@ function validateForm(form){
     var errors = [];
 
     if (!ck_name.test(name)) {
-        errors[errors.length] = "Skriv in ett riktigt namn.";
+        errors[errors.length] = "Skriv in ett namn med 3-20 bokstäver";
     }
     if (!ck_email.test(email)) {
-        errors[errors.length] = "Skriv in en riktig epostadress.";
+        errors[errors.length] = "Example@mail.com";
     }
     if (!ck_password.test(password)) {
-        errors[errors.length] = "Skriv in ett riktigt lösenord.";
+        errors[errors.length] = "Lösenord ska vara mellan 6-20 tecken";
     }
     if (!ck_zip.test(zip)) {
-        errors[errors.length] = "Skriv in ett ordentligt zip nummer."
+        errors[errors.length] = "zip nummer ska vara mellan 3-9 siffror"
     }
     if (!ck_ssn.test(ssn)) {
-        errors[errors.length] = "Skriv in ett riktigt personnummer."
+        errors[errors.length] = "(19)010203(-)1234"
     }
     if (errors.length > 0) {
         reportErrors(errors);

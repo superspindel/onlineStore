@@ -80,7 +80,6 @@ class order(object):
 		
     def addOrder(self, mydb):
         mydb.insert("storeDB.orders", self.format())
-        mydb.commit()
 		
     def format(self):
         if not self.discCode:
@@ -91,23 +90,23 @@ class order(object):
     @staticmethod
     def createOrder(request, session, cartID):
         mydb = Database()
+        mydb.startTransaction()
         totalPrice = order.getPrice(mydb, cartID)
         userInfo = user.getAccountInfo(session['email'])
         if userInfo.balance > totalPrice:
             mydb.selectWhere("*", "storeDB.discounts", "code", "'"+request.form['discount']+"'")
             if mydb.cursor.rowcount < 1:
-                mydb.startTransaction()
                 newOrder = order(orderID=None, orderStatus=1,
                                  userID=user.getUserID(session['email'], mydb), discCode=False)
                 newOrder.addOrder(mydb)
                 order.updateProducts(mydb, cartID, newOrder.orderID)
             else:
-                mydb.startTransaction()
                 newOrder = order(orderID=None, orderStatus=1,
                                  userID=user.getUserID(session['email'], mydb), discCode=request.form['discount'])
                 newOrder.addOrder(mydb)
                 order.updateProducts(mydb, cartID, newOrder.orderID)
             order.updateBalance(mydb, totalPrice, userInfo)
+            mydb.commit()
             mydb.end()
             return True
         else:
@@ -117,7 +116,6 @@ class order(object):
     def updateBalance(mydb, totalPrice, userInfo):
         newBalance = userInfo.balance - totalPrice
         mydb.update("storeDB.User", "accountBalance", newBalance, "userID", userInfo.userID)
-        mydb.commit()
 
     @staticmethod
     def getPrice(mydb, cartID):
@@ -137,7 +135,6 @@ class order(object):
     def updateProducts(mydb, cartID, orderID):
         mydb.update("storeDB.shoppingProducts", "orderID", orderID, "cartID", cartID)
         mydb.update("storeDB.shoppingProducts", "cartID", "NULL", "cartID", cartID)
-        mydb.commit()
 
     @staticmethod
     def getAllOrders():

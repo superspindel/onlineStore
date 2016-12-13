@@ -48,11 +48,13 @@ Login and register / logout should be the buttons available that change if user 
               </span>
               <!--<span class="sr-only">(current)</span> -->
           </a>
+                              {% if category.subCategories %}
           <ul class="dropdown-menu">
               {% for subcategory in category.subCategories %}
             <li><a href="/Category/{{ subcategory[1] }}">{{ subcategory[0] }}</a></li>
               {% endfor %}
           </ul>
+                              {% endif %}
         </li>
           {% endfor %}
       </ul>

@@ -45,19 +45,21 @@
         <th>Ändra</th>
     </tr>
     {% for category in dictionary.categories %}
-        {% for subcategory in category.subCategories%}
-            <tr>
-                <td>{{ category.name }}</td>
-                <td>{{ subcategory[0] }}</td>
-                <td>{{ subcategory[1] }}</td>
-                <td>
-                    <a data-toggle="modal" data-target="#nameModal">
-                        <span class="glyphicon glyphicon-pencil">
-                        </span>
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
+        {% if category.subCategories %}
+            {% for subcategory in category.subCategories%}
+                <tr>
+                    <td>{{ category.name }}</td>
+                    <td>{{ subcategory[0] }}</td>
+                    <td>{{ subcategory[1] }}</td>
+                    <td>
+                        <a data-toggle="modal" data-target="#nameModal">
+                            <span class="glyphicon glyphicon-pencil">
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
     {% endfor %}
 </table>
 {% endif %}

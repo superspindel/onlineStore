@@ -119,6 +119,8 @@ class user(object):
     def change(column, session, setValue):
         try:
             mydb = Database()
+            if column == 'password':
+                setValue = (hashlib.sha1(setValue.encode()).hexdigest())
             mydb.update("storeDB.User", column, "'{}'".format(setValue), "email", "'{}'".format(session['email']))
             if column == "email":
                 session['email'] = setValue

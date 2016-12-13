@@ -54,6 +54,7 @@ on if the password is correct.
 def getAdminDict(**kwargs):
     data = {}
     data['products'] = product.getfullCatalog()
+    data['primaryCategories'] = Category.getPrimaryCategories()
     if kwargs['select'] == 'categories':
         data['categories'] = Category.getCategories()
     elif kwargs['select'] == 'users':
@@ -79,7 +80,7 @@ def createFunction(choice, request):
         try:
             newProduct = product(prodID=request.form['prodID'], name=request.form['prodName'],
                                  description=request.form['prodDesc'], price=request.form['prodPrice'],
-                                 salePrice=request.form['prodSale'], grade=0, numbOfGrades=0, catID=request.form['catID'])
+                                 salePrice=request.form['prodSale'], grade=0, numbOfGrades=0, catID=request.form['prodCatID'])
             newProduct.insert()
             return True
         except:
@@ -98,6 +99,20 @@ def createFunction(choice, request):
                                prodDateID=request.form['prodDateID'], prodID=request.form['prodDateProdID'],
                                quantity=request.form['quantity'])
             newDate.insert()
+            return True
+        except:
+            return False
+    elif choice == 'category':
+        try:
+            category = Category(name=request.form['catName'], catID=request.form['catID'])
+            category.insertMainCategory()
+            return True
+        except:
+            return False
+    elif choice == 'subcategory':
+        try:
+            category = Category(name=request.form['subCatName'], catID=request.form['subCatID'], subCatID=request.form['subID'])
+            category.insertSubCategory()
             return True
         except:
             return False
