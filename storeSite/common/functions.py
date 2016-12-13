@@ -169,7 +169,8 @@ def getDictionary(**kwargs):
     except:
         pass
     try:
-        data['allReviews'] = review.fetchAllReviews(kwargs['prod_id'])
+        if not 'email' in kwargs['session']:
+            data['allReviews'] = review.fetchAllReviews(kwargs['prod_id'])
     except:
         pass
     try:

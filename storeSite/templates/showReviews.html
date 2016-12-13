@@ -33,4 +33,21 @@
 {% endfor %}
 </div>
 {% endif %}
+
+{% if dictionary.allReviews %}
+<div class="row well">
+	{% for review in dictionary.allReviews %}
+	<div class="row well">
+    <div class="thumbnail">
+		<div class="caption" id="allReviews">
+        <h3 class="title">{{ review.title }}</h3>
+        <p class="description">{{ review.description }}</p>
+		<p class="price">Grade: {{review.grade}}</p>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endif %}
+
 {% endblock %}
