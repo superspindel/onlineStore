@@ -33,7 +33,9 @@
       {% endfor %}
 </table>
 </div>
+{% if dictionary.userEmail %}
 {% include "addReview.html" %}
+{% endif %}
 {% include "showReviews.html" %}
 
 {% endblock %}
