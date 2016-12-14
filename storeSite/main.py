@@ -214,12 +214,7 @@ def changeCart(cart_ID):
 def accountPage():
     if request.method == 'POST':
         depositSuccess = user.addMoney(session, request)
-        if depositSuccess == 0:
-            flash("Går inte att överföra pengar för tillfället", category="money")
-        elif depositSuccess == 1:
-            flash("Var vänlig fyll i all viktig information", category="money")
-        else:
-            flash("Insättning genomförd", category="money")
+        flash(depositSuccess, category="money")
     data = getDictionary(session=session, accountInfo = True)
     return render_template('konto.html', dictionary = data)
 

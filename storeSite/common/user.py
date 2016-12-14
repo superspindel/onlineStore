@@ -132,23 +132,22 @@ class user(object):
 
     @staticmethod
     def addMoney(session, request):
-        mydb = Database()
-        success = 0
         if      (request.form['Month'] is None or request.form['Month']== "") or \
                 (request.form['OCR'] is None or request.form['OCR']== "") or \
                 (request.form['cardnumber'] is None or request.form['cardnumber']== ""):
-            mydb.commit()
-            mydb.end()
-            return 1
+            return "Skriv in korrekt information"
         try:
+            if float(request.form['Amount']) < 0:
+                return "Summan får ej vara negativ"
+            mydb = Database()
             mydb.update("storeDB.User", "accountBalance", "accountBalance+"+str(request.form['Amount']), "email", "'"+session['email']+
                         "'")
-            success = 2
+            mydb.commit()
+            mydb.end()
+            return "Insättning genomförd"
         except:
             pass
-        mydb.commit()
-        mydb.end()
-        return success
+        return "Går inte att överföra pengar för tillfället"
 
     @staticmethod
     def isAdmin(session):
