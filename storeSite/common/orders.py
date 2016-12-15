@@ -155,12 +155,27 @@ class order(object):
 
     @staticmethod
     def getOrderInfo(order_id):
+        orderDict = {}
         mydb = Database()
+        mydb.selectWhere("storeDB.orders.userID", "storeDB.orders", "storeDB.orders.orderID", order_id)
+        userID = mydb.cursor.fetchone()[0]
+        mydb.selectWhere("*", "storeDB.User", "storeDB.User.userID", userID)
+        orderDict['orderUser'] = user.getUserList(mydb.cursor)[0]
         mydb.selectWhere("storeDB.shoppingProducts.prodDateID", "storeDB.shoppingProducts",
                          "storeDB.shoppingProducts.orderID", order_id)
         prodDateIDList = [id[0] for id in mydb.cursor]
+        prodIDList = []
+        for id in prodDateIDList:
+            mydb.selectWhere("storeDB.ProductDate.prodID", "storeDB.ProductDate", "storeDB.ProductDate.prodDateID", id)
+            prodIDList.append(mydb.cursor.fetchone()[0])
+        nameList = []
+        for id in prodIDList:
+            mydb.selectWhere("storeDB.Product.name", "storeDB.Product", "storeDB.Product.prodID", id)
+            nameList.append(mydb.cursor.fetchone()[0])
         listan = [order.getOrderProdDate(id) for id in prodDateIDList]
-        return prodDate.getProdDateList(listan)
+        orderDict['nameList'] = nameList
+        orderDict['orderLista'] = prodDate.getProdDateList(listan)
+        return orderDict
 
     @staticmethod
     def getOrderProdDate(id):

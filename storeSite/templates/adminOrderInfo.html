@@ -1,18 +1,34 @@
 {% extends "adminBase.html" %}
 {% block content %}
 
+{% if orderInfo.orderUser %}
+<p style="color: white;">
+    Användarens namn: {{ orderInfo.orderUser.name }}
+</p>
+<p style="color: white;">
+    Användarens id: {{ orderInfo.orderUser.userID }}
+</p>
+<p style="color: white;">
+    Användarens email: {{ orderInfo.orderUser.email }}
+</p>
+<p style="color: white;">
+    Användarens adress: {{ orderInfo.orderUser.address }}, {{ orderInfo.orderUser.city }}, {{ orderInfo.orderUser.zip }},
+    {{ orderInfo.orderUser.country }}
+{% endif %}
 
 <table class="table" style="color: white;">
     <tr>
         <th>Start tid</th>
         <th>Slut tid</th>
         <th>Produkt ID</th>
+        <th>Namn</th>
     </tr>
-    {% for product in orderInfo %}
+    {% for product in orderInfo.orderLista %}
         <tr>
             <td>{{ product.dateStart }}</td>
             <td>{{ product.dateEnd }}</td>
             <td>{{ product.prodID }}</td>
+            <td>{{ orderInfo.nameList[loop.index-1] }}</td>
         </tr>
     {% endfor %}
 </table>
