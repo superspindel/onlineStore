@@ -300,6 +300,17 @@ def changeProduct(prod_id):
         return storeHome()
 
 
+@storeApp.route('/Admin/deleteReview/<int:reviewID>/<string:prodID>')
+def deleteReview(reviewID, prodID):
+    if user.isAdmin(session):
+        try:
+            review.removeReview(reviewID, session, prodID)
+        except:
+            pass
+        return redirect(request.referrer)
+    return storeHome()
+
+
 """
 Function name: beforeFirstRequest
 Input variables:

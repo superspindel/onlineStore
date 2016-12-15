@@ -166,8 +166,8 @@
             <td>{{ review.approved }}</td>
             <td>{{ review.prodID }}</td>
             <td>
-                <a data-toggle="modal" data-target="#nameModal">
-                    <span class="glyphicon glyphicon-pencil">
+                <a href="/Admin/deleteReview/{{ review.reviewID }}/{{ review.prodID }}">
+                    <span class="glyphicon glyphicon-remove">
                     </span>
                 </a>
             </td>
