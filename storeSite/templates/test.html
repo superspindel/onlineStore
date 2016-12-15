@@ -34,7 +34,9 @@
 </table>
 </div>
 {% if dictionary.userEmail %}
+{% if not dictionary.myReviews %}
 {% include "addReview.html" %}
+{% endif %}
 {% endif %}
 {% include "showReviews.html" %}
 
