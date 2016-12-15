@@ -55,7 +55,7 @@ def Review(prodID):
     if request.method == 'POST':
         if 'email' in session:
             review.createReview(request=request, prodID=prodID, session=session)
-            return showProductDates(prodID)
+            return redirect(request.referrer)
         else:
             return register()
     else:
