@@ -131,10 +131,8 @@ def register():
 
 @storeApp.route('/buy/<string:cartID>', methods=['POST', 'GET'])
 def performOrder(cartID):
-    if order.createOrder(request, session, cartID):
-        flash("Beställning genomförd", category="order")
-    else:
-        flash("Beställningen gick inte att genomföra", category="order")
+    result = order.createOrder(request, session, cartID)
+    flash(result, category="order")
     return redirect(request.referrer)
 
 

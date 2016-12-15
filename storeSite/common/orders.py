@@ -92,6 +92,8 @@ class order(object):
         mydb = Database()
         mydb.startTransaction()
         totalPrice = order.getPrice(mydb, cartID)
+        if totalPrice == 0:
+            return "Inga produkter i din korg"
         userInfo = user.getAccountInfo(session['email'])
         if userInfo.balance > totalPrice:
             mydb.selectWhere("*", "storeDB.discounts", "code", "'"+request.form['discount']+"'")
@@ -108,9 +110,9 @@ class order(object):
             order.updateBalance(mydb, totalPrice, userInfo)
             mydb.commit()
             mydb.end()
-            return True
+            return "Beställning genomförd"
         else:
-            return False
+            return "Inte nog med pengar på ditt konto"
 
     @staticmethod
     def updateBalance(mydb, totalPrice, userInfo):
