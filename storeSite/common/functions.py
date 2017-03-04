@@ -36,21 +36,7 @@ except:
     from common.orders import order
 import os
 
-"""
-Function name: createUser
-Input variables: request that comes from the register route
-Info: Takes a specific request and takes all the data needed to create a user and returns an object of the class user
-"""
 
-
-"""
-Function name: checkUserLogin
-Input variables: request that comes from the login route
-Info: Creates an object with a connection to the database, gets the login email from the request, initialized the database,
-Selects from the database the password of the user who is trying to log in, from the cursor that contains the returned data we try to
-get the password, then rehashes the password from the request, closes the database connection and then returns a boolean depending
-on if the password is correct.
-"""
 def getChangeDict(**kwargs):
     data = {}
     if kwargs['change'] == 'products':
@@ -85,45 +71,62 @@ def getAdminDict(**kwargs):
 
 def createFunction(choice, request):
     if choice == 'product':
-        try:
-            newProduct = product(prodID=request.form['prodID'], name=request.form['prodName'],
-                                 description=request.form['prodDesc'], price=request.form['prodPrice'],
-                                 salePrice=request.form['prodSale'], grade=0, numbOfGrades=0, catID=request.form['prodCatID'])
-            newProduct.insert()
-            return True
-        except:
-            return False
+        return insertProduct(request)
     elif choice == 'image':
-        try:
-            newImage = Image(imageID=request.form['imageID'], prodID=request.form['imgProdID'],
-                             imagePlacement=request.form['imgPlacement'], imageSource=request.form['imgSource'])
-            newImage.insert()
-            return True
-        except:
-            return False
+        return insertImage(request)
     elif choice == 'prodDate':
-        try:
-            newDate = prodDate(dateStart=request.form['dateStart'], dateEnd=request.form['dateEnd'],
-                               prodDateID=request.form['prodDateID'], prodID=request.form['prodDateProdID'],
-                               quantity=request.form['quantity'])
-            newDate.insert()
-            return True
-        except:
-            return False
+        return insertProdDate(request)
     elif choice == 'category':
-        try:
-            category = Category(name=request.form['catName'], catID=request.form['catID'])
-            category.insertMainCategory()
-            return True
-        except:
-            return False
+        return insertCategory(request)
     elif choice == 'subcategory':
-        try:
-            category = Category(name=request.form['subCatName'], catID=request.form['subCatID'], subCatID=request.form['subID'])
-            category.insertSubCategory()
-            return True
-        except:
-            return False
+        return insertSubCategory(request)
+
+def insertSubCategory(request):
+    try:
+        category = Category(name=request.form['subCatName'], catID=request.form['subCatID'],
+                            subCatID=request.form['subID'])
+        category.insertSubCategory()
+        return True
+    except:
+        return False
+
+def insertCategory(request):
+    try:
+        category = Category(name=request.form['catName'], catID=request.form['catID'])
+        category.insertMainCategory()
+        return True
+    except:
+        return False
+
+def insertProduct(request):
+    try:
+        newProduct = product(prodID=request.form['prodID'], name=request.form['prodName'],
+                             description=request.form['prodDesc'], price=request.form['prodPrice'],
+                             salePrice=request.form['prodSale'], grade=0, numbOfGrades=0,
+                             catID=request.form['prodCatID'])
+        newProduct.insert()
+        return True
+    except:
+        return False
+
+def insertImage(request):
+    try:
+        newImage = Image(imageID=request.form['imageID'], prodID=request.form['imgProdID'],
+                         imagePlacement=request.form['imgPlacement'], imageSource=request.form['imgSource'])
+        newImage.insert()
+        return True
+    except:
+        return False
+
+def insertProdDate(request):
+    try:
+        newDate = prodDate(dateStart=request.form['dateStart'], dateEnd=request.form['dateEnd'],
+                           prodDateID=request.form['prodDateID'], prodID=request.form['prodDateProdID'],
+                           quantity=request.form['quantity'])
+        newDate.insert()
+        return True
+    except:
+        return False
 
 def SearchFor(value):
     searchDict = {}
@@ -134,55 +137,43 @@ def SearchFor(value):
 
 def getDictionary(**kwargs):
     data = {'categories': Category.getCategories()}
-    try:
-        data['userEmail'] = kwargs['session']['email']
-        data['shoppingCarts'] = shoppingCart.getCarts(kwargs['session']['email'])
-        data['cartProds'] = shoppingCart.getCartProducts(kwargs['session']['cart'])
-        data['activeCart'] = kwargs['session']['cart']
-    except:
-        pass
-    try:
+
+    if 'session' in kwargs:
+        if 'email' in kwargs['session']:
+            data['userEmail'] = kwargs['session']['email']
+            data['shoppingCarts'] = shoppingCart.getCarts(kwargs['session']['email'])
+            if 'prod_id' in kwargs:
+                data['reviewList'] = review.fetchReviews(kwargs['prod_id'], kwargs['session'])
+                data['myReviews'] = review.fetchMyReviews(kwargs['prod_id'], kwargs['session'])
+            if 'accountInfo' in kwargs:
+                data['user'] = user.getAccountInfo(kwargs['session']['email'])
+
+        if 'cart' in kwargs['session']:
+            data['cartProds'] = shoppingCart.getCartProducts(kwargs['session']['cart'])
+            data['activeCart'] = kwargs['session']['cart']
+
+        if 'orders' in kwargs:
+            data['myOrders'] = order.fetchOrders(kwargs['session'])
+
+    if 'cat_id' in kwargs:
         data['catalog'] = Category.getSpecificCatalog(kwargs['cat_id'])
-    except:
-        pass
-    try:
+
+    if 'request' in kwargs:
         data['searchResult'] = SearchFor(str(kwargs['request'].form['searchfield']))
-    except:
-        pass
-    try:
+        data['searchText'] = str(kwargs['request'].form['searchfield'])
+
+
+    if 'prod_id' in kwargs:
         data['productDates'] = prodDate.getTimesAvaliable(kwargs['prod_id'])
         data['prodInfo'] = product.getProduct(kwargs['prod_id'])
-    except:
-        pass
-    try:
-        data['reviewList'] = review.fetchReviews(kwargs['prod_id'], kwargs['session'])
-        data['myReviews'] = review.fetchMyReviews(kwargs['prod_id'], kwargs['session'])
-    except:
-        pass
-    try:
-        if kwargs['accountInfo']:
-            data['user'] = user.getAccountInfo(kwargs['session']['email'])
-    except:
-        pass
-    try:
-        data['searchText'] = str(kwargs['request'].form['searchfield'])
-    except:
-        pass
-    try:
         if not 'email' in kwargs['session']:
             data['allReviews'] = review.fetchAllReviews(kwargs['prod_id'])
-    except:
-        pass
-    try:
-        data['myOrders'] = order.fetchOrders(kwargs['session'])
-    except:
-        pass
-    try:
+
+    if 'orderID' in kwargs:
         data['myOrderProducts'] = order.fetchOrderProducts(kwargs['orderID'])
         data['myOrderProductsInfo'] = order.fetchOrderProductsInfo(kwargs['orderID'])
         data['myOrderProductsExtra'] = order.fetchOrderProductsExtra(kwargs['orderID'])
         data['currentOrder'] = order.fetchSpecificOrder(kwargs['orderID'])
         data['orderPrice'] = order.getOrderPrice(kwargs['orderID'])
-    except:
-        pass
+
     return data

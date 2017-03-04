@@ -1,9 +1,5 @@
 from random import randint
 try:
-    from storeSite.common.formCheck import formCheck
-except:
-    from common.formCheck import formCheck
-try:
     from database.Database import Database
 except:
     from storeSite.database.Database import Database
@@ -113,7 +109,8 @@ class review(object):
             else:
                 mydb.update("storeDB.Product", "numbOfGrades", "numbOfGrades-1", "prodID", prodID)
                 try:
-                    finalGrade = (newProd.numbOfGrades * newProd.grade - reviewObject.grade) / (newProd.numbOfGrades - 1)
+                    finalGrade = (newProd.numbOfGrades * newProd.grade - reviewObject.grade) / \
+                                 (newProd.numbOfGrades - 1)
                 except:
                     finalGrade = 0.0
         mydb.update("storeDB.Product", "grade", finalGrade, "prodID", prodID)

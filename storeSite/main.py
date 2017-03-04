@@ -27,6 +27,7 @@ except:
 storeApp = Flask(__name__)
 storeApp.secret_key = "hfudsyf7h4373hfnds9y32nfw93hf"
 
+
 """
 Function name: storeHome
 Input variables:
@@ -138,7 +139,7 @@ def performOrder(cartID):
 
 @storeApp.route('/showOrders', methods=['POST', 'GET'])
 def showOrders():
-    data = getDictionary(session=session)
+    data = getDictionary(session=session, orders=True)
     return render_template('showOrder.html', dictionary=data)
 
 
@@ -321,7 +322,7 @@ def beforeFirstRequest():
     session.permanent = False
 
 if __name__ == '__main__':
-    storeApp.run(port=4995, host='0.0.0.0')
+    storeApp.run(port=4995)#, host='0.0.0.0')
 
 
 

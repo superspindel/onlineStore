@@ -73,7 +73,8 @@ class product():
         error = []
         mydb = Database()
         try:
-            mydb.update("storeDB.Product", "storeDB.Product.name", "'{}'".format(request.form['prodName']), "storeDB.Product.prodID", str(prod_id))
+            mydb.update("storeDB.Product", "storeDB.Product.name", "'{}'".format(request.form['prodName']),
+                        "storeDB.Product.prodID", str(prod_id))
             error.append("Namnbyte genomfört")
         except:
             error.append("Gick inte att byta namn")

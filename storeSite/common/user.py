@@ -1,10 +1,6 @@
 import random
 from datetime import date
 try:
-    from storeSite.common.formCheck import formCheck
-except:
-    from common.formCheck import formCheck
-try:
     from database.Database import Database
 except:
     from storeSite.database.Database import Database
@@ -28,13 +24,6 @@ class user(object):
         self.registrationDate = date.today() if regDate is None else regDate
         self.balance = 0.0 if balance is None else balance
 
-    """
-    Function name: controllUser
-    Input variables: self
-    Info: returns if the formCheck of the created user is correct. Not used at the moment.
-    """
-    def controllUser(self):
-        return formCheck(self.name, self.email, self.zip, self.address, self.city, self.country, self.phone, self.ssn)
 
     """
     Function name: registerUser
@@ -140,8 +129,8 @@ class user(object):
             if float(request.form['Amount']) < 0:
                 return "Summan får ej vara negativ"
             mydb = Database()
-            mydb.update("storeDB.User", "accountBalance", "accountBalance+"+str(request.form['Amount']), "email", "'"+session['email']+
-                        "'")
+            mydb.update("storeDB.User", "accountBalance", "accountBalance+"+str(request.form['Amount']), "email",
+                        "'"+session['email']+"'")
             mydb.commit()
             mydb.end()
             return "Insättning genomförd"
